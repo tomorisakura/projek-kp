@@ -40,7 +40,7 @@
                 @foreach ($pelanggan as $customer)
                 <tr>
                 <td><?php echo $no++; ?></td>
-                <td>PET00-0{{ $customer->id }}</td>
+                <td>PLGN-0{{ $customer->id }}</td>
                 <td id="td_nama">{{$customer -> nama_pemilik}}</td>
                 <td>{{$customer -> alamat}}</td>
                 <td>{{$customer -> no_hp}}</td>

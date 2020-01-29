@@ -15,7 +15,7 @@
 <div class="container-fluid">
   <div class="container-fluid">
       <!-- Page Heading -->
-      <h1 class="h3 mb-2 text-gray-800">Pembukuan Rekam Medis</h1>
+      <h1 class="h3 mb-2 text-gray-800">Pembukuan Medis</h1>
       <p class="mb-4"></p>
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
@@ -72,11 +72,19 @@
             <input type="hidden" name="id_petugas" value="{{ Auth::user()->id }}">
             <input type="hidden" name="id_jenis" id="idJenis">
             <input type="hidden" name="id_penyakit" id="idPenyakit">
+            <input type="hidden" name="id_trans_medis" id="id_medis">
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">No. Medis</label>
+              <label class="col-sm-2 col-form-label">ID. Medis</label>
               <div class="col-sm-10">
-                <input type="text" name="no_medis" class="form-control" id="_noMedis" required autocomplete="off">
+                <div class="input-group">
+                  <input type="text" name="no_medis" class="form-control" id="_noMedis" required autocomplete="off">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-user-check"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -155,17 +163,6 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Tindakan</label>
-                <div class="col-sm-10">
-                  <select class="form-control" name="status_tindakan" required>
-                    <option>--Pilih--</option>
-                    <option value="Rawat Inap">Rawat Inap</option>
-                    <option value="Rawat Jalan">Rawat Jalan</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tgl Pemeriksaan</label>
                 <div class="col-sm-10">
                   <input type="text" class="form-control" name="tgl_periksa" id="tgl_periksa" autocomplete="off">
@@ -221,6 +218,28 @@ $(document).ready(function() {
         }
   });
 
+  var url = "{{ url('/adm/get/transaksi') }}";
+  var url1 = "{{ url('/adm/detail-transaksi/get/') }}";
+  var tm_id = 0;
+  var date = new Date();
+  var month = date.getMonth()+1;
+  var day = date.getDate();
+  var full = ((''+day).length<2 ? '0' : '') + day + "." + ((''+month).length<2 ? '0' : '') + month + '-' + date.getFullYear();
+  var u = 0;
+
+  $.ajax({
+    url : url1,
+    method : 'GET',
+    dataType : 'json',
+    cache : false,
+    data : {id : tm_id},
+    success:function(data) {
+      u = 1 + data.length;
+      $('#id_medis').val(full+"-"+u);
+      $('#_noMedis').val(full+"-"+u);
+    }
+  });
+
   $('.select2').chosen();
 
   $(document).on('click', '.btnClear', function() {
@@ -268,7 +287,6 @@ $(document).ready(function() {
     });
   });
 
-
   $(document).on('change', '#_namaPenyakit', function(event){
     var id = $(this).find(':selected')[0].value;
     var url = "{{ url('/adm/penyakit/get') }}/"+id;
@@ -306,16 +324,15 @@ $(document).ready(function() {
     });
   });
 
+  var id_x = 0;
+
   $(document).on('change','#opt_pemilik', function(event){
     var condition = (event.keyCode ? event.keyCode : event.which);
       event.preventDefault();
       var idx = $(this).find(':selected')[0].id;
       var url = "{{ url('/adm/rekam-medis/get') }}/"+idx;
       // alert(idx);
-      var date = new Date();
-      var month = date.getMonth()+1;
-      var day = date.getDate();
-      var full = ((''+day).length<2 ? '0' : '') + day + "." + ((''+month).length<2 ? '0' : '') + month + '-' + date.getFullYear();
+
       $.ajax({
         url: url,
         method : 'GET',
@@ -323,12 +340,12 @@ $(document).ready(function() {
         cache : false,
         success:function(response) {
           // console.log(response);
-          $('#_noMedis').val("MDS"+full+response.id);
+          id_x = response.id + 1;
+          // $('#_noMedis').val(full+"-"+id_x);
           $('#_noHp').val(response.no_hp);
           $('#id_pemilik').val(response.id);
         }
       });
-
   });
 
 });

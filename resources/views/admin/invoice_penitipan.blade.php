@@ -48,9 +48,9 @@
             </caption>
             <thead>
                 <tr>
-                  @foreach ($data_trans as $item)
+                  @foreach ($data_transaksi as $item)
                       
-                  <th colspan="5">ID Medis <strong>{{ $item->id }}</strong></th>
+                  <th colspan="5">ID Penitipan <strong>{{ $item->id }}</strong></th>
                   {{-- <th>{{ $invoice->created_at->format('D, d M Y') }}</th> --}}
                   @endforeach
                 </tr>
@@ -62,12 +62,12 @@
                             034737383<br>
                         </p>
                     </td>
-                    @foreach ($data_trans as $item)
+                    @foreach ($data_transaksi as $item)
                     <td colspan="2">
                         <h4>Pemilik Hewan: </h4>
                             
                         <p>{{ $item->nama_pemilik }}<br>
-                          <h5>Tanggal Periksa</h5>{{ $item->tgl_periksa }}<br>
+                          <h5>Tanggal Masuk</h5>{{ $item->tgl_masuk }}<br>
                           <h5>Status Pembayaran</h5>
                           {{ $item->status_pembayaran }} <br>
                         </p>
@@ -82,16 +82,16 @@
                 <tr>
                     <th>Nama Hewan</th>
                     <th>Jenis Hewan</th>
-                    <th>Diagnosa</th>
-                    <th>Gejala</th>
+                    <th>Tanggal Keluar</th>
+                    <th>Ras Hewan</th>
                     <th>Sub Biaya</th>
                 </tr>
-                @foreach ($data_det as $item)
+                @foreach ($data_penitipan as $item)
                 <tr>
                   <td>{{ $item->nama_hewan }}</td>
                   <td>{{ $item->nama }}</td>
-                  <td>{{ $item->nama_penyakit }}</td>
-                  <td>{{ $item->gejala }}</td>
+                  <td>{{ $item->tgl_keluar }}</td>
+                  <td>{{ $item->ras_hewan }}</td>
                   <td>{{ $item->total_biaya }}</td>
                 </tr>
                 @endforeach
@@ -101,7 +101,7 @@
                 </tr> --}}
             </tbody>
             <tfoot>
-              @foreach ($data_trans as $item)
+              @foreach ($data_transaksi as $item)
                 <tr>
                   <th colspan="4">Total</th>
                     <td>Rp {{ number_format($item->total_harga) }}</td>

@@ -14,7 +14,7 @@ class CreatePenitipan extends Migration
     public function up()
     {
         Schema::create('transaksi_penitipan', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id')->primary();
             $table->string('tgl_masuk');
             $table->string('tgl_keluar');
             $table->bigInteger('total_biaya');
@@ -24,12 +24,11 @@ class CreatePenitipan extends Migration
         
         Schema::create('detail_transaksi_penitipan', function(Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no_penitipan');
             $table->string('nama_hewan');
             $table->enum('jk_hewan', ['Jantan','Betina']);
             $table->string('ras_hewan');
             $table->integer('no_kandang');
-            $table->unsignedBigInteger("id_penitipan");
+            $table->string("id_penitipan")->index();
             $table->unsignedBigInteger('id_jenis');
             $table->unsignedBigInteger('id_petugas');
             $table->string('status_pembayaran');

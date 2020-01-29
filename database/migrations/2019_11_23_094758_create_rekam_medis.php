@@ -14,7 +14,7 @@ class CreateRekamMedis extends Migration
     public function up()
     {
       Schema::create('transaksi_medis', function(Blueprint $table){
-        $table->bigIncrements('id');
+        $table->string('id')->primary();
         $table->string('tgl_periksa');
         $table->integer('total_biaya');
         $table->unsignedBigInteger('id_pemilik')->unsigned();
@@ -24,12 +24,11 @@ class CreateRekamMedis extends Migration
       
       Schema::create('detail_transaksi_medis', function(Blueprint $table){
         $table->bigIncrements('id');
-        $table->string('no_medis');
         $table->string('nama_hewan');
         $table->enum('jk_hewan', ['Jantan','Betina']);
         $table->string('ras_hewan');
         $table->string('gejala');
-        $table->unsignedBigInteger('id_medis');
+        $table->string('id_medis')->index();
         $table->unsignedBigInteger('id_jenis');
         $table->unsignedBigInteger('id_penyakit');
         $table->unsignedBigInteger('id_petugas');

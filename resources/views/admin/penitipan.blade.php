@@ -24,27 +24,15 @@
       <div class="card-body">
 
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">No. Penitipan</label>
-          <div class="col-sm-10">
-            <input type="text" name="no_penitipan" readonly class="form-control" id="_noPenitipan" required autocomplete="off">
-          </div>
-        </div>
-
-        <div class="form-group row">
           <label class="col-sm-2 col-form-label">Nama Pemilik</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <select name="pemilik" class="form-control" id="opt_pemilik">
+              <select name="pemilik" class="form-control select2" id="opt_pemilik">
                 <option>-- PILIH --</option>
                 @foreach ($pelanggan as $customer)
                   <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">PET00-0{{ $customer->id }} - {{ $customer->nama_pemilik }}</option>
                 @endforeach
               </select>
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-user-check"></i>
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -64,14 +52,29 @@
 
       {{-- content --}}
       <div class="card-body">
-        <form class="" action="" method="post">
+        <form class="" action="{{ route('store.penitipan') }}" method="post">
           @csrf
           @method('post')
 
-          <input type="hidden" name="id_pemilik" readonly id="id_pemilik" value="">
-          <input type="hidden" name="id_petugas" value="{{ Auth::user()->id }}">
-          <input type="hidden" name="id_hewan">
-          <input type="hidden" name="id_medis">
+          <input type="hidden" name="id_pemilik" readonly id="id_pemilik">
+          <input type="hidden" name="id_petugas" value="{{ Auth::user()->id }}" readonly>
+          <input type="hidden" name="id_hewan" id="idJenis" readonly>
+          <input type="hidden" name="id_trans_penitipan" id="id_penitipan" readonly>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">ID. Penitipan</label>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <input type="text" name="no_penitipan" class="form-control" id="_noPenitipan" required autocomplete="off">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-user-check"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nama Hewan</label>
             <div class="col-sm-10">
@@ -82,12 +85,11 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Jenis Hewan</label>
             <div class="col-sm-10">
-              <select class="form-control" name="jenis_hewan" required>
-                <option>--Pilih--</option>
-                <option value="Kucing">Kucing</option>
-                <option value="Anjing">Anjing</option>
-                <option value="Kelinci">Kelinci</option>
-                <option value="lain_lain">Lain - Lain</option>
+              <select name="jenis_hewan" class="form-control select2" id="_jenisHewan">
+                <option selected hidden class="jHewan">--Pilih--</option>
+                @foreach ($jenis as $jeniss)
+                <option value="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
+                @endforeach
               </select>
             </div>
           </div>
@@ -156,16 +158,26 @@
               <input type="text" readonly name="total_harga" id="totalHarga" class="form-control">
             </div>
           </div>
-        </div>
 
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-success" id="simpan" value="Tambah"></input>
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Status Pembayaran</label>
+          <div class="col-sm-10">
+            <select name="status_pembayaran" class="form-control" id="">
+              <option>--PILIH--</option>
+              <option value="Belum Lunas"> Belum Lunas</option>
+              <option value="Lunas">Lunas</option>
+            </select>
           </div>
-
         </div>
-      </form>
-    </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-success" id="simpan" value="Tambah"></input>
+        </div>
+
+      </div>
+    </form>
+  </div>
 </div>
 
 
@@ -177,33 +189,36 @@
   <!-- </script> -->
   <script type="text/javascript">
 
-    console.log('ok');
-    $("#tgl_masuk").datepicker({dateFormat : 'dd, MM, yy'});
-    $('#tgl_keluar').datepicker({dateFormat : 'dd, MM, yy'});
-
-    function calculate() {
-      var date1 = new Date($('#tgl_masuk').val());
-      var date2 = new Date($('#tgl_keluar').val());
-      var harga = $('#harga').val();
-
-      var time = date2.getTime() - date1.getTime();
-      var miliSecondtoOneSecond = 1000;
-      var secondtoOneHour = 3600;
-      var hourstoDay = 24;
-
-      var equals = time / (miliSecondtoOneSecond * secondtoOneHour * hourstoDay);
-      var price = equals * harga;
-      $('#totalHarga').val(price);
-    }
-
-    $('#harga').keyup(function() {
-      calculate();
-    });
-
     $(document).ready(function() {
       $.ajaxSetup({
         headers : {
           'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+    $("#tgl_masuk").datepicker({dateFormat : 'dd, MM, yy'});
+    $('#tgl_keluar').datepicker({dateFormat : 'dd, MM, yy'});
+
+      $('.select2').chosen();
+
+      var url = "{{ url('/adm/detail-penitipan/get') }}";
+      var tm_id = 0;
+      var date = new Date();
+      var month = date.getMonth()+1;
+      var day = date.getDate();
+      var full = ((''+day).length<2 ? '0' : '') + day + "." + ((''+month).length<2 ? '0' : '') + month + '-' + date.getFullYear();
+      var u = 0;
+
+      $.ajax({
+        url : url,
+        method : 'GET',
+        dataType : 'json',
+        cache : false,
+        data : {id : tm_id},
+        success:function(data) {
+          u = 1 + data.length;
+          $('#id_penitipan').val(full+"-"+u);
+          $('#_noPenitipan').val(full+"-"+u);
         }
       });
 
@@ -217,11 +232,56 @@
           cache : false,
           success:function(response) {
             // console.log(response);
-            $('#_noPenitipan').val("HTL-0"+response.id);
+            // $('#_noPenitipan').val("HTL-0"+response.id);
+            $('#id_pemilik').val(response.id);
             $('#_noHp').val(response.no_hp);
           }
         });
       });
+
+      var sub_harga = 0;
+
+      $(document).on('change', '#_jenisHewan', function (event) {
+        var id = $(this).find(':selected')[0].value;
+        var url = "{{ url('/adm/jenis-hewan/get') }}/"+id;
+        // alert(id);
+        $.ajax({
+          url : url,
+          method : 'GET',
+          dataType : 'json',
+          cache : false,
+          success:function(data) {
+            sub_harga = data.harga;
+            console.log("j hewan " + sub_harga);
+            $('#idJenis').val(data.id);
+            $('#harga').val(sub_harga);
+          }
+        });
+      });
+
+      $(document).on('change','#tgl_keluar',function() {
+        calculate();
+      });
+
+      $(document).on('change','#tgl_masuk', function() {
+        calculate();
+      });
+
+      function calculate() {
+        var date1 = new Date($('#tgl_masuk').val());
+        var date2 = new Date($('#tgl_keluar').val());
+        var harga = sub_harga;
+
+        var time = date2.getTime() - date1.getTime();
+        var miliSecondtoOneSecond = 1000;
+        var secondtoOneHour = 3600;
+        var hourstoDay = 24;
+
+        var equals = time / (miliSecondtoOneSecond * secondtoOneHour * hourstoDay);
+        var price = equals * harga;
+        $('#totalHarga').val(price);
+        console.log(price);
+      }
 
       //end
     });

@@ -63,7 +63,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ route('medis') }}">
           <i class="fas fa-book-open"></i>
-          <span>Rekam Medis</span></a>
+          <span>Medical Checkup</span></a>
       </li>
 
       <li class="nav-item">
@@ -225,7 +225,8 @@
   <script src="{{ url('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ url('assets/js/demo/datatables-demo.js') }}"></script>
+  {{-- new plugin --}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="{{ url('assets/js/select2.js') }}"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="{{ url('assets/js/select2.js') }}"></script>
 </html>

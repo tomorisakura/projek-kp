@@ -14,7 +14,7 @@
 <div class="container-fluid">
   <div class="container-fluid">
       <!-- Page Heading -->
-      <h1 class="h3 mb-2 text-gray-800">Details Rekam Medis</h1>
+      <h1 class="h3 mb-2 text-gray-800">Details Pendataan Medis</h1>
       <p class="mb-4"></p>
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
@@ -25,12 +25,11 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>ID</th>
+                  <th>ID Pemilik</th>
                   <th>Nama Pemilik</th>
                   <th>Alamat</th>
                   <th>No Handphone</th>
-                  <th>Email</th>
-                  <th>Aksi</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -38,14 +37,13 @@
               @foreach ($pelanggan as $customer)
               <tr>
               <td><?php echo $no++; ?></td>
-              <td>PLGN-0{{ $customer->id }}</td>
-              <td id="td_nama">{{$customer -> nama_pemilik}}</td>
+              <td>PLGN-0{{$customer-> pe_id}}</td>
+              <td>{{$customer -> nama_pemilik}}</td>
               <td>{{$customer -> alamat}}</td>
               <td>{{$customer -> no_hp}}</td>
-              <td>{{$customer -> email}}</td>
-
               <td>
-                  <a href="{{ route('detail.medis', $customer->id) }}" class="btn bg-success btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
+                  <a href="{{ route('detail.medis', $customer->m_id) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
+                  <a href="{{ route('get.pdf_medis', $customer->m_id) }}" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>
               </td>
               </tr>
               @endforeach
@@ -57,69 +55,6 @@
     </div>
   </div>
 </div>
-
-<!-- modal tambah Pemilik Hewan -->
-<div class="modal fade btnSee" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" id="closeModalTambah" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{-- <h1 class="h3 mb-4 text-gray-800" id="labelModal">Form Pendaftaran Pemilik Hewan</h1> --}}
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Pemilik</h6>
-          </div>
-          <div class="card-body">
-
-            <input type="hidden" name="id" value="">
-
-              <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Nama Pemilik</label>
-              <div class="col-sm-10">
-                <label class="col-sm-2 col-form-label namaPemilik"></label>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Alamat</label>
-              <div class="col-sm-10">
-                <label class="col-sm-2 col-form-label alamatPemilik"></label>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Nomor Handphone</label>
-              <div class="col-sm-10">
-                <label class="col-sm-5 col-form-label noHpPemilik"></label>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Email</label>
-              <div class="col-sm-10">
-                <label class="col-sm-5 col-form-label emailPemilik"></label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card shadow mb-4">
-          {{-- data pake foreach --}}
-        </div>
-      </div>
-      {{-- end of details --}}
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-success btnSimpan" value="Tambah"></input>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <!-- Page Heading -->
 <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>

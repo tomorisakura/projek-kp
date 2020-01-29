@@ -23,6 +23,9 @@ Auth::routes();
 // Route::group(['middleware' => ['auth']], function () {
 
   Route::get('/adm/dashboard','AdminController@home') -> name('dashboard');
+  Route::get('/adm/dashboard/get/users','AdminController@getDataUser');
+  Route::get('/adm/dashboard/get/pelanggan','AdminController@getDataPelanggan');
+  Route::get('/adm/dashboard/get/penitipan','AdminController@getDataPenitipan');
 
   //route pemilik hewan
   Route::get('/adm/pemilik-hewan', ['as' => 'view.pelanggan', 'uses' => 'PelangganController@index']);
@@ -52,18 +55,28 @@ Auth::routes();
   Route::get('/adm/rekam-medis/get/{id}',['as' => 'm_pelanggan','uses' => 'RmedicalController@getDataPemilik']);
   Route::get('/adm/rekam-medis/get/hewan/{id}',['as' => 'get.dhewan','uses' => 'RmedicalController@getDataHewan']);
 
+  //route Details Transaksi
+  Route::get('/adm/detail-transaksi/get/',['as' => 'get.det_transaksi','uses' => 'RmedicalController@getDataDetail']);
+
+
   // route penitipan
   Route::get('/adm/penitipan',['as' => 'pethotel','uses' => 'PetPenitipanController@index']);
   Route::get('/adm/penitipan/get/{id}',['as' => 'get.pemilik','uses' => 'PetPenitipanController@getDataPemilik']);
-  Route::post('/adm/penitipan-hewan/{id}', ['as' => 'store.penitipan', 'uses' => 'PetPenitipanController@storePenitipan']);
+  Route::post('/adm/penitipan-hewan/store', ['as' => 'store.penitipan', 'uses' => 'PetPenitipanController@storePenitipan']);
+  Route::get('/adm/detail-penitipan/get', ['as' => 'get.det_penitipan', 'uses' => 'PetPenitipanController@getDataDetail']);
 
   //data_medis
   Route::get('/adm/data-medis',['as' => 'data_medis','uses' => 'DataMedisController@index']);
   Route::get('/adm/detail-medis/get/{id}',['as' => 'detail.medis','uses' => 'DataMedisController@detail_transaksi']);
+  Route::get('/adm/get/transaksi',['as' => 'get.data_transaksi','uses' => 'DataMedisController@transaksi']);
+  Route::get('/adm/data-medis/cetak/{id}',['as' => 'get.pdf_medis','uses' => 'DataMedisController@pdf']);
+  Route::get('/adm/detail-price/get/{id}',['as' => 'get.total_medis','uses' => 'DataMedisController@getDetailTotal']);
 
 
   //data_penitipan
   Route::get('/adm/data-penitipan',['as' => 'data_penitipan','uses' => 'DataPenitipanController@index']);
+  Route::get('/adm/data-penitipan/get/{id}',['as' => 'detail.penitipan','uses' => 'DataPenitipanController@detail_transaksi']);
+  Route::get('/adm/detail-penitipan/cetak/{id}',['as' => 'get.pdf_penitipan','uses' => 'DataPenitipanController@pdf']);
 
 
   // route data karyawan

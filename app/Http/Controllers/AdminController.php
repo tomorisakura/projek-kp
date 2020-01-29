@@ -4,14 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Penitipan;
+use App\Pelanggan;
+use App\TransPenitipan;
+use App\Medis;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class AdminController extends Controller
 {
 
   public function home() {
-    return view('admin.dashboard');
+
+    $penitipan = Penitipan::all();
+    $medis = Medis::all();
+
+    $datas = [];
+    $data_medis = [];
+
+    foreach($penitipan as $pet) {
+      $datas[] = $pet->sum('total_biaya');
+      $data_medis[] = $medis->sum('total_biaya');
+    break;
+    }
+
+    // dd(json_encode($datas));
+
+    return view('admin.dashboard', compact('datas', 'data_medis'));
   }
 
   public function login() {
@@ -35,4 +55,20 @@ class AdminController extends Controller
       return redirect('adm/login')->with('gagal','email atau username salah');
     }
   }
+
+  public function getDataUser() {
+    $data = User::all();
+    echo json_encode($data);
+  }
+
+  public function getDataPelanggan() {
+    $data = Pelanggan::all();
+    echo json_encode($data);
+  }
+
+  public function getDataPenitipan() {
+    $data = TransPenitipan::all();
+    echo json_encode($data);
+  }
+
 }

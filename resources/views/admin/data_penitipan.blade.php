@@ -5,7 +5,6 @@
 <link href="{{ url('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
@@ -14,7 +13,7 @@
 <div class="container-fluid">
   <div class="container-fluid">
       <!-- Page Heading -->
-      <h1 class="h3 mb-2 text-gray-800">Data Penitipan</h1>
+      <h1 class="h3 mb-2 text-gray-800">Detail Pendataan Penitipan</h1>
       <p class="mb-4"></p>
       <!-- DataTales Example -->
       <div class="card shadow mb-4">
@@ -25,37 +24,28 @@
               <thead>
                 <tr>
                     <th>No</th>
+                    <th>ID Pelanggan</th>
                     <th>Nama Pemilik</th>
+                    <th>Alamat</th>
                     <th>Nomor Handphone</th>
-                    <th>Nama Hewan</th>
-                    <th>Jenis Hewan</th>
-                    <th>Tanggal Masuk</th>
-                    <th>Tanggal Keluar</th>
-                    <th>Helper</th>
-                    <th>Total Harga Penitipan</th>
-                    <th>Aksi</th>
+                    <th></th>
                 </tr>
               </thead>
               <tbody>
 
                 <?php $no=1; ?>
-                @foreach ($data as $datas)
+                @foreach ($pelanggan as $customer)
                 <tr>
 
-                  <td><?php echo $no++ ?></td>
-                  <td>{{ $datas->nama_pemilik }}</td>
-                  <td>{{ $datas->no_hp }}</td>
-                  <td>{{ $datas->nama_hewan }}</td>
-                  <td>{{ $datas->jenis_hewan }}</td>
-                  <td>{{ $datas->tgl_masuk }}</td>
-                  <td>{{ $datas->tgl_keluar }}</td>
-                  <td>{{ $datas->name }}</td>
-                  <td>{{ $datas->total_harga }}</td>
-
+                  <td><?php echo $no++; ?></td>
+                  <td>PLGN-0{{$customer-> id}}</td>
+                  <td>{{$customer -> nama_pemilik}}</td>
+                  <td>{{$customer -> alamat}}</td>
+                  <td>{{$customer -> no_hp}}</td>
                   <td>
-                    <div class="btn-group mr-2" role="group" aria-label="Basic example">
-                      <button type="button" name="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#"><i class="fas fa-comment-alt"></i> Kirim Pemberitahuan</button>
-                    </div></td>
+                    <a href="{{ route('detail.penitipan', $customer->p_id ) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
+                    <a href="{{ route('get.pdf_penitipan', $customer->p_id) }}" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>
+                  </td>
                   </tr>
                   @endforeach
                 </tbody>

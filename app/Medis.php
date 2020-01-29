@@ -8,6 +8,7 @@ class Medis extends Model
 {
     protected $table = "transaksi_medis";
     protected $fillable = [
+    'id',
     'tgl_periksa',
     'total_biaya',
     'id_pemilik',
