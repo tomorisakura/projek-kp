@@ -24,7 +24,7 @@
               <thead>
                 <tr>
                     <th>No</th>
-                    <th>ID Pelanggan</th>
+                    <th>Tanggal Masuk</th>
                     <th>Nama Pemilik</th>
                     <th>Alamat</th>
                     <th>Nomor Handphone</th>
@@ -38,7 +38,7 @@
                 <tr>
 
                   <td><?php echo $no++; ?></td>
-                  <td>PLGN-0{{$customer-> id}}</td>
+                  <td>{{$customer-> tgl_masuk}}</td>
                   <td>{{$customer -> nama_pemilik}}</td>
                   <td>{{$customer -> alamat}}</td>
                   <td>{{$customer -> no_hp}}</td>

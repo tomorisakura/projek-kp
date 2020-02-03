@@ -46,6 +46,7 @@ class PetPenitipanController extends Controller
     $penitipan->tgl_keluar = $request->tgl_keluar;
     $penitipan->total_biaya = $request->total_harga;
     $penitipan->id_pemilik = $request->id_pemilik;
+    $penitipan->status_pembayaran = $request->status_pembayaran;
     $penitipan->save();
 
     $transaksi->nama_hewan = $request->nama_hewan;
@@ -53,9 +54,9 @@ class PetPenitipanController extends Controller
     $transaksi->ras_hewan = $request->ras_hewan;
     $transaksi->no_kandang = $request->no_kandang;
     $transaksi->id_penitipan = $request->no_penitipan;
+    $transaksi->jenis_kandang = $request->jenis_kandang;
     $transaksi->id_jenis = $request->id_hewan;
     $transaksi->id_petugas = $request->id_petugas;
-    $transaksi->status_pembayaran = $request->status_pembayaran;
     $transaksi->save();
 
     return redirect('/adm/penitipan')->withSuccessMessage('Data Berhasil Ditambahkan');

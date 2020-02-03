@@ -38,9 +38,9 @@
                 @foreach ($jenis as $data)
                 <tr>
                 <td><?php echo $no++; ?></td>
-                <td>HWN{{ $data->id }}</td>
+                <td>HWN-0{{ $data->id }}</td>
                 <td>{{$data -> nama}}</td>
-                <td>{{$data -> harga}}</td>
+                <td>{{number_format($data -> harga)}}</td>
 
                 <td>
                     <a href="" class="btn bg-info btn-sm text-light btnEdit" id="{{ $data->id }}" data-toggle="modal" data-target=""><i class="fas fa-user-edit"></i></a>

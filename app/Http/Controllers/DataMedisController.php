@@ -18,7 +18,7 @@ class DataMedisController extends Controller
       ->join('detail_transaksi_medis', 'transaksi_medis.id', '=', 'detail_transaksi_medis.id_medis')
       ->select('transaksi_medis.id as m_id', 'pelanggan.*', 'detail_transaksi_medis.*', 'transaksi_medis.*', 'pelanggan.id as pe_id')
       ->orderBy('transaksi_medis.created_at', 'DESC')
-      ->groupBy('transaksi_medis.id_pemilik')
+      ->groupBy('transaksi_medis.id')
       ->get();
       
       return view('admin.data_medis', compact('pelanggan'));

@@ -17,8 +17,9 @@ class CreatePenitipan extends Migration
             $table->string('id')->primary();
             $table->string('tgl_masuk');
             $table->string('tgl_keluar');
-            $table->bigInteger('total_biaya');
+            $table->integer('total_biaya');
             $table->unsignedBigInteger('id_pemilik');
+            $table->string('status_pembayaran');
             $table->timestamps();
         });
         
@@ -28,10 +29,10 @@ class CreatePenitipan extends Migration
             $table->enum('jk_hewan', ['Jantan','Betina']);
             $table->string('ras_hewan');
             $table->integer('no_kandang');
+            $table->string('jenis_kandang');
             $table->string("id_penitipan")->index();
             $table->unsignedBigInteger('id_jenis');
             $table->unsignedBigInteger('id_petugas');
-            $table->string('status_pembayaran');
             $table->timestamps();
         });
 

@@ -39,7 +39,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Aywa Petcare</h1>
                   </div>
-                  <form class="user" action="{{ route('login') }}" method="post">
+                  <form class="user" action="{{ route('post.login') }}" method="post">
                     @csrf
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user  @error('email') is-invalid @enderror" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">

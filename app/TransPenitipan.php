@@ -13,6 +13,7 @@ class TransPenitipan extends Model
     'jk_hewan',
     'ras_hewan',
     'no_kandang',
+    'jenis_kandang',
     'id_penitipan',
     'id_jenis',
     'id_petugas',

@@ -86,7 +86,7 @@
             <label class="col-sm-2 col-form-label">Jenis Hewan</label>
             <div class="col-sm-10">
               <select name="jenis_hewan" class="form-control select2" id="_jenisHewan">
-                <option selected hidden class="jHewan">--Pilih--</option>
+                <option hidden class="jHewan">--Pilih--</option>
                 @foreach ($jenis as $jeniss)
                 <option value="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
                 @endforeach
@@ -106,7 +106,7 @@
             <label class="col-sm-2 col-form-label">Ras</label>
             <div class="col-sm-10">
               <select class="form-control" name="ras_hewan" required>
-                <option>--Pilih--</option>
+                <option hidden>--Pilih--</option>
                 <option value="Domestic">Domestic</option>
                 <option value="Persia">Persia</option>
                 <option value="Anggora">Anggora</option>
@@ -151,11 +151,22 @@
               <input type="text" name="no_kandang" class="form-control" autocomplete="off">
             </div>
           </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Jenis Kandang</label>
+            <div class="col-sm-10">
+              <select class="form-control" name="jenis_kandang" required>
+                <option selected disabled>--Pilih--</option>
+                <option value="Vaksin">V-01 Vaksin</option>
+                <option value="Biasa">NV-02 Tidak Vaksin</option>
+              </select>
+            </div>
+          </div>
     
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Harga</label>
             <div class="col-sm-10">
-              <input type="text" readonly name="total_harga" id="totalHarga" class="form-control">
+              <input type="number" readonly name="total_harga" id="totalHarga" class="form-control">
             </div>
           </div>
 
@@ -252,7 +263,6 @@
           cache : false,
           success:function(data) {
             sub_harga = data.harga;
-            console.log("j hewan " + sub_harga);
             $('#idJenis').val(data.id);
             $('#harga').val(sub_harga);
           }

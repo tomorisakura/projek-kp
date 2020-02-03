@@ -17,22 +17,33 @@ class PelangganController extends Controller
 
     public function register(Request $request) {
 
-        $pelanggan = array(
-          'nama_pemilik' => $request['nama_pemilik'],
-          'alamat' => $request['alamat'],
-          'no_hp' => $request['no_hp'],
-          'email' => $request['email']
-        );
+        $datas = new Pelanggan;
+        
+        // $pelanggan = array(
+        //   'nama_pemilik' => $request['nama_pemilik'],
+        //   'alamat' => $request['alamat'],
+        //   'no_hp' => $request['no_hp'],
+        //   'telegram' => $request['email']
+        // );
 
         Validator::make($request->all(), [
             'nama_pemilik' => ['required', 'string', 'max:255'],
             'alamat' => ['required', 'string', 'email', 'max:255'],
             'no_hp' => ['required', 'string', 'max:10'],
-            'email' => ['required', 'string', 'max:255'],
         ]);
-    
-        Pelanggan::create($pelanggan);
-        $pelanggan = Pelanggan::all();
+
+        $datas->nama_pemilik = $request->nama_pemilik;
+        $datas->alamat = $request->alamat;
+        $datas->no_hp = $request->no_hp;
+        if($request->email == "") {
+            $datas->telegram = "Tidak Ada";
+        } else {
+            $datas->telegram = $request->email;
+        }
+        $datas->id_chat = 0;
+        $datas->save();
+
+        Alert::success('Registrasi Berhasil', 'Data Pemilik Berhasil Ditambahkan');
     
         return redirect('/adm/pemilik-hewan')->withSuccessMessage('Berhasil Ditambahkan');
     }
@@ -43,15 +54,19 @@ class PelangganController extends Controller
     }
 
     public function update(Request $request) {
-        $data = Pelanggan::find($request->get('id'));
-
+        $id = $request->id;
+        $data = Pelanggan::find($id);
         $data->nama_pemilik = $request->get('nama_pemilik');
         $data->alamat = $request->get('alamat');
         $data->no_hp = $request->get('no_hp');
-        $data->email = $request->get('email');
+        $data->telegram = $request->get('email');
+        // dd($data);
         $data->save();
         echo "sukses";
-        return view('admin.pelanggan');
+
+        Alert::success('Update Berhasil', 'Data Berhasil Diubah');
+
+        return redirect('/adm/pemilik-hewan')->withSuccessMessage('Berhasil Update');
     }
 
     public function delete(Request $request, $id) {

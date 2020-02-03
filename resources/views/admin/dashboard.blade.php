@@ -112,8 +112,10 @@
       }
     });
 
-    var titip = {!!json_encode($datas)!!};
+    var titip = {!!json_encode($total)!!};
     var medis = {!!json_encode($data_medis)!!}
+    console.log(titip);
+    // console.log(medis);
 
     Highcharts.chart('grafik', {
     chart: {

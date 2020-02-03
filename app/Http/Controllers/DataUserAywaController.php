@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use DB;
 Use Alert;
+use Crypt;
 
 class DataUserAywaController extends Controller
 {
@@ -33,7 +34,7 @@ class DataUserAywaController extends Controller
        'name' => ['required', 'string', 'max:255'],
        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
        'no_hp' => ['required', 'string', 'max:255'],
-       'status' => ['required', 'string', 'max:255'],
+       'status' => ['required'],
        'image' => ['required', 'image', 'mimes:jpeg,bmp,png,jpg', 'max:5000']
      ]);
 
@@ -69,7 +70,7 @@ class DataUserAywaController extends Controller
           'name' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
           'no_hp' => ['required', 'string', 'max:255'],
-          'status' => ['required', 'string', 'max:255'],
+          'level' => ['required'],
         ]);
 
         Storage::delete(public_path('images/'), $image_name);
@@ -83,7 +84,7 @@ class DataUserAywaController extends Controller
           'name' => $request['name'],
           'email' => $request['email'],
           'no_hp' => $request['no_telp'],
-          'status' => $request['status']
+          'level' => $request['level'],
         );
           $user->where('id', $id)->update($form_data);
           return redirect('adm/data_user_aywa')->withSuccessMessage('Data Berhasil Diupdate');
@@ -94,7 +95,7 @@ class DataUserAywaController extends Controller
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         'no_hp' => ['required', 'string', 'max:255'],
-        'status' => ['required', 'string', 'max:255'],
+        'status' => ['required'],
       ]);
       // dd($request->name);
 
@@ -102,7 +103,7 @@ class DataUserAywaController extends Controller
         'name' => $request['name'],
         'email' => $request['email'],
         'no_hp' => $request['no_telp'],
-        'status' => $request['status'],
+        'level' => $request['level'],
       );
 
         $user->where('id', $id)->update($form_data);
@@ -123,5 +124,21 @@ class DataUserAywaController extends Controller
       $delete_user -> delete();
       // dd($delete_user);
       return redirect('adm/data_user_aywa') -> withSuccessMessage('Data Berhasil Dihapus');
+    }
+
+    public function changePassword($id) {
+      $datas = User::find($id);
+
+      echo json_encode($datas);
+    }
+
+    public function updatePassword(Request $req) {
+      $datas = User::find($req->get('id_user'));
+      $datas->password = Hash::make($req->new_password);
+      $datas->save();
+
+      // dd($datas);
+
+      return redirect('adm/data_user_aywa') -> withSuccessMessage('Password Berhasil Diubah');
     }
 }

@@ -89,21 +89,6 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan" aria-expanded="true" aria-controls="collapseLaporan">
-          <i class="fas fa-file-alt"></i>
-          <span>Laporan</span>
-        </a>
-        <div id="collapseLaporan" class="collapse" aria-labelledby="headingLaporan" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Menu</h6>
-            <a class="collapse-item" href="#">Penitipan</a>
-            <a class="collapse-item" href="#">Rekam Medis</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-users"></i>
           <span>Master Data</span>
@@ -133,7 +118,8 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="far fa-user-circle"></i>
-          <span>auth username</span>
+          {{-- <span>auth::user()->username</span> --}}
+          <span>{{ Auth::user()->username }}</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -141,7 +127,7 @@
             <a class="collapse-item" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">Logout
             </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('get.logout') }}" method="get" style="display: none;">
               @csrf
             </form>
           </div>

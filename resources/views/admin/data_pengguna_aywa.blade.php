@@ -58,19 +58,25 @@
                 <td data-target="name">{{$users -> name}}</td>
                 <td data-target="email">{{$users -> email}}</td>
                 <td data-target="no_hp">{{$users -> no_hp}}</td>
-                <td data-target="status">{{$users -> status}}</td>
-                <td>
+                <td data-target="status">@if ($users-> level == 1) Super Admin @endif
+                  @if ($users-> level == 2) Admin @endif
+                  @if ($users-> level == 3) Dokter Hewan @endif
+                  @if ($users-> level == 4) Helper @endif
+                </td>
 
+                <td>
                 <div class="btn-group mr-2" role="group" aria-label="Basic example">
-                  <button type="button" name="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $users -> id }}" id="editData{{ $users-> id}}" data-role="update"><i class="fas fa-user-edit"></i> Edit</button>
+                  <button type="button" name="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal{{ $users -> id }}" id="editData{{ $users-> id}}" data-role="update"><i class="fas fa-user-edit"></i></button>
                 </div>
                   <div class="btn-group mr-2" role="group">
                      <form class="" action="{{ route('delete', [$users-> id]) }}" method="get">
                        {{ csrf_field() }}
                        {{ method_field('DELETE') }}
-                       <button type="submit" name="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Pengguna Ini ?')"><i class="fas fa-trash"></i> Hapus</button>
+                       <button type="submit" name="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Pengguna Ini ?')"><i class="fas fa-trash"></i></button>
                      </form>
-                  </div></td>
+                  </div>
+                  <a href="" class="btn bg-warning btn-sm text-light btnPassword" id="{{ $users->id }}"><i class="fas fa-key"></i></a>
+                </td>
               </tr>
                       <!-- modal edit -->
                   <div class="modal fade bd-example-modal-lg" id="editModal{{ $users -> id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -146,10 +152,10 @@
                                   <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Status</label>
                                     <div class="col-sm-10">
-                                      <select class="form-control @error('status') is-invalid @enderror" name="status" id="statusUp">
-                                        <option value="Admin" @if($users->status == 'Admin') selected @endif>Admin</option>
-                                        <option value="Dokter Hewan" @if($users->status == 'Dokter Hewan') selected @endif>Dokter Hewan</option>
-                                        <option value="Helper" @if($users->status == 'Helper') selected @endif>Helper</option>
+                                      <select class="form-control @error('level') is-invalid @enderror" name="level" id="levelUp">
+                                        <option value="2" @if($users->level == '2') selected @endif>Admin</option>
+                                        <option value="3" @if($users->level == '3') selected @endif>Dokter Hewan</option>
+                                        <option value="4" @if($users->level == '4') selected @endif>Helper</option>
                                       </select>
 
                                       @error('status')
@@ -161,7 +167,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="form-group row">
+                                  {{-- <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
                                       <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="" required>
@@ -187,11 +193,11 @@
                                       @enderror
 
                                     </div>
-                                  </div>
+                                  </div> --}}
 
-                                  <!-- <div class="form-group row">
-                                    <div class="col-sm-3 col-form-label"><a href="#">Ganti Password</a></div>
-                                  </div> -->
+                                  <div class="form-group row">
+                                    <div class="col-sm-3 col-form-label"><a href="{{ route('change.password', $users->id) }}">Ganti Password</a></div>
+                                  </div> 
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -304,6 +310,7 @@
                   <label class="col-sm-2 col-form-label">Level</label>
                   <div class="col-sm-10">
                     <select class="form-control @error('status') is-invalid @enderror" name="status">
+                      <option hidden>--PILIH--</option>
                       <option value="1">Super Admin</option>
                       <option value="2">Admin</option>
                       <option value="3">Dokter Hewan</option>
@@ -350,24 +357,122 @@
     </div>
   </div>
 </div>
+</div>
 
-<script type="text/javascript">
+<div class="modal fade bd-example-modal-lg gantiPw" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ubah Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span id="#form_result"></span>
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text_users">Isikan Data Dengan Valid</h6>
+          </div>
+          <div class="card-body">
+            <form action="{{ route('update.pw') }}" id="editPassword" method="POST">
+              {{ csrf_field() }}
 
-// $(document).on('click', 'a[data-role=update]', function(){
-//   // alert($(this).data('id'));
-//   var id = $(this).data('id');
-//   var image = $('#'+id).children('td[data-target=image]').text();
-//   var nama = $('#'+id).children('td[data-target=name]').text();
-//   var email = $('#'+id).children('td[data-target=email]').text();
-//   var no_hp = $('#'+id).children('td[data-target=no_hp]').text();
-//   var status = $('#'+id).children('td[data-target=status]').text();
-//
-//   $('#image').val(image);
-//   $('#name').val(nama);
-//   $('#email').val(email);
-//   $('#no_telp').val(no_hp);
-//   $('#status').val(status);
-//   $('#editModal').modal('toggle');
-// });
+              <input type="hidden" name="id_user" id="_id_users" value="">
+
+              <div class="form-group row">
+                <label class="col-sm-5 col-form-label">Password Baru</label>
+                <div class="col-sm-12">
+                  <input type="text" name="new_password" class="form-control" id="password-confirm">
+                </div>
+              </div>
+              
+              {{-- end of modal content --}}
+            </div>
+            <!-- end of content -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" id="simpan" value="Ubah Password"></input>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
+<script>
+
+$(document).ready(function() {
+
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $.ajaxSetup({
+        headers : {
+          'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+    console.log('Ok Gan');
+
+    $(document).on('click', '.btnPassword', function(event) {
+      event.preventDefault();
+      var id = $(this).attr('id');
+      var url = "{{ url('/adm/data_user_pw/change') }}/"+id;
+
+      $.ajax({
+        url : url,
+        method : 'GET',
+        dataType : 'json',
+        cache : false,
+        success:function(datas) {
+          console.log(datas);
+          $('.gantiPw').modal('show');
+          $('#_id_users').val(datas.id);
+          $('.text_users').text("Ganti Password " + datas.name);
+      }
+
+    });
+  });
+
+  //   $('#editPassword').submit(function(event){
+  //     event.preventDefault();
+  //     var request = new FormData(this);
+  //     var id = $('#_id_users').attr('value');
+  //     var url = "{{ url('/adm/data_user_aywa/update-pw') }}";
+  //     // alert(id);
+  //     $.ajax({
+  //         url : url,
+  //         method : 'POST',
+  //         data : request,
+  //         contentType : false,
+  //         cache : false,
+  //         processData : false,
+  //         success:function(response) {
+  //             alert(response);
+  //             $('#closeModalEdit').modal('hide');
+  //             setInterval(function() {
+  //               location.reload(true);
+  //             }, 1000);
+  //         }
+  //     });
+
+  //     Swal.fire({
+  //       position: 'top-end',
+  //       icon: 'success',
+  //       title: 'Data Berhasil Diubah',
+  //       showConfirmButton: false,
+  //       timer: 1500
+  //       });
+
+  //     setInterval(function() {
+  //       location.reload(true);
+  //     }, 500);
+  // });
+
+//end of content
+});
+
 </script>
 @endsection

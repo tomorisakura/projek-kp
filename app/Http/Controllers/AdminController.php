@@ -26,12 +26,14 @@ class AdminController extends Controller
     foreach($penitipan as $pet) {
       $datas[] = $pet->sum('total_biaya');
       $data_medis[] = $medis->sum('total_biaya');
-    break;
     }
 
-    // dd(json_encode($datas));
+    $total = array_map('intval', $datas);
 
-    return view('admin.dashboard', compact('datas', 'data_medis'));
+    // dd(json_encode($total));
+    // dd(json_encode($data_medis));
+
+    return view('admin.dashboard', compact('total', 'data_medis'));
   }
 
   public function login() {

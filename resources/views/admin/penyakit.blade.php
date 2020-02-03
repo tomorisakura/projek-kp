@@ -40,7 +40,7 @@
                 <td><?php echo $no++; ?></td>
                 <td>DSS{{ $datas->id }}</td>
                 <td>{{$datas -> nama_penyakit}}</td>
-                <td>{{$datas -> harga}}</td>
+                <td>{{number_format($datas -> harga)}}</td>
 
                 <td>
                     <a href="" class="btn bg-info btn-sm text-light btnEdit" id="{{ $datas->id }}" data-toggle="modal" data-target=""><i class="fas fa-user-edit"></i></a>
@@ -76,15 +76,15 @@
             <input type="hidden" name="id" value="">
 
               <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Nama Penyakit Hewan</label>
-              <div class="col-sm-10">
+              <label class="col-sm-5 col-form-label">Nama Penyakit Hewan</label>
+              <div class="col-sm-12">
                 <input type="text" name="nama_penyakit" class="form-control" id="_nama" autocomplete="off">
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Harga</label>
-              <div class="col-sm-10">
+              <label class="col-sm-5 col-form-label">Harga</label>
+              <div class="col-sm-12">
                 <input type="tel" name="harga" id="_harga" class="form-control">
               </div>
             </div>
@@ -204,8 +204,6 @@
               cache : false,
               processData : false,
               success:function(response) {
-                // alert(response);
-                // console.log(response);
                 $('#closeModalEdit').modal('hide');
                 setInterval(function() {
                 location.reload(true);

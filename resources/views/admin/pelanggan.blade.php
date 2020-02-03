@@ -31,7 +31,7 @@
                     <th>Nama Pemilik</th>
                     <th>Alamat</th>
                     <th>No Handphone</th>
-                    <th>Email</th>
+                    <th>Telegram</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -44,7 +44,7 @@
                 <td id="td_nama">{{$customer -> nama_pemilik}}</td>
                 <td>{{$customer -> alamat}}</td>
                 <td>{{$customer -> no_hp}}</td>
-                <td>{{$customer -> email}}</td>
+                <td>{{$customer -> telegram}}</td>
 
                 <td>
                     <a href="" class="btn bg-info btn-sm text-light btnEdit" id="{{ $customer->id }}" data-toggle="modal" data-target=""><i class="fas fa-user-edit"></i></a>
@@ -101,9 +101,9 @@
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Email</label>
+              <label class="col-sm-2 col-form-label">Username Telegram</label>
               <div class="col-sm-10">
-                <input type="text" name="email" class="form-control" id="_email" autocomplete="off">
+                <input type="text" name="email" class="form-control" id="_email" autocomplete="off" placeholder="*tidak wajib">
               </div>
             </div>
           </div>
@@ -134,11 +134,11 @@
               <h6 class="m-0 font-weight-bold text-primary">Pemilik</h6>
             </div>
             <div class="card-body">
-  
-              <form class="" id="formEdit" method="post">
-              {{ csrf_field() }}
-              <input type="hidden" name="id" id="_idPemilik" value="">
-  
+              
+              <form class="" action="{{ route('edit.pelanggan') }}" id="formEdit" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" id="_idPemilik" class="id_pemilikx">
+                
                 <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nama Pemilik</label>
                 <div class="col-sm-10">
@@ -161,7 +161,7 @@
               </div>
   
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Email</label>
+                <label class="col-sm-2 col-form-label">Username Telegram</label>
                 <div class="col-sm-10">
                   <input type="text" name="email" class="form-control" id="_email_edit" autocomplete="off">
                 </div>
@@ -224,44 +224,10 @@
                   $('#_pemilik_edit').val(data.nama_pemilik);
                   $('#_alamat_edit').val(data.alamat);
                   $('#_noHp_edit').val(data.no_hp);
-                  $('#_email_edit').val(data.email);
+                  $('#_email_edit').val(data.telegram);
               }
 
           });
-      });
-
-      $('#formEdit').submit(function(event){
-          event.preventDefault();
-          var request = new FormData(this);
-          var id = $(this).attr('id');
-          var url = "{{ url('/adm/pemilik-hewan/update') }}/"+id;
-          $.ajax({
-              url : url,
-              method : 'POST',
-              data : request,
-              contentType : false,
-              cache : false,
-              processData : false,
-              success:function(response) {
-                  alert(response);
-                  $('#closeModalEdit').modal('hide');
-                  setInterval(function() {
-                    location.reload(true);
-                  }, 1000);
-              }
-          });
-
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Data Berhasil Diubah',
-            showConfirmButton: false,
-            timer: 1500
-            });
-
-          setInterval(function() {
-            location.reload(true);
-          }, 500);
       });
 
       $(document).on('click', '.btnHapus', function(event) {

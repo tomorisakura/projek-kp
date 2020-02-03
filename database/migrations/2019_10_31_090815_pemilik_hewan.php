@@ -17,8 +17,9 @@ class PemilikHewan extends Migration
           $table->bigIncrements('id');
           $table->string('nama_pemilik');
           $table->string('alamat');
-          $table->bigInteger('no_hp');
-          $table->string('email');
+          $table->string('no_hp');
+          $table->string('telegram')->nullable();
+          $table->bigInteger('id_chat')->nullable();
           $table->timestamps();
       });
 

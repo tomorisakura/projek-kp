@@ -45,7 +45,7 @@
             <a class="nav-link js-scroll-trigger" href="#signup">Kontak</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/adm">Login</a>
+            <a class="nav-link" href="{{ route('aywa.login') }}">Login</a>
           </li>
         </ul>
       </div>
