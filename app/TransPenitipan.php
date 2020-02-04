@@ -14,6 +14,7 @@ class TransPenitipan extends Model
     'ras_hewan',
     'no_kandang',
     'jenis_kandang',
+    'harga_detail',
     'id_penitipan',
     'id_jenis',
     'id_petugas',

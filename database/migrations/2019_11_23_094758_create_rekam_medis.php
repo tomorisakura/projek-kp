@@ -28,6 +28,7 @@ class CreateRekamMedis extends Migration
         $table->enum('jk_hewan', ['Jantan','Betina']);
         $table->string('ras_hewan');
         $table->string('gejala');
+        $table->integer('harga_detail');
         $table->string('id_medis')->index();
         $table->unsignedBigInteger('id_jenis');
         $table->unsignedBigInteger('id_penyakit');

@@ -58,6 +58,7 @@ Auth::routes();
   Route::post('/adm/rekam-medis/store', ['as' => 'store.medis', 'uses' => 'RmedicalController@storeMedis']);
   Route::get('/adm/rekam-medis/get/{id}',['as' => 'm_pelanggan','uses' => 'RmedicalController@getDataPemilik']);
   Route::get('/adm/rekam-medis/get/hewan/{id}',['as' => 'get.dhewan','uses' => 'RmedicalController@getDataHewan']);
+  Route::get('/adm/rekam-medis/get/detail/{id}',['as' => 'get.detail_hewan','uses' => 'RmedicalController@getDataDetailMedis']);
 
   //route Details Transaksi
   Route::get('/adm/detail-transaksi/get/',['as' => 'get.det_transaksi','uses' => 'RmedicalController@getDataDetail']);
@@ -68,6 +69,7 @@ Auth::routes();
   Route::get('/adm/penitipan/get/{id}',['as' => 'get.pemilik','uses' => 'PetPenitipanController@getDataPemilik']);
   Route::post('/adm/penitipan-hewan/store', ['as' => 'store.penitipan', 'uses' => 'PetPenitipanController@storePenitipan']);
   Route::get('/adm/detail-penitipan/get', ['as' => 'get.det_penitipan', 'uses' => 'PetPenitipanController@getDataDetail']);
+  Route::get('/adm/detail-penitipan/get/detail/{id}', ['as' => 'detail_get', 'uses' => 'PetPenitipanController@getDataDetailPenitipan']);
 
   //data_medis
   Route::get('/adm/data-medis',['as' => 'data_medis','uses' => 'DataMedisController@index']);

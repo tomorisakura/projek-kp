@@ -18,7 +18,7 @@
     <div class="card shadow mb-4">
 
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Pemilik Hewan</h6>
+        <h6 class="m-0 font-weight-bold text-primary nama_pemilik">Pemilik Hewan</h6>
       </div>
 
       <div class="card-body">
@@ -59,7 +59,7 @@
           <input type="hidden" name="id_pemilik" readonly id="id_pemilik">
           <input type="hidden" name="id_petugas" value="{{ Auth::user()->id }}" readonly>
           <input type="hidden" name="id_hewan" id="idJenis" readonly>
-          <input type="hidden" name="id_trans_penitipan" id="id_penitipan" readonly>
+          <input type="hidden" name="id_trans_penitipan" id="id_penitipan">
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">ID. Penitipan</label>
@@ -67,7 +67,7 @@
               <div class="input-group">
                 <input type="text" name="no_penitipan" class="form-control" id="_noPenitipan" required autocomplete="off">
                 <div class="input-group-append">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary btn_search" type="button">
                     <i class="fas fa-user-check"></i>
                   </button>
                 </div>
@@ -173,7 +173,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Status Pembayaran</label>
           <div class="col-sm-10">
-            <select name="status_pembayaran" class="form-control" id="">
+            <select name="status_pembayaran" class="form-control" id="status_bayar">
               <option>--PILIH--</option>
               <option value="Belum Lunas"> Belum Lunas</option>
               <option value="Lunas">Lunas</option>
@@ -233,6 +233,50 @@
         }
       });
 
+      $(document).on('click', '.btn_search', function(event) {
+        event.preventDefault();
+        var id = $('#_noPenitipan').val();
+        var url = "{{ url('/adm/detail-penitipan/get/detail') }}/"+id;
+        // alert(url);
+        $.ajax({
+          url : url,
+          method : 'GET',
+          dataType : 'json',
+          cache : false,
+          success:function(datas) {
+            // alert(datas);
+            console.log(datas);
+            if(datas != null) {
+
+            $('#opt_pemilik').val(datas.nama_pemilik);
+            $('#_noHp').val(datas.no_hp);
+            $('#status_bayar').attr('disabled', true).val(datas.status_pembayaran);
+            $('#tgl_masuk').val(datas.tgl_masuk);
+            $('#tgl_keluar').val(datas.tgl_keluar);
+            $('#harga').val(datas.harga);
+            $('.nama_pemilik').text("Data Dari "+datas.nama_pemilik);
+
+            Swal.fire(
+              'Apakah Benar ?',
+              'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik + ' Benar ?',
+              'question'
+            )
+
+            } else {
+
+              Swal.fire('Data ID Belum Digunakan :D');
+              $('#status_bayar').attr('disabled', false);
+              $('.nama_pemilik').text("Pemilik Hewan");
+              $('#tgl_masuk').val("");
+              $('#tgl_keluar').val("");
+
+            }
+
+          }
+        });
+
+      });
+
       $(document).on('change', '#opt_pemilik',function (event) {
         event.preventDefault();
         var id = $(this).find(':selected')[0].id;
@@ -242,8 +286,6 @@
           dataType : 'json',
           cache : false,
           success:function(response) {
-            // console.log(response);
-            // $('#_noPenitipan').val("HTL-0"+response.id);
             $('#id_pemilik').val(response.id);
             $('#_noHp').val(response.no_hp);
           }

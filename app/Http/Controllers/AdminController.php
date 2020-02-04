@@ -15,7 +15,9 @@ use Validator;
 class AdminController extends Controller
 {
 
-  public function home() {
+  public function home(Request $req) {
+
+    $status = $req['status_bayar'];
 
     $penitipan = Penitipan::all();
     $medis = Medis::all();

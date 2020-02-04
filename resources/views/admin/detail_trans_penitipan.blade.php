@@ -40,7 +40,11 @@
               </tr>
               <tr>
                 <td>Total Harga</td>
-                <td><p id="t_harga" class="text-success font-weight-bold">{{ number_format($det_transaksi->total_harga) }}</p></td>
+                <td><p id="t_harga" class="text-success font-weight-bold">{{ number_format($det_transaksi->tot_biaya) }}</p></td>
+              </tr>
+              <tr>
+                <td>Total Harga</td>
+                <td id="ttl_sum" class="text-success font-weight-bold"></td>
               </tr>
               <tr>
                 <td>----------------------------</td>
@@ -67,7 +71,8 @@
                     <td>{{ $item->tgl_keluar }}</td>
                     <td>{{ $item->no_kandang }}</td>
                     <td>{{ $item->jenis_kandang }}</td>
-                    <td>{{ number_format($item->total_biaya) }}</td>
+                    <td>{{ number_format($item->harga_detail) }}</td>
+                    <input type="hidden" class="harga_total" value="{{ $item->total_biaya }}">
                     <input type="hidden" name="" class="harga_satuan" value="{{ $item->harga_hewan }}">
                 </tr>
                 @endforeach
@@ -157,6 +162,7 @@
 <!-- Page Heading -->
 <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="{{ url('assets/js/jquery.number.min.js') }}"></script>
 
 <script>
 
@@ -176,12 +182,26 @@
     var id_trans = $('#id_det_penitipan').text();
     var status_bayar = $('#stt_byr').text();
 
-    var sum = 0;
+    var sum = $('.harga_satuan').val();
+    var sum_total = 0;
+
     $('.harga_satuan').each(function() {
-      sum += Number($(this).val());
+      sum_total += Number($(this).val());
     });
 
-    console.log("My SUM : " + sum);
+    // $('.harga_total').each(function() {
+    //   sum_total += Number($(this).val());
+    // });
+
+    // $('#ttl_sum').text(sum_total);
+
+    // $.fn.digits = function() {
+    //   return this.each(function() {
+    //     $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
+    //   });
+    // }
+
+    // $('#ttl_sum').digits();
 
     $(document).on('click', '.btnEdit', function(event){
       event.preventDefault();
@@ -203,7 +223,7 @@
     function calculate() {
       var date1 = new Date($('#tgl_masuk').val());
       var date2 = new Date($('#tgl_keluar').val());
-      var harga = sum;
+      var harga = sum_total;
 
       var time = date2.getTime() - date1.getTime();
       var miliSecondtoOneSecond = 1000;

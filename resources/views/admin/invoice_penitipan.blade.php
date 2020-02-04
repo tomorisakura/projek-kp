@@ -84,7 +84,7 @@
                     <th>Jenis Hewan</th>
                     <th>Tanggal Keluar</th>
                     <th>Ras Hewan</th>
-                    <th>Sub Biaya</th>
+                    <th>Biaya Hewan</th>
                 </tr>
                 @foreach ($data_penitipan as $item)
                 <tr>
@@ -92,7 +92,7 @@
                   <td>{{ $item->nama }}</td>
                   <td>{{ $item->tgl_keluar }}</td>
                   <td>{{ $item->ras_hewan }}</td>
-                  <td>{{ $item->total_biaya }}</td>
+                  <td>{{ $item->harga_detail }}</td>
                 </tr>
                 @endforeach
                 {{-- <tr>
@@ -103,8 +103,8 @@
             <tfoot>
               @foreach ($data_transaksi as $item)
                 <tr>
-                  <th colspan="4">Total</th>
-                    <td>Rp {{ number_format($item->total_harga) }}</td>
+                  <th colspan="4">Biaya Penitipan</th>
+                    <td>Rp {{ number_format($item->total_biaya) }}</td>
                   </tr>
               @endforeach
             </tfoot>

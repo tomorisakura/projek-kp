@@ -59,7 +59,7 @@
         </div>
 
         <div class="card-header py-3">
-          <a href="" class="btn btn-success btn-sm float-right btnAddHewan" id="addHewan" data-toggle="modal" data-target=".tambah-hewan"><i class="fas fa-plus-circle"></i></a>
+          <a href="" class="btn btn-success btn-sm float-right btnAddhewan" data-toggle="modal" data-target=".tambah-hewan"><i class="far fa-angry"></i></a>
         </div>
 
         {{-- content --}}
@@ -73,6 +73,8 @@
             <input type="hidden" name="id_jenis" id="idJenis">
             <input type="hidden" name="id_penyakit" id="idPenyakit">
             <input type="hidden" name="id_trans_medis" id="id_medis">
+            <input type="hidden" name="harga_hewan" id="_harga_hewan">
+            <input type="hidden" name="harga_penyakit" id="_harga_penyakit">
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">ID. Medis</label>
@@ -80,7 +82,7 @@
                 <div class="input-group">
                   <input type="text" name="no_medis" class="form-control" id="_noMedis" required autocomplete="off">
                   <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
+                    <button class="btn btn-primary btn_search" type="button">
                       <i class="fas fa-user-check"></i>
                     </button>
                   </div>
@@ -218,6 +220,10 @@ $(document).ready(function() {
         }
   });
 
+  $(document).on('click', '.addHewan', function(){
+
+  });
+
   var url = "{{ url('/adm/get/transaksi') }}";
   var url1 = "{{ url('/adm/detail-transaksi/get/') }}";
   var tm_id = 0;
@@ -255,20 +261,74 @@ $(document).ready(function() {
   $(document).on('click', '.jPenyakit', function(event){
     $('#_subBiaya').val("");
     $('#idPenyakit').val("");
+    $('#_harga_penyakit').val("");
   });
 
   $(document).on('click', '.jHewan', function(event){
     $('#_subBiaya').val("");
     $('#idJenis').val("");
+    $('#_harga_hewan').val("");
   });
 
-  $(document).on('click', '.btnAddHewan', function(event){
+  $(document).on('click', '.btnAddhewan', function(event){
     event.preventDefault();
+
+    Swal.fire({
+      title: 'Sisihhkan Waktu Untuk Istirahat',
+      text: 'Pengen Liburan :(',
+      imageUrl: 'https://unsplash.it/500/300',
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+    })
+
   });
 
 
   var h_hewan = 0;
   var h_penyakit = 0;
+
+  $(document).on('click', '.btn_search', function(event){
+    event.preventDefault();
+
+    var id = $('#_noMedis').val();
+    var url = "{{ url('/adm/rekam-medis/get/detail') }}/"
+
+    $.ajax({
+      url : url,
+      method : 'GET',
+      dataType : 'json',
+      cache : false,
+      success:function(datas) {
+        if(datas != null) {
+
+        $('#opt_pemilik').val(datas.nama_pemilik);
+        $('#_noHp').val(datas.no_hp);
+        $('#status_bayar').attr('disabled', true).val(datas.status_pembayaran);
+        $('#tgl_masuk').val(datas.tgl_masuk);
+        $('#tgl_keluar').val(datas.tgl_keluar);
+        $('#harga').val(datas.harga);
+        $('.nama_pemilik').text("Data Dari "+datas.nama_pemilik);
+
+        Swal.fire(
+          'Apakah Benar ?',
+          'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik + ' Benar ?',
+          'question'
+        )
+
+        } else {
+
+          Swal.fire('Data ID Belum Digunakan :D');
+          $('#status_bayar').attr('disabled', false);
+          $('.nama_pemilik').text("Pemilik Hewan");
+          $('#tgl_masuk').val("");
+          $('#tgl_keluar').val("");
+
+        }
+
+      }
+    });
+  })
 
   $(document).on('change', '#_jenisHewan', function (event) {
     var id = $(this).find(':selected')[0].value;
@@ -282,6 +342,7 @@ $(document).ready(function() {
       success:function(data) {
         h_hewan = data.harga;
         $('#idJenis').val(data.id);
+        $('#_harga_hewan').val(data.harga);
         // console.log("Hewan " + h_hewan);
       }
     });
@@ -303,6 +364,7 @@ $(document).ready(function() {
         console.log(h_penyakit)
         t_biaya = h_penyakit + h_hewan;
         $('#_subBiaya').val(t_biaya);
+        $('#_harga_penyakit').val(data.harga);
       }
     });
   });

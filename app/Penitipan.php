@@ -8,6 +8,7 @@ class Penitipan extends Model
 {
     protected $table = "transaksi_penitipan";
     protected $fillable = [
+    'id',
     'tgl_masuk',
     'tgl_keluar',
     'total_biaya',

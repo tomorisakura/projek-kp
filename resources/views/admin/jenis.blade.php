@@ -154,6 +154,7 @@
   <script src="{{ url('assets/vendor/jquery/jquery.js') }}"></script>
   <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="{{ url('assets/js/jquery.number.min.js') }}"></script>
 
   <script>
 
@@ -166,16 +167,6 @@
         }
       });
       console.log('js valid');
-    //   function loadDataTable() {
-    //       var url ="{{ url('/adm/pemilik-hewan/getData') }}";
-    //       $.ajax({
-    //           url : url,
-    //           success:function(data) {
-    //               $('#loadTable').html(data);
-    //           }
-    //       });
-    //   }
-    //   loadDataTable();
 
       $(document).on('click', '.btnEdit', function(event) {
           event.preventDefault();

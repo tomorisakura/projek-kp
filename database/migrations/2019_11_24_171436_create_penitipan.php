@@ -30,6 +30,7 @@ class CreatePenitipan extends Migration
             $table->string('ras_hewan');
             $table->integer('no_kandang');
             $table->string('jenis_kandang');
+            $table->integer('harga_detail');
             $table->string("id_penitipan")->index();
             $table->unsignedBigInteger('id_jenis');
             $table->unsignedBigInteger('id_petugas');

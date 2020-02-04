@@ -32,6 +32,7 @@ class RmedicalController extends Controller
 
       $det_transaksi = new TransMedis;
       $t_medis = new Medis;
+      $id = $request['no_medis'];
 
       Validator::make($request->all(), [
         'id_trans_medis' => ['required', 'string', 'max:255'],
@@ -43,24 +44,54 @@ class RmedicalController extends Controller
         'status_tindakan' => ['required'],
       ]);
 
-      $t_medis->id = $request->id_trans_medis;
-      $t_medis->tgl_periksa = $request->tgl_periksa;
-      $t_medis->total_biaya = $request->total_biaya;
-      $t_medis->id_pemilik = $request->id_pemilik;
-      $t_medis->status_pembayaran = $request->status_pembayaran;
-      $t_medis->save();
+      $validate = Medis::find($id);
+      $sum_total = $det_transaksi->sum('harga_detail');
 
-      $det_transaksi->nama_hewan = $request->nama_hewan;
-      $det_transaksi->jk_hewan = $request->jk_hewan;
-      $det_transaksi->ras_hewan = $request->ras_hewan;
-      $det_transaksi->gejala = $request->gejala;
-      $det_transaksi->id_medis = $request->no_medis;
-      $det_transaksi->id_jenis = $request->id_jenis;
-      $det_transaksi->id_penyakit = $request->id_penyakit;
-      $det_transaksi->id_petugas = $request->id_petugas;
-      $det_transaksi->save();
+      if($validate == "") {
 
-      return redirect('/adm/rekam-medis')->withSuccessMessage('Data Berhasil Ditambahkan');
+        $t_medis->id = $request->no_medis;
+        $t_medis->tgl_periksa = $request->tgl_periksa;
+        $t_medis->total_biaya = $sum_total;
+        $t_medis->id_pemilik = $request->id_pemilik;
+        $t_medis->status_pembayaran = $request->status_pembayaran;
+        $t_medis->save();
+  
+        $det_transaksi->nama_hewan = $request->nama_hewan;
+        $det_transaksi->jk_hewan = $request->jk_hewan;
+        $det_transaksi->ras_hewan = $request->ras_hewan;
+        $det_transaksi->gejala = $request->gejala;
+        $det_transaksi->harga_detail = $request->total_biaya;
+        $det_transaksi->id_medis = $request->no_medis;
+        $det_transaksi->id_jenis = $request->id_jenis;
+        $det_transaksi->id_penyakit = $request->id_penyakit;
+        $det_transaksi->id_petugas = $request->id_petugas;
+        $det_transaksi->save();
+
+        return redirect('/adm/rekam-medis')->withSuccessMessage('Transaksi Baru, Berhasil Ditambahkan');
+
+      } else {
+
+        $medic = Medis::find($id);
+
+        $medic->total_biaya = $det_transaksi->sum('harga_detail');
+        $medic->save();
+
+        $det_transaksi->nama_hewan = $request->nama_hewan;
+        $det_transaksi->jk_hewan = $request->jk_hewan;
+        $det_transaksi->ras_hewan = $request->ras_hewan;
+        $det_transaksi->gejala = $request->gejala;
+        $det_transaksi->harga_detail = $request->total_biaya;
+        $det_transaksi->id_medis = $request->no_medis;
+        $det_transaksi->id_jenis = $request->id_jenis;
+        $det_transaksi->id_penyakit = $request->id_penyakit;
+        $det_transaksi->id_petugas = $request->id_petugas;
+        $det_transaksi->save();
+
+        return redirect('/adm/rekam-medis')->withSuccessMessage('Transaksi Berhasil Ditambahkan');
+
+      }
+
+      return redirect('/adm/rekam-medis')->withSuccessMessage('Hmm Kurang Greget');
     }
 
     public function getDataPemilik(Request $request ,$id) {
@@ -71,5 +102,17 @@ class RmedicalController extends Controller
     public function getDataDetail() {
       $data = TransMedis::all();
       echo json_encode($data);
+    }
+
+    public function getDataDetailMedis($id) {
+
+      $datas = DB::table('transaksi_medis')
+      ->join('pelanggan', 'transaksi_medis.id_pemilik', '=', 'pelanggan.id')
+      ->join('detail_transaksi_medis as det_medis', 'transaksi_medis.id', '=', 'det_medis.id_medis')
+      ->select('pelanggan.*', 'det_medis.*', 'transaksi_medis.*')
+      ->where('transaksi_medis.id', '=', $id)
+      ->first();
+  
+      echo json_encode($datas);
     }
 }

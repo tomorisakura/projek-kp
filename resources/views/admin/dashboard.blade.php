@@ -69,7 +69,13 @@
   </div>
 </div>
 
+<div>
+  <select name="status_bayar" id="">
+    <option value="Lunas">Lunas</option>
+    <option value="Belum Lunas">Belum Lunas</option>
+  </select>
 <div id="grafik"></div>
+</div>
 </div>
 
 <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
@@ -114,8 +120,6 @@
 
     var titip = {!!json_encode($total)!!};
     var medis = {!!json_encode($data_medis)!!}
-    console.log(titip);
-    // console.log(medis);
 
     Highcharts.chart('grafik', {
     chart: {
@@ -128,10 +132,8 @@
         text: ''
     },
     xAxis: {
-        categories: [
-            'Jan'
-        ],
-        crosshair: true
+        categories: [],
+        crosshair: false
     },
     yAxis: {
         min: 0,

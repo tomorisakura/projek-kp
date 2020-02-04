@@ -13,6 +13,7 @@ class TransMedis extends Model
     'jk_hewan',
     'ras_hewan',
     'gejala',
+    'harga_detail',
     'id_medis',
     'id_jenis',
     'id_penyakit',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Pelanggan;
 use App\Jenis;
 use App\Penitipan;
@@ -29,6 +30,7 @@ class PetPenitipanController extends Controller
 
     $transaksi = new TransPenitipan;
     $penitipan = new Penitipan;
+    $id = $request['no_penitipan'];
 
     Validator::make($request->all(), [
       'id_trans_medis' => ['required', 'string', 'max:255'],
@@ -41,23 +43,55 @@ class PetPenitipanController extends Controller
       'no_kandang' => ['required'],
     ]);
 
-    $penitipan->id = $request->id_trans_penitipan;
-    $penitipan->tgl_masuk = $request->tgl_masuk;
-    $penitipan->tgl_keluar = $request->tgl_keluar;
-    $penitipan->total_biaya = $request->total_harga;
-    $penitipan->id_pemilik = $request->id_pemilik;
-    $penitipan->status_pembayaran = $request->status_pembayaran;
-    $penitipan->save();
+    $validate  = Penitipan::find($id);
+    
+    if($validate == "") {
+      
+      $penitipan->id = $request->no_penitipan;
+      $penitipan->tgl_masuk = $request->tgl_masuk;
+      $penitipan->tgl_keluar = $request->tgl_keluar;
+      $penitipan->total_biaya = $request->total_harga;
+      $penitipan->id_pemilik = $request->id_pemilik;
+      $penitipan->status_pembayaran = $request->status_pembayaran;
+      // dd($penitipan);
+      $penitipan->save();
+      
+      $transaksi->nama_hewan = $request->nama_hewan;
+      $transaksi->jk_hewan = $request->jk_hewan;
+      $transaksi->ras_hewan = $request->ras_hewan;
+      $transaksi->no_kandang = $request->no_kandang;
+      $transaksi->id_penitipan = $request->no_penitipan;
+      $transaksi->harga_detail = $request->total_harga;
+      $transaksi->jenis_kandang = $request->jenis_kandang;
+      $transaksi->id_jenis = $request->id_hewan;
+      $transaksi->id_petugas = $request->id_petugas;
+      $transaksi->save();
 
-    $transaksi->nama_hewan = $request->nama_hewan;
-    $transaksi->jk_hewan = $request->jenis_hewan;
-    $transaksi->ras_hewan = $request->ras_hewan;
-    $transaksi->no_kandang = $request->no_kandang;
-    $transaksi->id_penitipan = $request->no_penitipan;
-    $transaksi->jenis_kandang = $request->jenis_kandang;
-    $transaksi->id_jenis = $request->id_hewan;
-    $transaksi->id_petugas = $request->id_petugas;
-    $transaksi->save();
+      return redirect('/adm/penitipan')->withSuccessMessage('Transaksi Baru, Berhasil Ditambahkan');
+      // dd($validate);
+
+    } else {
+
+      $pet = Penitipan::find($id);
+      $pet->total_biaya = $transaksi->sum('harga_detail');
+      $pet->save();
+      // dd($pet);
+
+      $transaksi->nama_hewan = $request->nama_hewan;
+      $transaksi->jk_hewan = $request->jk_hewan;
+      $transaksi->ras_hewan = $request->ras_hewan;
+      $transaksi->no_kandang = $request->no_kandang;
+      $transaksi->id_penitipan = $request->no_penitipan;
+      $transaksi->harga_detail = $request->total_harga;
+      $transaksi->jenis_kandang = $request->jenis_kandang;
+      $transaksi->id_jenis = $request->id_hewan;
+      $transaksi->id_petugas = $request->id_petugas;
+      $transaksi->save();
+
+      return redirect('/adm/penitipan')->withSuccessMessage('Transaksi Berhasil Ditambahkan');
+
+    }
+
 
     return redirect('/adm/penitipan')->withSuccessMessage('Data Berhasil Ditambahkan');
 
@@ -69,8 +103,23 @@ class PetPenitipanController extends Controller
   }
 
   public function getDataDetail() {
-    $data = TransPenitipan::all();
+    $data = Penitipan::all();
     echo json_encode($data);
+  }
+
+  public function getDataDetailPenitipan($id) {
+
+    // $id = $request['no_penitipan'];
+    $datass = Penitipan::find($id);
+
+    $datas = DB::table('transaksi_penitipan')
+    ->join('pelanggan', 'transaksi_penitipan.id_pemilik', '=', 'pelanggan.id')
+    ->join('detail_transaksi_penitipan as det_penitipan', 'transaksi_penitipan.id', '=', 'det_penitipan.id_penitipan')
+    ->select('pelanggan.*', 'det_penitipan.*', 'transaksi_penitipan.*')
+    ->where('transaksi_penitipan.id', '=', $id)
+    ->first();
+
+    echo json_encode($datas);
   }
 
 }
