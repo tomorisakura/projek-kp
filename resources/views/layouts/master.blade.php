@@ -60,11 +60,15 @@
           <span>Pemilik Hewan</span></a>
       </li>
 
+      @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
+          
       <li class="nav-item">
         <a class="nav-link" href="{{ route('medis') }}">
           <i class="fas fa-book-open"></i>
           <span>Medical Checkup</span></a>
-      </li>
+        </li>
+        
+      @endif
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('pethotel') }}">
@@ -81,13 +85,16 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Menu</h6>
+            @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
             <a class="collapse-item" href="{{ route('data_medis') }}">Data Transaksi Medis</a>
+            @endif
             <a class="collapse-item" href="{{ route('data_penitipan') }}">Data Transaksi Penitipan</a>
           </div>
         </div>
       </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
+      @if (Auth::user()->level == 1)
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-users"></i>
@@ -102,6 +109,7 @@
           </div>
         </div>
       </li>
+      @endif
 
       <!-- Nav Item - Utilities Collapse Menu -->
 

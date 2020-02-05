@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use DB;
 Use Alert;
 use Crypt;
@@ -19,7 +21,7 @@ class DataUserAywaController extends Controller
     public function show_all() {
       $all_user = User::all();
       if (session('success_message')) {
-        Alert::success('Berhasil Ditambahkan', session('success_message'));
+        Alert::success('Berhasil', session('success_message'));
       }
 
       return view('admin.data_pengguna_aywa', ['user' => $all_user]);
@@ -29,6 +31,8 @@ class DataUserAywaController extends Controller
     {
 
       $user = new User;
+      $token = str::random(70);
+      // dd($token);
 
       Validator::make($request->all(), [
        'name' => ['required', 'string', 'max:255'],
@@ -47,6 +51,7 @@ class DataUserAywaController extends Controller
         'username' => $request['username'],
         'no_hp' => $request['no_telp'],
         'level' => $request['status'],
+        'remember_token' => $token,
         'password' => Hash::make($request['password']),
         'image' => $new_name
       );

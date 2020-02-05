@@ -92,7 +92,7 @@
                   <td>{{ $item->nama }}</td>
                   <td>{{ $item->tgl_keluar }}</td>
                   <td>{{ $item->ras_hewan }}</td>
-                  <td>{{ $item->harga_detail }}</td>
+                  <td>{{ $item->harga_hewan }}</td>
                 </tr>
                 @endforeach
                 {{-- <tr>
@@ -103,7 +103,7 @@
             <tfoot>
               @foreach ($data_transaksi as $item)
                 <tr>
-                  <th colspan="4">Biaya Penitipan</th>
+                  <th colspan="4">Total Biaya Penitipan</th>
                     <td>Rp {{ number_format($item->total_biaya) }}</td>
                   </tr>
               @endforeach

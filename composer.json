@@ -12,8 +12,9 @@
         "barryvdh/laravel-dompdf": "^0.8.5",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.4",
-        "irazasyed/telegram-bot-sdk": "^2.0",
+        "irazasyed/telegram-bot-sdk": "dev-develop",
         "laravel/framework": "^6.0",
+        "laravel/helpers": "^1.1",
         "laravel/tinker": "^1.0",
         "realrashid/sweet-alert": "^3.0",
         "yajra/laravel-datatables-oracle": "^9.8"

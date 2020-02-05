@@ -12,6 +12,30 @@ class PelangganController extends Controller
 
     public function index() {
         $pelanggan = Pelanggan::all();
+
+        // $datas = $req['email'];
+
+        $url = "https://api.telegram.org/bot1097638403:AAEhd7JX7BX3admcSyzoKTmVBOhLDDTghiM/getUpdates";
+        
+        $objek = file_get_contents($url);
+        $datas = json_decode($objek, true);
+        $nama = 0;
+
+        // dd($datas['result'][1]['message']['chat']);
+
+        for ($i=0; $i < 10; $i++) { 
+            if($datas['result'][1]['message']['chat']['username'] == 'xxkyoko') {
+                $nama = 1;
+            } else {
+                $nama = 6;
+            }
+        }
+
+        dd($nama);
+        //data berhasil men :v
+
+        // dd(response()->json($datas));
+
         return view('admin.pelanggan', compact('pelanggan'));
     }
 
@@ -47,6 +71,19 @@ class PelangganController extends Controller
     
         return redirect('/adm/pemilik-hewan')->withSuccessMessage('Berhasil Ditambahkan');
     }
+
+    // public function getChat(Request $req) {
+    //     $pelanggan = Pelanggan::all();
+    //     $datas = $req['email'];
+
+    //     $url = "https://api.telegram.org/bot1097638403:AAEhd7JX7BX3admcSyzoKTmVBOhLDDTghiM/getUpdates";
+        
+    //     $objek = json_decode($url);
+
+    //     for ($i=0; $i <= $pelanggan ; $i++) { 
+            
+    //     }
+    // }
 
     public function getData(Request$request ,$id) {
         $data = Pelanggan::find($id);

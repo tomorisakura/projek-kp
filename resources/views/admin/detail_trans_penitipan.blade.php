@@ -79,7 +79,7 @@
                 </tbody>
               </table>
               <div class="modal-footer">
-                <a href="" class="btn btn-success btnSimpan">Kirim Pesan Telegram</a>
+                <a href="{{ route('telebot') }}" class="btn btn-success btnSimpan">Kirim Pesan Telegram</a>
                 <a href="#" class="btn btn-primary btnEdit">Edit Tanggal Ambil</a>
               </div>
             </div>

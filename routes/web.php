@@ -96,5 +96,5 @@ Auth::routes();
   Route::post('/adm/data_user_aywa/update-pw', ['as' => 'update.pw', 'uses' => 'DataUserAywaController@updatePassword']);
 
   //route Telegram
-  Route::get('/adm/updated-activity', 'TelegramController@updateActivity')->name('telebot');
+  Route::post('/adm/update-activity', 'TelegramController@updateActivity')->name('telebot');
 // });
