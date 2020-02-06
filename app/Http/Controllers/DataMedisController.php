@@ -37,9 +37,9 @@ class DataMedisController extends Controller
       $data_trans = DB::table('transaksi_medis')
       ->join('pelanggan', 'transaksi_medis.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_medis', 'transaksi_medis.id', '=', 'detail_transaksi_medis.id_medis')
-      ->select('transaksi_medis.total_biaya', 'transaksi_medis.tgl_periksa', 'transaksi_medis.status_pembayaran',  'pelanggan.nama_pemilik', DB::raw('SUM(transaksi_medis.total_biaya) as total_harga'))
+      ->select('transaksi_medis.total_biaya', 'transaksi_medis.tgl_periksa', 'transaksi_medis.status_pembayaran',  'pelanggan.id as id_pel', 'pelanggan.*', DB::raw('SUM(transaksi_medis.total_biaya) as total_harga'))
       ->where('transaksi_medis.id', '=' , $id)
-      ->get();
+      ->first();
 
       return view('admin.detail_trans_medis', compact('data_trans', 'data_det'));
     }

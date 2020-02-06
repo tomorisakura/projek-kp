@@ -292,7 +292,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     var id = $('#_noMedis').val();
-    var url = "{{ url('/adm/rekam-medis/get/detail') }}/"
+    var url = "{{ url('/adm/rekam-medis/get/detail') }}/"+id;
 
     $.ajax({
       url : url,
@@ -328,6 +328,7 @@ $(document).ready(function() {
 
       }
     });
+
   })
 
   $(document).on('change', '#_jenisHewan', function (event) {

@@ -8,6 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <!-- Custom styles for this template-->
 <link href="{{ url('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -60,7 +61,8 @@
                   <th>Tanggal Keluar</th>
                   <th>Nomor Kandang</th>
                   <th>Jenis Kandang</th>
-                  <th>Harga</th>
+                  {{-- <th>Harga</th> --}}
+                  <th>Dokter Hewan</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,7 +73,8 @@
                     <td>{{ $item->tgl_keluar }}</td>
                     <td>{{ $item->no_kandang }}</td>
                     <td>{{ $item->jenis_kandang }}</td>
-                    <td>{{ number_format($item->harga_detail) }}</td>
+                    <td>{{ $item->name }}</td>
+                    {{-- <td>{{ number_format($item->harga_detail) }}</td> --}}
                     <input type="hidden" class="harga_total" value="{{ $item->total_biaya }}">
                     <input type="hidden" name="" class="harga_satuan" value="{{ $item->harga_hewan }}">
                 </tr>
@@ -79,7 +82,7 @@
                 </tbody>
               </table>
               <div class="modal-footer">
-                <a href="{{ route('telebot') }}" class="btn btn-success btnSimpan">Kirim Pesan Telegram</a>
+                <a href="" class="btn btn-success btnTelegram">Kirim Pesan Telegram</a>
                 <a href="#" class="btn btn-primary btnEdit">Edit Tanggal Ambil</a>
               </div>
             </div>
@@ -127,7 +130,7 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Harga</label>
               <div class="col-sm-10">
-                <input type="text" readonly name="total_harga" id="totalHarga" class="form-control">
+                <input type="number" readonly name="total_harga" id="totalHarga" class="form-control">
               </div>
             </div>
   
@@ -151,7 +154,59 @@
       </div>
       {{-- end of details --}}
       <div class="modal-footer">
-        <input type="submit" class="btn btn-success btnSimpan" value="Simpan"></input>
+        <input type="submit" class="btn btn-success btnSimpanDetail" value="Simpan"></input>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal Telegram Pemilik Hewan -->
+<div class="modal fade modalTelegram" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" id="closeModalTambah" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{-- <h1 class="h3 mb-4 text-gray-800" id="labelModal">Form Pendaftaran Pemilik Hewan</h1> --}}
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary id-transaksi">Pemilik</h6>
+          </div>
+          <div class="card-body">
+
+            <form class="update_id" method="post">
+            {{-- {{ csrf_field() }} --}}
+
+            <input type="hidden" id="id_pelanggan" name="id_pelanggan" value="{{ $det_transaksi->id_pel }}">
+
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Username Telegram</label>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <input type="text" name="username_telegram" class="form-control" id="username_telegram" value="{{ $det_transaksi->telegram }}" required autocomplete="off">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary btnValidate" type="button">
+                      <i class="fas fa-user-check"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card shadow mb-4">
+          {{-- data pake foreach --}}
+        </div>
+      </div>
+      {{-- end of details --}}
+      <div class="modal-footer">
+        <a href="" class="btn btn-success btnSimpan">Kirim</a>
       </div>
     </form>
     </div>
@@ -202,6 +257,53 @@
     // }
 
     // $('#ttl_sum').digits();
+
+    $(document).on('click', '.btnValidate', function(event) {
+      event.preventDefault();
+      var id = $('#id_pelanggan').val();
+      var url = "{{ url('/adm/update-activity') }}/"+id;
+      // alert(id);
+      $.ajax({
+        url : url,
+        method : 'POST',
+        contentType : false,
+        cache : false,
+        processData : false,
+        success:function(datas) {
+          console.log(datas.response);
+          
+        }
+      });
+    });
+
+    $(document).on('click', '.btnSimpan', function(event){
+      event.preventDefault();
+      var id = $('#id_pelanggan').val();
+      var url = "{{ url('/adm/send-message-telebot') }}/"+id;
+
+      $.ajax({
+        url : url,
+        method : 'POST',
+        contentType : false,
+        cache : false,
+        processData : false,
+        success:function(datas) {
+          console.log('Sukses Kirim Pesan');
+
+          Swal.fire(
+            'Berhasil!',
+            'Bot telah berhasil mengirimkan pesan !',
+            'success'
+          )
+        }
+      });
+    });
+
+    $(document).on('click', '.btnTelegram', function(event){
+      event.preventDefault();
+
+      $('.modalTelegram').modal('show');
+    });
 
     $(document).on('click', '.btnEdit', function(event){
       event.preventDefault();

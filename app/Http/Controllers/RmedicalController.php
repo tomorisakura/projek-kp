@@ -51,7 +51,7 @@ class RmedicalController extends Controller
 
         $t_medis->id = $request->no_medis;
         $t_medis->tgl_periksa = $request->tgl_periksa;
-        $t_medis->total_biaya = $sum_total;
+        $t_medis->total_biaya = $request->total_biaya;
         $t_medis->id_pemilik = $request->id_pemilik;
         $t_medis->status_pembayaran = $request->status_pembayaran;
         $t_medis->save();

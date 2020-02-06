@@ -27,7 +27,7 @@ class DataPenitipanController extends Controller
       $det_transaksi = DB::table('transaksi_penitipan')
       ->join('pelanggan', 'transaksi_penitipan.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_penitipan as det_penitipan', 'transaksi_penitipan.id', '=', 'det_penitipan.id_penitipan')
-      ->select('pelanggan.*', 'det_penitipan.*', 'transaksi_penitipan.*', 'transaksi_penitipan.total_biaya as tot_biaya', DB::raw('SUM(det_penitipan.harga_detail) as total_harga'))
+      ->select('pelanggan.*', 'pelanggan.id as id_pel', 'det_penitipan.*', 'transaksi_penitipan.*', 'transaksi_penitipan.total_biaya as tot_biaya', DB::raw('SUM(det_penitipan.harga_detail) as total_harga'))
       ->where('det_penitipan.id_penitipan', '=', $id)
       ->first();
 

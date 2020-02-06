@@ -24,7 +24,7 @@ Route::post('/adm/login', ['as' => 'post.login', 'uses' => 'LoginController@logi
 Route::get('/adm/logout', ['as' => 'get.logout', 'uses' => 'LoginController@logout']);
 
 Auth::routes();
-// Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
   Route::get('/adm/dashboard','AdminController@home') -> name('dashboard');
   Route::get('/adm/dashboard/get/users','AdminController@getDataUser');
@@ -96,5 +96,7 @@ Auth::routes();
   Route::post('/adm/data_user_aywa/update-pw', ['as' => 'update.pw', 'uses' => 'DataUserAywaController@updatePassword']);
 
   //route Telegram
-  Route::post('/adm/update-activity', 'TelegramController@updateActivity')->name('telebot');
-// });
+  Route::post('/adm/update-activity/{id}', 'TelegramController@updateActivity')->name('telebot');
+  Route::post('/adm/send-message-telebot/{id}', 'TelegramController@sendMessage')->name('telebot_message');
+  Route::post('/adm/send-message-medis-telebot/{id}', 'TelegramController@sendMessageMedis')->name('telebot_message_medis');
+});
