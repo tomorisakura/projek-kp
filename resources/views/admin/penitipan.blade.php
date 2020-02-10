@@ -30,7 +30,7 @@
               <select name="pemilik" class="form-control select2" id="opt_pemilik">
                 <option>-- PILIH --</option>
                 @foreach ($pelanggan as $customer)
-                  <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">PET00-0{{ $customer->id }} - {{ $customer->nama_pemilik }}</option>
+                  <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">{{ $customer->no_hp }} - {{ $customer->nama_pemilik }}</option>
                 @endforeach
               </select>
             </div>
@@ -60,6 +60,7 @@
           <input type="hidden" name="id_petugas" value="{{ Auth::user()->id }}" readonly>
           <input type="hidden" name="id_hewan" id="idJenis" readonly>
           <input type="hidden" name="id_trans_penitipan" id="id_penitipan">
+          <input type="number" name="total_harga" id="_total_trans">
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">ID. Penitipan</label>
@@ -219,6 +220,7 @@
       var day = date.getDate();
       var full = ((''+day).length<2 ? '0' : '') + day + "." + ((''+month).length<2 ? '0' : '') + month + '-' + date.getFullYear();
       var u = 0;
+      let data_harga = 0;
 
       $.ajax({
         url : url,
@@ -237,15 +239,14 @@
         event.preventDefault();
         var id = $('#_noPenitipan').val();
         var url = "{{ url('/adm/detail-penitipan/get/detail') }}/"+id;
-        // alert(url);
+
         $.ajax({
           url : url,
           method : 'GET',
           dataType : 'json',
           cache : false,
           success:function(datas) {
-            // alert(datas);
-            console.log(datas);
+
             if(datas != null) {
 
             $('#opt_pemilik').val(datas.nama_pemilik);
@@ -255,10 +256,13 @@
             $('#tgl_keluar').val(datas.tgl_keluar);
             $('#harga').val(datas.harga);
             $('.nama_pemilik').text("Data Dari "+datas.nama_pemilik);
+            $('#_total_trans').val(datas.total_biaya);
+            data_harga = datas.total_biaya;
+            console.log(data_harga);
 
             Swal.fire(
               'Apakah Benar ?',
-              'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik + ' Benar ?',
+              'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik,
               'question'
             )
 
@@ -332,7 +336,8 @@
         var equals = time / (miliSecondtoOneSecond * secondtoOneHour * hourstoDay);
         var price = equals * harga;
         $('#totalHarga').val(price);
-        console.log(price);
+        var sum = data_harga + price;
+        $('#_total_trans').val(sum);
       }
 
       //end

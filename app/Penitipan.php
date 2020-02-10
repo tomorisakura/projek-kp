@@ -20,6 +20,6 @@ class Penitipan extends Model
     }
 
     public function pelanggan() {
-      return $this->belongsTo(Pelanggan::class, 'id_pemilik'); 
+      return $this->belongsTo(Pelanggan::class, 'id_pemilik');
     }
 }
