@@ -73,8 +73,8 @@ class PetPenitipanController extends Controller
     } else {
 
       $pet = Penitipan::find($id);
-      $pet->total_biaya = $transaksi->sum('harga_detail');
-      dd($pet);
+      $pet->total_biaya = $request->total_harga_baru;
+      // dd($pet);
       $pet->save();
 
       $transaksi->nama_hewan = $request->nama_hewan;

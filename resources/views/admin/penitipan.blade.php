@@ -60,7 +60,7 @@
           <input type="hidden" name="id_petugas" value="{{ Auth::user()->id }}" readonly>
           <input type="hidden" name="id_hewan" id="idJenis" readonly>
           <input type="hidden" name="id_trans_penitipan" id="id_penitipan">
-          <input type="number" name="total_harga" id="_total_trans">
+          <input type="hidden" name="total_harga_baru" id="_total_trans">
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">ID. Penitipan</label>

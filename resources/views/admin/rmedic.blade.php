@@ -33,7 +33,7 @@
                 <select name="pemilik" class="form-control select2" id="opt_pemilik">
                   <option selected hidden class="btnClear">-- PILIH --</option>
                   @foreach ($pelanggan as $customer)
-                    <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">PET00-0{{ $customer->id }} - {{ $customer->nama_pemilik }}</option>
+                    <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">{{ $customer->no_hp }} - {{ $customer->nama_pemilik }}</option>
                   @endforeach
                 </select>
                 {{-- <div class="input-group-append">
