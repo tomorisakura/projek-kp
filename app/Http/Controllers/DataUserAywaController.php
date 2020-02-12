@@ -42,24 +42,34 @@ class DataUserAywaController extends Controller
        'image' => ['required', 'image', 'mimes:jpeg,bmp,png,jpg', 'max:5000']
      ]);
 
+     $userx = User::where('email', $request->email)->first();
+
+     if($userx) {
+      Alert::error('Gagal Menyimpan Data', 'Email Telah Ada');
+
+      return redirect('adm/data_user_aywa');
+
+     } else {
+
       $image = $request->file('image');
-      $new_name = time() . '.' . $image->getClientOriginalExtension();
-      $image->move(public_path('images/'), $new_name);
+      $parse_image = "users_".time().'.'.$image->getClientOriginalExtension();
+      $image->move(public_path('images/user_aywa/'), $parse_image);
+
       $form_data = array(
         'name' => $request['name'],
         'email' => $request['email'],
-        'username' => $request['username'],
         'no_hp' => $request['no_telp'],
         'level' => $request['status'],
         'remember_token' => $token,
         'password' => Hash::make($request['password']),
-        'image' => $new_name
+        'image' => $parse_image
       );
-
+ 
       User::create($form_data);
-      $pelanggan= User::all();
-
       return redirect('adm/data_user_aywa')->withSuccessMessage('Data Berhasil Ditambahkan');
+
+     }
+
     }
 
     public function update(Request $request, $id) {
@@ -82,7 +92,7 @@ class DataUserAywaController extends Controller
         // dd($image);
         $extension = rand() . '.' . $request->file('image')->getClientOriginalExtension();
         $image_name = rand() . '.' . $extension;
-        $image->move(public_path('images/'), $image_name);
+        $image->move(public_path('images/user_aywa/'), $image_name);
 
         $form_data = array(
           'image' => $image_name,
@@ -117,7 +127,7 @@ class DataUserAywaController extends Controller
 
     }
 
-    public function delete($id, Request $request) {
+    public function delete(Request $request, $id) {
       $delete_user = User::find($id);
       $image_path = "/images/".$request->image;
 

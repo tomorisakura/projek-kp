@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Jenis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+Use Alert;
 
 class JenisController extends Controller
 {
@@ -13,20 +14,29 @@ class JenisController extends Controller
     }
 
     public function create(Request $request) {
-        $jenis = array(
-            'nama' => $request['nama_jenis'],
-            'harga' => $request['harga_jenis']
-          );
-  
-        Validator::make($request->all(), [
-            'nama_jenis' => ['required', 'string', 'max:255'],
-            'harga_jenis' => ['required', 'string', 'max:255']
-        ]);
-    
-        Jenis::create($jenis);
-        $jenis = Jenis::all();
-    
-        return redirect('/adm/jenis-hewan')->withSuccessMessage('Berhasil Ditambahkan');
+
+        $hewan = Jenis::where('nama', $request->nama_jenis)->first();
+
+        if($hewan) {
+            Alert::error('Gagal', 'Nama Hewan Sudah Ada !');
+
+            return redirect('/adm/jenis-hewan');
+        } else {
+            $jenis = array(
+                'nama' => $request['nama_jenis'],
+                'harga' => $request['harga_jenis']
+              );
+      
+            Validator::make($request->all(), [
+                'nama_jenis' => ['required', 'string', 'max:255'],
+                'harga_jenis' => ['required', 'string', 'max:255']
+            ]);
+        
+            Jenis::create($jenis);
+            $jenis = Jenis::all();
+        
+            return redirect('/adm/jenis-hewan')->withSuccessMessage( 'Data '.$request->nama_jenis.' Berhasil Ditambahkan');
+        }
     }
 
     public function getDataJenis($id) {

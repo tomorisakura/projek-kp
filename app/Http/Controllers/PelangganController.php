@@ -33,20 +33,32 @@ class PelangganController extends Controller
             'no_hp' => ['required', 'string', 'max:10'],
         ]);
 
-        $datas->nama_pemilik = $request->nama_pemilik;
-        $datas->alamat = $request->alamat;
-        $datas->no_hp = $request->no_hp;
-        if($request->email == "") {
-            $datas->telegram = "Tidak Ada";
-        } else {
-            $datas->telegram = $request->email;
-        }
-        $datas->id_chat = 0;
-        $datas->save();
+        $find_hp = Pelanggan::where('no_hp', $request->no_hp)->first();
 
-        Alert::success('Registrasi Berhasil', 'Data Pemilik Berhasil Ditambahkan');
+        if($find_hp) {
+            
+            Alert::error('Registrasi Gagal', 'Nomor Handphone Sudah Ada !');
+
+            return redirect('/adm/pemilik-hewan');
+
+        } else {
+
+            $datas->nama_pemilik = $request->nama_pemilik;
+            $datas->alamat = $request->alamat;
+            $datas->no_hp = $request->no_hp;
+            if($request->email == "") {
+                $datas->telegram = "Tidak Ada";
+            } else {
+                $datas->telegram = $request->email;
+            }
+            $datas->id_chat = 0;
+            $datas->save();
     
-        return redirect('/adm/pemilik-hewan')->withSuccessMessage('Berhasil Ditambahkan');
+            Alert::success('Registrasi Berhasil', 'Data Pemilik Berhasil Ditambahkan');
+        
+            return redirect('/adm/pemilik-hewan')->withSuccessMessage('Berhasil Ditambahkan');
+
+        }
     }
 
 

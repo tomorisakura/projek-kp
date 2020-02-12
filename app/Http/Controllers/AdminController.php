@@ -17,25 +17,32 @@ class AdminController extends Controller
 
   public function home(Request $req) {
 
-    $status = $req['status_bayar'];
-
-    $penitipan = Penitipan::all();
-    $medis = Medis::all();
+    $sum_penitipan =  Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
+    $sum_medis = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
 
     $datas = [];
     $data_medis = [];
 
-    foreach($penitipan as $pet) {
-      $datas[] = $pet->sum('total_biaya');
-      $data_medis[] = $medis->sum('total_biaya');
-    }
+    $datas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
+    $data_medis[] = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
 
     $total = array_map('intval', $datas);
+    $total_medis = array_map('intval', $data_medis);
 
-    // dd(json_encode($total));
-    // dd(json_encode($data_medis));
+    return view('admin.dashboard', compact('total', 'total_medis', 'sum_penitipan', 'sum_medis'));
+  }
 
-    return view('admin.dashboard', compact('total', 'data_medis'));
+  public function getDataGrafik(Request $req) {
+
+    $datas = [];
+    $data_medis = [];
+
+    $datas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', $req->bulan)->sum('total_biaya');
+    $data_medis[] = Medis::whereYear('created_at', now())->whereMonth('created_at', $req->bulan)->sum('total_biaya');
+    $total = array_map('intval', $datas);
+    $total_medis = array_map('intval', $data_medis);
+
+    return view('layouts.grafik', compact('total', 'total_medis'));
   }
 
   public function login() {

@@ -54,7 +54,7 @@
               @foreach ($user as $users)
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td data-target="image"><img src="{{ URL::to('/') }}/images/{{ $users->image }}" class="rounded mx-auto d-block img-thumbnail" width="80" alt=""></td>
+                <td data-target="image"><img src="{{ URL::to('/') }}/images/user_aywa/{{ $users->image }}" class="rounded mx-auto d-block img-thumbnail" width="80" alt=""></td>
                 <td data-target="name">{{$users -> name}}</td>
                 <td data-target="email">{{$users -> email}}</td>
                 <td data-target="no_hp">{{$users -> no_hp}}</td>
@@ -102,7 +102,7 @@
                                 <div class="form-group row">
                                   <label class="col-sm-2 col-form-label">Profile</label>
                                   <div class="col-sm-10">
-                                    <img src="{{ URL::to('/') }}/images/{{ $users->image }}" width="60" alt="">
+                                    <img src="{{ URL::to('/') }}/images/user_aywa/{{ $users->image }}" width="60" alt="">
                                     <input type="file" name="image" class="" id="image">
                                   </div>
                                 </div>
@@ -166,38 +166,6 @@
 
                                     </div>
                                   </div>
-
-                                  {{-- <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-10">
-                                      <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" value="" required>
-
-                                      @error('password')
-                                      <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                      @enderror
-
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Konfirmasi Password</label>
-                                    <div class="col-sm-10">
-                                      <input type="password" name="con_password" class="form-control @error('con_password') is-invalid @enderror" id="no_telpUp" value="" required>
-
-                                      @error('con_password')
-                                      <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                      @enderror
-
-                                    </div>
-                                  </div> --}}
-
-                                  <div class="form-group row">
-                                    <div class="col-sm-3 col-form-label"><a href="{{ route('change.password', $users->id) }}">Ganti Password</a></div>
-                                  </div> 
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -270,20 +238,6 @@
                     <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" required autocomplete="email">
 
                     @error('email')
-                    <span class="invalid-feedback">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">Username</label>
-                  <div class="col-sm-10">
-                    <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" required autocomplete="off">
-
-                    @error('username')
                     <span class="invalid-feedback">
                       <strong>{{ $message }}</strong>
                     </span>

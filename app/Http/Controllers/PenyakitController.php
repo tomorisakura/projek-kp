@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Penyakit;
+Use Alert;
 
 class PenyakitController extends Controller
 {
@@ -13,13 +14,24 @@ class PenyakitController extends Controller
     }
 
     public function create(Request $req) {
-        $data = array(
-            'nama_penyakit' => $req['nama_penyakit'],
-            'harga' => $req['harga']
-        );
 
-        Penyakit::create($data);
-        return redirect('adm/penyakit/');
+        $penyakit = Penyakit::where('nama_penyakit', $req->nama_penyakit)->first();
+
+        if ($penyakit) {
+            Alert::error('Gagal', 'Nama Indikasi Sudah Ada !');
+            return redirect('adm/penyakit');
+        } else {
+
+            $data = array(
+                'nama_penyakit' => $req['nama_penyakit'],
+                'harga' => $req['harga']
+            );
+    
+            Penyakit::create($data);
+            Alert::success('Berhasil', 'Data '.$req->nama_penyakit.' Telah Ditambahkan !');
+            return redirect('adm/penyakit/');
+
+        }
     }
 
     public function getDataPenyakit($id) {

@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/adm/dashboard/get/users','AdminController@getDataUser');
   Route::get('/adm/dashboard/get/pelanggan','AdminController@getDataPelanggan');
   Route::get('/adm/dashboard/get/penitipan','AdminController@getDataPenitipan');
+  Route::post('/adm/dashboard/post','AdminController@getDataGrafik') -> name('post.grafik');
+  Route::get('/adm/dashboard/get','AdminController@getDataGrafik') -> name('get.grafik');
 
   //route pemilik hewan
   Route::get('/adm/pemilik-hewan', ['as' => 'view.pelanggan', 'uses' => 'PelangganController@index']);

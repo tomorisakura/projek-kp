@@ -33,7 +33,22 @@
   <li class="nav-item dropdown no-arrow">
     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-        <span id="date">auth name</span>
+        @if (Auth::user()->level == 1)
+            <span>Super Admin</span>
+        @endif
+
+        @if (Auth::user()->level == 2)
+            <span>Admin</span>
+        @endif
+
+        @if (Auth::user()->level == 3)
+            <span>Dokter Hewan</span>
+        @endif
+
+        @if (Auth::user()->level == 4)
+            <span>Helper</span>
+        @endif
+        {{-- <span id="date">auth name</span> --}}
       </span>
       <img class="img-profile rounded-circle" src="/assets/img/profil_aywa.png" >
     </a>
