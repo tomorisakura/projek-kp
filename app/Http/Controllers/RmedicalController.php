@@ -54,6 +54,7 @@ class RmedicalController extends Controller
         $t_medis->total_biaya = $request->total_biaya;
         $t_medis->id_pemilik = $request->id_pemilik;
         $t_medis->status_pembayaran = $request->status_pembayaran;
+        $t_medis->id_petugas = $request->id_petugas;
         $t_medis->save();
   
         $det_transaksi->nama_hewan = $request->nama_hewan;
@@ -64,7 +65,6 @@ class RmedicalController extends Controller
         $det_transaksi->id_medis = $request->no_medis;
         $det_transaksi->id_jenis = $request->id_jenis;
         $det_transaksi->id_penyakit = $request->id_penyakit;
-        $det_transaksi->id_petugas = $request->id_petugas;
         $det_transaksi->save();
 
         return redirect('/adm/rekam-medis')->withSuccessMessage('Transaksi Baru, Berhasil Ditambahkan');
@@ -84,7 +84,6 @@ class RmedicalController extends Controller
         $det_transaksi->id_medis = $request->no_medis;
         $det_transaksi->id_jenis = $request->id_jenis;
         $det_transaksi->id_penyakit = $request->id_penyakit;
-        $det_transaksi->id_petugas = $request->id_petugas;
         $det_transaksi->save();
 
         return redirect('/adm/rekam-medis')->withSuccessMessage('Transaksi Berhasil Ditambahkan');

@@ -12,7 +12,8 @@ class Medis extends Model
     'tgl_periksa',
     'total_biaya',
     'id_pemilik',
-    'status_pembayaran'
+    'status_pembayaran',
+    'id_petugas'
   ];
 
     public function detail_transaksi_medis() {

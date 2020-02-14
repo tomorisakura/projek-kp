@@ -16,6 +16,7 @@ class DataMedisController extends Controller
       $pelanggan = DB::table('transaksi_medis')
       ->join('pelanggan', 'transaksi_medis.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_medis', 'transaksi_medis.id', '=', 'detail_transaksi_medis.id_medis')
+      ->join('users', 'transaksi_medis.id_petugas', '=', 'users.id')
       ->select('transaksi_medis.id as m_id', 'pelanggan.*', 'detail_transaksi_medis.*', 'transaksi_medis.*', 'pelanggan.id as pe_id')
       ->orderBy('transaksi_medis.created_at', 'DESC')
       ->groupBy('transaksi_medis.id')
@@ -29,15 +30,15 @@ class DataMedisController extends Controller
       ->join('transaksi_medis', 'detail_transaksi_medis.id_medis', '=', 'transaksi_medis.id')
       ->join('jenis_hewan', 'detail_transaksi_medis.id_jenis', '=', 'jenis_hewan.id')
       ->join('penyakit', 'detail_transaksi_medis.id_penyakit', '=', 'penyakit.id')
-      ->join('users', 'detail_transaksi_medis.id_petugas', '=', 'users.id')
-      ->select('transaksi_medis.total_biaya', 'jenis_hewan.nama', 'penyakit.nama_penyakit', 'users.*', 'detail_transaksi_medis.nama_hewan', 'detail_transaksi_medis.gejala')
+      ->select('transaksi_medis.total_biaya', 'jenis_hewan.nama', 'penyakit.nama_penyakit', 'detail_transaksi_medis.nama_hewan', 'detail_transaksi_medis.gejala')
       ->where('detail_transaksi_medis.id_medis', '=', $id)
       ->get();
 
       $data_trans = DB::table('transaksi_medis')
       ->join('pelanggan', 'transaksi_medis.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_medis', 'transaksi_medis.id', '=', 'detail_transaksi_medis.id_medis')
-      ->select('transaksi_medis.total_biaya', 'transaksi_medis.tgl_periksa', 'transaksi_medis.status_pembayaran',  'pelanggan.id as id_pel', 'pelanggan.*', DB::raw('SUM(transaksi_medis.total_biaya) as total_harga'))
+      ->join('users', 'transaksi_medis.id_petugas', '=', 'users.id')
+      ->select('transaksi_medis.total_biaya', 'transaksi_medis.tgl_periksa', 'users.name', 'transaksi_medis.status_pembayaran',  'pelanggan.id as id_pel', 'pelanggan.*', DB::raw('SUM(transaksi_medis.total_biaya) as total_harga'))
       ->where('transaksi_medis.id', '=' , $id)
       ->first();
 
@@ -51,15 +52,15 @@ class DataMedisController extends Controller
       ->join('transaksi_medis', 'detail_transaksi_medis.id_medis', '=', 'transaksi_medis.id')
       ->join('jenis_hewan', 'detail_transaksi_medis.id_jenis', '=', 'jenis_hewan.id')
       ->join('penyakit', 'detail_transaksi_medis.id_penyakit', '=', 'penyakit.id')
-      ->join('users', 'detail_transaksi_medis.id_petugas', '=', 'users.id')
-      ->select('transaksi_medis.total_biaya', 'jenis_hewan.nama', 'penyakit.nama_penyakit', 'users.*', 'detail_transaksi_medis.nama_hewan', 'detail_transaksi_medis.gejala')
+      ->select('transaksi_medis.total_biaya', 'jenis_hewan.nama', 'penyakit.nama_penyakit', 'detail_transaksi_medis.nama_hewan', 'detail_transaksi_medis.gejala')
       ->where('detail_transaksi_medis.id_medis', '=', $id)
       ->get();
 
       $data_trans = DB::table('transaksi_medis')
       ->join('pelanggan', 'transaksi_medis.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_medis', 'transaksi_medis.id', '=', 'detail_transaksi_medis.id_medis')
-      ->select('transaksi_medis.*', 'transaksi_medis.tgl_periksa', 'transaksi_medis.status_pembayaran',  'pelanggan.nama_pemilik', DB::raw('SUM(transaksi_medis.total_biaya) as total_harga'))
+      ->join('users', 'transaksi_medis.id_petugas', '=', 'users.id')
+      ->select('transaksi_medis.*', 'transaksi_medis.tgl_periksa', 'users.name' , 'transaksi_medis.status_pembayaran',  'pelanggan.nama_pemilik', DB::raw('SUM(transaksi_medis.total_biaya) as total_harga'))
       ->where('transaksi_medis.id', '=' , $id)
       ->get();
 
@@ -72,8 +73,7 @@ class DataMedisController extends Controller
       ->join('transaksi_medis', 'detail_transaksi_medis.id_medis', '=', 'transaksi_medis.id')
       ->join('jenis_hewan', 'detail_transaksi_medis.id_jenis', '=', 'jenis_hewan.id')
       ->join('penyakit', 'detail_transaksi_medis.id_penyakit', '=', 'penyakit.id')
-      ->join('users', 'detail_transaksi_medis.id_petugas', '=', 'users.id')
-      ->select('transaksi_medis.*', 'jenis_hewan.*', 'penyakit.*', 'users.*', 'detail_transaksi_medis.*')
+      ->select('transaksi_medis.*', 'jenis_hewan.*', 'penyakit.*', 'detail_transaksi_medis.*')
       ->where('detail_transaksi_medis.id_medis', '=', $id)
       ->get();
 

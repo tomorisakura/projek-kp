@@ -34,14 +34,6 @@ class DataUserAywaController extends Controller
       $token = str::random(70);
       // dd($token);
 
-      Validator::make($request->all(), [
-       'name' => ['required', 'string', 'max:255'],
-       'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-       'no_hp' => ['required', 'string', 'max:255'],
-       'status' => ['required'],
-       'image' => ['required', 'image', 'mimes:jpeg,bmp,png,jpg', 'max:5000']
-     ]);
-
      $userx = User::where('email', $request->email)->first();
 
      if($userx) {
@@ -51,7 +43,24 @@ class DataUserAywaController extends Controller
 
      } else {
 
+      Validator::make($request->all(), [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'no_hp' => ['required', 'string', 'max:255'],
+        'status' => ['required']
+      ]);
+
+      $valid_photo = Validator::make($request->all(), [
+        'image' => ['required', 'image', 'max:50000', 'mimes:jpeg,bmp,png,jpg']
+      ]);
+      
       $image = $request->file('image');
+      
+      if($valid_photo->fails()) {
+        Alert::error('Gagal Menyimpan Data', 'Masukan Foto Dengan Benar');
+        return redirect('adm/data_user_aywa');
+      }
+
       $parse_image = "users_".time().'.'.$image->getClientOriginalExtension();
       $image->move(public_path('images/user_aywa/'), $parse_image);
 
@@ -81,17 +90,26 @@ class DataUserAywaController extends Controller
       if ($image) {
 
          Validator::make($request->all(), [
-          'image' => ['required', 'image', 'mimes:jpeg,bmp,png,jpg', 'max:5000'],
+          'image' => ['required|image|mimes:jpeg,bmppng,jpg|max:50000'],
           'name' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
           'no_hp' => ['required', 'string', 'max:255'],
           'level' => ['required'],
         ]);
 
-        Storage::delete(public_path('images/'), $image_name);
+        $validator = Validator::make($request->all(), [
+          'image' => ['required', 'image', 'max:50000', 'mimes:jpeg,bmp,png,jpg']
+        ]);
+
+        if($validator->fails()) {
+          Alert::error('Gagal Menyimpan Data','Terjadi Kesalahan Mengupload Foto');
+          return redirect('adm/data_user_aywa');
+        }
+
+        File::delete(public_path('images/user_aywa/'). $user->image);
         // dd($image);
-        $extension = rand() . '.' . $request->file('image')->getClientOriginalExtension();
-        $image_name = rand() . '.' . $extension;
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $image_name = "user_".time() . '.' . $extension;
         $image->move(public_path('images/user_aywa/'), $image_name);
 
         $form_data = array(
@@ -129,15 +147,13 @@ class DataUserAywaController extends Controller
 
     public function delete(Request $request, $id) {
       $delete_user = User::find($id);
-      $image_path = "/images/".$request->image;
 
-      if (File::exists($image_path)) {
-        @unlink($image_path);
+      if (File::exists(public_path('images/user_aywa/'). $delete_user->image)) {
+        File::delete(public_path('images/user_aywa/'). $delete_user->image);
         $delete_user -> delete();
       }
 
       $delete_user -> delete();
-      // dd($delete_user);
       return redirect('adm/data_user_aywa') -> withSuccessMessage('Data Berhasil Dihapus');
     }
 

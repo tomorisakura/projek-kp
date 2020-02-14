@@ -16,7 +16,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">
           Tambah Pegawai
         </button>
       </div>
@@ -72,7 +72,7 @@
                      <form class="" action="{{ route('delete', [$users-> id]) }}" method="get">
                        {{ csrf_field() }}
                        {{ method_field('DELETE') }}
-                       <button type="submit" name="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Pengguna Ini ?')"><i class="fas fa-trash"></i></button>
+                       <button type="submit" name="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Pengguna Ini ?')" id="btn_delete"><i class="fas fa-trash"></i></button>
                      </form>
                   </div>
                   <a href="" class="btn bg-warning btn-sm text-light btnPassword" id="{{ $users->id }}"><i class="fas fa-key"></i></a>
@@ -221,7 +221,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Nama</label>
                   <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" required autocomplete="off" autofocus>
 
                     @error('name')
                       <span class="invalid-feedback" role="alert">
@@ -249,7 +249,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Nomor Handphone</label>
                   <div class="col-sm-10">
-                    <input type="tel" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp">
+                    <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp">
 
                     @error('no_telp')
                     <span class="invalid-feedback">
@@ -263,7 +263,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Level</label>
                   <div class="col-sm-10">
-                    <select class="form-control @error('status') is-invalid @enderror" name="status">
+                    <select class="form-control @error('status') is-invalid @enderror" name="status" required>
                       <option hidden>--PILIH--</option>
                       <option value="1">Super Admin</option>
                       <option value="2">Admin</option>
@@ -291,13 +291,6 @@
                     </span>
                     @enderror
 
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">Konfirmasi Password</label>
-                  <div class="col-sm-10">
-                    <input type="password" name="password-confirm" class="form-control" id="password-confirm" value="{{ old('password') }}" required autocomplete="new-password">
                   </div>
                 </div>
             </div>
@@ -389,41 +382,6 @@ $(document).ready(function() {
 
     });
   });
-
-  //   $('#editPassword').submit(function(event){
-  //     event.preventDefault();
-  //     var request = new FormData(this);
-  //     var id = $('#_id_users').attr('value');
-  //     var url = "{{ url('/adm/data_user_aywa/update-pw') }}";
-  //     // alert(id);
-  //     $.ajax({
-  //         url : url,
-  //         method : 'POST',
-  //         data : request,
-  //         contentType : false,
-  //         cache : false,
-  //         processData : false,
-  //         success:function(response) {
-  //             alert(response);
-  //             $('#closeModalEdit').modal('hide');
-  //             setInterval(function() {
-  //               location.reload(true);
-  //             }, 1000);
-  //         }
-  //     });
-
-  //     Swal.fire({
-  //       position: 'top-end',
-  //       icon: 'success',
-  //       title: 'Data Berhasil Diubah',
-  //       showConfirmButton: false,
-  //       timer: 1500
-  //       });
-
-  //     setInterval(function() {
-  //       location.reload(true);
-  //     }, 500);
-  // });
 
 //end of content
 });

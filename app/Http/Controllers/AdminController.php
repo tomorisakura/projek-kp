@@ -17,13 +17,13 @@ class AdminController extends Controller
 
   public function home(Request $req) {
 
-    $sum_penitipan =  Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
-    $sum_medis = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
+    $sum_penitipan =  Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Lunas')->sum('total_biaya');
+    $sum_medis = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Lunas')->sum('total_biaya');
 
     $datas = [];
     $data_medis = [];
 
-    $datas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
+    $datas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Lunas')->sum('total_biaya');
     $data_medis[] = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
 
     $total = array_map('intval', $datas);

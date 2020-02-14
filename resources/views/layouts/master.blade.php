@@ -60,7 +60,7 @@
           <span>Pemilik Hewan</span></a>
       </li>
 
-      @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
+      {{-- @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2) --}}
           
       <li class="nav-item">
         <a class="nav-link" href="{{ route('medis') }}">
@@ -68,7 +68,7 @@
           <span>Medical Checkup</span></a>
         </li>
         
-      @endif
+      {{-- @endif --}}
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('pethotel') }}">
@@ -80,7 +80,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-users"></i>
-          <span>Data Pasien</span>
+          <span>Data Transaksi</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">

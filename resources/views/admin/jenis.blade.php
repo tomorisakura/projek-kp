@@ -27,7 +27,6 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID</th>
                     <th>Jenis</th>
                     <th>Harga</th>
                     <th>Aksi</th>
@@ -38,7 +37,6 @@
                 @foreach ($jenis as $data)
                 <tr>
                 <td><?php echo $no++; ?></td>
-                <td>HWN-0{{ $data->id }}</td>
                 <td>{{$data -> nama}}</td>
                 <td>{{number_format($data -> harga)}}</td>
 

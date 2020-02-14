@@ -20,6 +20,7 @@ class CreatePenitipan extends Migration
             $table->integer('total_biaya');
             $table->unsignedBigInteger('id_pemilik');
             $table->string('status_pembayaran');
+            $table->unsignedBigInteger('id_petugas');
             $table->timestamps();
         });
         
@@ -33,17 +34,16 @@ class CreatePenitipan extends Migration
             $table->integer('harga_detail');
             $table->string("id_penitipan")->index();
             $table->unsignedBigInteger('id_jenis');
-            $table->unsignedBigInteger('id_petugas');
             $table->timestamps();
         });
 
         Schema::table('transaksi_penitipan', function(Blueprint $column) {
             $column->foreign('id_pemilik')->references('id')->on('pelanggan')->onDelete('cascade')->onUpdate('cascade');
+            $column->foreign('id_petugas')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
 
         Schema::table('detail_transaksi_penitipan', function(Blueprint $column) {
             $column->foreign('id_penitipan')->references('id')->on('transaksi_penitipan')->onDelete('cascade')->onUpdate('cascade');
-            $column->foreign('id_petugas')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $column->foreign('id_jenis')->references('id')->on('jenis_hewan')->onDelete('cascade')->onUpdate('cascade');
         });
     }

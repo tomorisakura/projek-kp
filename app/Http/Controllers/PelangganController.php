@@ -19,13 +19,6 @@ class PelangganController extends Controller
     public function register(Request $request) {
 
         $datas = new Pelanggan;
-        
-        // $pelanggan = array(
-        //   'nama_pemilik' => $request['nama_pemilik'],
-        //   'alamat' => $request['alamat'],
-        //   'no_hp' => $request['no_hp'],
-        //   'telegram' => $request['email']
-        // );
 
         Validator::make($request->all(), [
             'nama_pemilik' => ['required', 'string', 'max:255'],

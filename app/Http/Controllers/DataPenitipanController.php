@@ -27,15 +27,15 @@ class DataPenitipanController extends Controller
       $det_transaksi = DB::table('transaksi_penitipan')
       ->join('pelanggan', 'transaksi_penitipan.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_penitipan as det_penitipan', 'transaksi_penitipan.id', '=', 'det_penitipan.id_penitipan')
-      ->select('pelanggan.*', 'pelanggan.id as id_pel', 'det_penitipan.*', 'transaksi_penitipan.*', 'transaksi_penitipan.total_biaya as tot_biaya', DB::raw('SUM(det_penitipan.harga_detail) as total_harga'))
+      ->join('users', 'transaksi_penitipan.id_petugas', '=', 'users.id')
+      ->select('pelanggan.*', 'pelanggan.id as id_pel', 'det_penitipan.*', 'users.name', 'transaksi_penitipan.*', 'transaksi_penitipan.total_biaya as tot_biaya', DB::raw('SUM(det_penitipan.harga_detail) as total_harga'))
       ->where('det_penitipan.id_penitipan', '=', $id)
       ->first();
 
       $det_penitipan = DB::table('detail_transaksi_penitipan as det_penitipan')
       ->join('transaksi_penitipan', 'det_penitipan.id_penitipan', '=', 'transaksi_penitipan.id')
       ->join('jenis_hewan', 'det_penitipan.id_jenis', '=', 'jenis_hewan.id')
-      ->join('users', 'det_penitipan.id_petugas', '=', 'users.id')
-      ->select('det_penitipan.*', 'jenis_hewan.*', 'users.*', 'transaksi_penitipan.*', 'jenis_hewan.harga as harga_hewan')
+      ->select('det_penitipan.*', 'jenis_hewan.*', 'transaksi_penitipan.*', 'jenis_hewan.harga as harga_hewan')
       ->where('det_penitipan.id_penitipan', '=', $id)
       ->orderBy('det_penitipan.nama_hewan')
       ->get();
@@ -59,15 +59,15 @@ class DataPenitipanController extends Controller
       $data_transaksi = DB::table('transaksi_penitipan')
       ->join('pelanggan', 'transaksi_penitipan.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_penitipan as det_penitipan', 'transaksi_penitipan.id', '=', 'det_penitipan.id_penitipan')
-      ->select('pelanggan.*', 'det_penitipan.*', 'transaksi_penitipan.*', DB::raw('SUM(det_penitipan.harga_detail) as total_harga'))
+      ->join('users', 'transaksi_penitipan.id_petugas', '=', 'users.id')
+      ->select('pelanggan.*', 'det_penitipan.*', 'transaksi_penitipan.*' , 'users.name', DB::raw('SUM(det_penitipan.harga_detail) as total_harga'))
       ->where('det_penitipan.id_penitipan', '=', $id)
       ->get();
 
       $data_penitipan = DB::table('detail_transaksi_penitipan as det_penitipan')
       ->join('transaksi_penitipan', 'det_penitipan.id_penitipan', '=', 'transaksi_penitipan.id')
       ->join('jenis_hewan', 'det_penitipan.id_jenis', '=', 'jenis_hewan.id')
-      ->join('users', 'det_penitipan.id_petugas', '=', 'users.id')
-      ->select('det_penitipan.*', 'jenis_hewan.*', 'users.*', 'transaksi_penitipan.*', 'jenis_hewan.harga as harga_hewan')
+      ->select('det_penitipan.*', 'jenis_hewan.*', 'transaksi_penitipan.*', 'jenis_hewan.harga as harga_hewan')
       ->where('det_penitipan.id_penitipan', '=', $id)
       ->get();
 

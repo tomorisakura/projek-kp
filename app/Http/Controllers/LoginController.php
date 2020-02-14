@@ -26,12 +26,12 @@ class LoginController extends Controller
             return redirect('/adm/dashboard');
         } else {
             Alert::error('Gagal Login','Data Email Dan Password Salah');
-            return view('auth.login');
+            return redirect('/adm/login');
         }
 
         Alert::error('Gagal Login','Data Email Dan Password Salah');
 
-        return view('auth.login');
+        return redirect('/adm/login');
     }
 
     public function logout() {

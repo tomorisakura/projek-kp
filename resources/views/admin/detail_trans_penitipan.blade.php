@@ -40,13 +40,17 @@
                 <td id="stt_byr">{{ $det_transaksi->status_pembayaran }}</td>
               </tr>
               <tr>
-                <td>Total Harga</td>
-                <td><p id="t_harga" class="text-success font-weight-bold">{{ number_format($det_transaksi->tot_biaya) }}</p></td>
+                <td>Helper</td>
+                <td>{{ $det_transaksi->name }}</td>
               </tr>
               <tr>
                 <td>Total Harga</td>
-                <td id="ttl_sum" class="text-success font-weight-bold"></td>
+                <td><p id="t_harga" class="text-success font-weight-bold">{{ number_format($det_transaksi->tot_biaya) }}</p></td>
               </tr>
+              {{-- <tr>
+                <td>Total Harga</td>
+                <td id="ttl_sum" class="text-success font-weight-bold"></td>
+              </tr> --}}
               <tr>
                 <td>----------------------------</td>
               </tr>
@@ -62,7 +66,6 @@
                   <th>Nomor Kandang</th>
                   <th>Jenis Kandang</th>
                   {{-- <th>Harga</th> --}}
-                  <th>Dokter Hewan</th>
                 </tr>
               </thead>
               <tbody>
@@ -73,7 +76,6 @@
                     <td>{{ $item->tgl_keluar }}</td>
                     <td>{{ $item->no_kandang }}</td>
                     <td>{{ $item->jenis_kandang }}</td>
-                    <td>{{ $item->name }}</td>
                     {{-- <td>{{ number_format($item->harga_detail) }}</td> --}}
                     <input type="hidden" class="harga_total" value="{{ $item->total_biaya }}">
                     <input type="hidden" name="" class="harga_satuan" value="{{ $item->harga_hewan }}">

@@ -44,9 +44,6 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#signup">Kontak</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('aywa.login') }}">Login</a>
-          </li>
         </ul>
       </div>
     </div>
@@ -199,7 +196,10 @@
   <!-- Footer -->
   <footer class="bg-black small text-center text-white-50">
     <div class="container">
-      Copyright &copy; aywapetcare.co.id
+      Copyright &copy; aywapetcare.dev
+    </div>
+    <div>
+      <a href="{{ route('aywa.login') }}">🦖</a>
     </div>
   </footer>
 

@@ -19,6 +19,7 @@ class CreateRekamMedis extends Migration
         $table->integer('total_biaya');
         $table->unsignedBigInteger('id_pemilik')->unsigned();
         $table->string('status_pembayaran');
+        $table->unsignedBigInteger('id_petugas');
         $table->timestamps();
       });
       
@@ -32,17 +33,16 @@ class CreateRekamMedis extends Migration
         $table->string('id_medis')->index();
         $table->unsignedBigInteger('id_jenis');
         $table->unsignedBigInteger('id_penyakit');
-        $table->unsignedBigInteger('id_petugas');
         $table->timestamps();
       });
 
       Schema::table('transaksi_medis', function(Blueprint $column){
         $column->foreign('id_pemilik')->references('id')->on('pelanggan')->onDelete('cascade')->onUpdate('cascade');
+        $column->foreign('id_petugas')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
       });
       
       Schema::table('detail_transaksi_medis', function(Blueprint $column) {
         $column->foreign('id_medis')->references('id')->on('transaksi_medis')->onDelete('cascade')->onUpdate('cascade');
-        $column->foreign('id_petugas')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         $column->foreign('id_jenis')->references('id')->on('jenis_hewan')->onDelete('cascade')->onUpdate('cascade');        
         $column->foreign('id_penyakit')->references('id')->on('penyakit')->onDelete('cascade')->onUpdate('cascade');
       });

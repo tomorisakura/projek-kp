@@ -36,6 +36,10 @@
                   <td>{{ $data_trans->status_pembayaran }}</td>
                 </tr>
                 <tr>
+                  <td>Dokter</td>
+                  <td>{{ $data_trans->name }}</td>
+                </tr>
+                <tr>
                   <td>Total Harga</td>
                   <td><p id="t_harga" class="text-success font-weight-bold">{{ number_format($data_trans->total_harga) }}</p></td>
                 </tr>

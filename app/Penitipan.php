@@ -13,6 +13,8 @@ class Penitipan extends Model
     'tgl_keluar',
     'total_biaya',
     'id_pemilik',
+    'status_pembayaran',
+    'id_petugas'
   ];
 
     public function detail_transaksi_penitipan() {

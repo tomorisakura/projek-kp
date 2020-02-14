@@ -27,7 +27,6 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID</th>
                     <th>Nama Penyakit</th>
                     <th>Harga</th>
                     <th>Aksi</th>
@@ -38,7 +37,6 @@
                 @foreach ($data as $datas)
                 <tr>
                 <td><?php echo $no++; ?></td>
-                <td>DSS{{ $datas->id }}</td>
                 <td>{{$datas -> nama_penyakit}}</td>
                 <td>{{number_format($datas -> harga)}}</td>
 
