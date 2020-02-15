@@ -25,6 +25,7 @@
                 <tr>
                     <th>No</th>
                     <th>Tanggal Masuk</th>
+                    <th>Tanggal Keluar</th>
                     <th>Nama Pemilik</th>
                     <th>Alamat</th>
                     <th>Nomor Handphone</th>
@@ -39,6 +40,7 @@
 
                   <td><?php echo $no++; ?></td>
                   <td>{{$customer-> tgl_masuk}}</td>
+                  <td>{{$customer-> tgl_keluar}}</td>
                   <td>{{$customer -> nama_pemilik}}</td>
                   <td>{{$customer -> alamat}}</td>
                   <td>{{$customer -> no_hp}}</td>

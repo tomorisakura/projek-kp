@@ -72,22 +72,30 @@ class PetPenitipanController extends Controller
 
     } else {
 
-      $pet = Penitipan::find($id);
-      $pet->total_biaya = $request->total_harga_baru;
-      // dd($pet);
-      $pet->save();
+      $validate = Penitipan::find($id);
 
-      $transaksi->nama_hewan = $request->nama_hewan;
-      $transaksi->jk_hewan = $request->jk_hewan;
-      $transaksi->ras_hewan = $request->ras_hewan;
-      $transaksi->no_kandang = $request->no_kandang;
-      $transaksi->id_penitipan = $request->no_penitipan;
-      $transaksi->harga_detail = $request->total_harga;
-      $transaksi->jenis_kandang = $request->jenis_kandang;
-      $transaksi->id_jenis = $request->id_hewan;
-      $transaksi->save();
+      if($validate->id_pemilik != $request->id_pemilik) {
+        Alert::error('Terjadi Kesalahan', 'Pastikan ID Transaksi dan Pemilik Relevan !');
 
-      return redirect('/adm/penitipan')->withSuccessMessage('Transaksi Berhasil Ditambahkan');
+        return redirect('/adm/penitipan');
+      } else {
+
+        $pet = Penitipan::find($id);
+        $pet->total_biaya = $request->total_harga_baru;
+        $pet->save();
+  
+        $transaksi->nama_hewan = $request->nama_hewan;
+        $transaksi->jk_hewan = $request->jk_hewan;
+        $transaksi->ras_hewan = $request->ras_hewan;
+        $transaksi->no_kandang = $request->no_kandang;
+        $transaksi->id_penitipan = $request->no_penitipan;
+        $transaksi->harga_detail = $request->total_harga;
+        $transaksi->jenis_kandang = $request->jenis_kandang;
+        $transaksi->id_jenis = $request->id_hewan;
+        $transaksi->save();
+
+        return redirect('/adm/penitipan')->withSuccessMessage('Transaksi Berhasil Ditambahkan');
+      }
 
     }
 

@@ -261,14 +261,14 @@
             console.log(data_harga);
 
             Swal.fire(
-              'Apakah Benar ?',
+              'Data Ditemukan ! ',
               'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik,
               'question'
             )
 
             } else {
 
-              Swal.fire('Data ID Belum Digunakan :D');
+              Swal.fire('Data ID Belum Digunakan 🤩');
               $('#status_bayar').attr('disabled', false);
               $('.nama_pemilik').text("Pemilik Hewan");
               $('#tgl_masuk').val("");

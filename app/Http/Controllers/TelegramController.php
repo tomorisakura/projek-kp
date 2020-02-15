@@ -43,7 +43,7 @@ class TelegramController extends Controller
         
         $id_chat_tele = $pelanggan->id_chat;
         $nama = $pelanggan->nama_pemilik;
-        $message = "Hay ".$nama. " Segeralah Untuk Mengambil Hewan Peliharaanmu ! Di Klinik Aywa Petcare";
+        $message = "Aww.... ".$nama. "  Batas Waktu Penitipan Kamu Telah Selesai 🥺 , Segera Datang Ke Klinik Aywa Petcare ya ! ❤️";
 
         $param = [
             'chat_id' => $id_chat_tele,
@@ -62,7 +62,7 @@ class TelegramController extends Controller
         
         $id_chat_tele = $pelanggan->id_chat;
         $nama = $pelanggan->nama_pemilik;
-        $message = "Hay ".$nama. " terima kasih telah melakukan medical checkup di klinik Aywa , Selamat Beraktivitas !";
+        $message = "Hay ".$nama. " Terima Kasih Telah Melakukan Medical Checkup di Klinik Aywa , Selamat Beraktivitas 🤩";
 
         $param = [
             'chat_id' => $id_chat_tele,

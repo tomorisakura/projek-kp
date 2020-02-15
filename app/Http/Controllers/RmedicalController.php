@@ -71,22 +71,36 @@ class RmedicalController extends Controller
 
       } else {
 
-        $medic = Medis::find($id);
+        $id_pemilik = $request->id_pemilik;
 
-        $medic->total_biaya = $det_transaksi->sum('harga_detail');
-        $medic->save();
+        $validate = Medis::find($id);
+        
+        if($validate->id_pemilik != $id_pemilik) {
+          // dd($validate);
 
-        $det_transaksi->nama_hewan = $request->nama_hewan;
-        $det_transaksi->jk_hewan = $request->jk_hewan;
-        $det_transaksi->ras_hewan = $request->ras_hewan;
-        $det_transaksi->gejala = $request->gejala;
-        $det_transaksi->harga_detail = $request->total_biaya;
-        $det_transaksi->id_medis = $request->no_medis;
-        $det_transaksi->id_jenis = $request->id_jenis;
-        $det_transaksi->id_penyakit = $request->id_penyakit;
-        $det_transaksi->save();
+          Alert::error('Terjadi Kesalahan', 'Pastikan ID Transaksi dan Pemilik Relevan !');
 
-        return redirect('/adm/rekam-medis')->withSuccessMessage('Transaksi Berhasil Ditambahkan');
+          return redirect('/adm/rekam-medis');
+
+        } else {
+
+          $medic = Medis::find($id);
+          $medic->total_biaya = $det_transaksi->sum('harga_detail');
+          $medic->save();
+  
+          $det_transaksi->nama_hewan = $request->nama_hewan;
+          $det_transaksi->jk_hewan = $request->jk_hewan;
+          $det_transaksi->ras_hewan = $request->ras_hewan;
+          $det_transaksi->gejala = $request->gejala;
+          $det_transaksi->harga_detail = $request->total_biaya;
+          $det_transaksi->id_medis = $request->no_medis;
+          $det_transaksi->id_jenis = $request->id_jenis;
+          $det_transaksi->id_penyakit = $request->id_penyakit;
+          $det_transaksi->save();
+  
+          return redirect('/adm/rekam-medis')->withSuccessMessage('Transaksi Berhasil Ditambahkan');
+
+        }
 
       }
 

@@ -181,7 +181,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Status Pembayaran</label>
                 <div class="col-sm-10">
-                  <select name="status_pembayaran" class="form-control" id="">
+                  <select name="status_pembayaran" class="form-control" id="status_pembayaran">
                     <option>--PILIH--</option>
                     <option value="Belum Lunas"> Belum Lunas</option>
                     <option value="Lunas">Lunas</option>
@@ -304,21 +304,21 @@ $(document).ready(function() {
 
         $('#opt_pemilik').val(datas.nama_pemilik);
         $('#_noHp').val(datas.no_hp);
-        $('#status_bayar').attr('disabled', true).val(datas.status_pembayaran);
-        $('#tgl_masuk').val(datas.tgl_masuk);
-        $('#tgl_keluar').val(datas.tgl_keluar);
+        $('#status_pembayaran').attr('disabled', true).val(datas.status_pembayaran);
+        $('#tgl_periksa').attr('disabled', true).val(datas.tgl_periksa);
         $('#harga').val(datas.harga);
         $('.nama_pemilik').text("Data Dari "+datas.nama_pemilik);
+        $('#id_pemilik').val(datas.id_pemilik);
 
         Swal.fire(
-          'Apakah Benar ?',
-          'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik + ' Benar ?',
+          'Data Ditemukan ! ',
+          'Data ID ' +id + ' adalah data dari ' +datas.nama_pemilik,
           'question'
         )
 
         } else {
 
-          Swal.fire('Data ID Belum Digunakan :D');
+          Swal.fire('Data ID Belum Digunakan 🤩');
           $('#status_bayar').attr('disabled', false);
           $('.nama_pemilik').text("Pemilik Hewan");
           $('#tgl_masuk').val("");
