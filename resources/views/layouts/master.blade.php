@@ -105,7 +105,7 @@
             <h6 class="collapse-header">Master Data</h6>
             <a class="collapse-item" href="{{ route('pegawai') }}">Data Pegawai</a>
             <a class="collapse-item" href="{{ route('view.jenis') }}">Data Jenis Hewan</a>
-            <a class="collapse-item" href="{{ route('view.penyakit') }}">Data Penyakit Hewan</a>
+            <a class="collapse-item" href="{{ route('view.penyakit') }}">Data Antigenik</a>
           </div>
         </div>
       </li>

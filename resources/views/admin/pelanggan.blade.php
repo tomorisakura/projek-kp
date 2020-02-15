@@ -27,7 +27,6 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>ID</th>
                     <th>Nama Pemilik</th>
                     <th>Alamat</th>
                     <th>No Handphone</th>
@@ -40,7 +39,6 @@
                 @foreach ($pelanggan as $customer)
                 <tr>
                 <td><?php echo $no++; ?></td>
-                <td>PLGN-0{{ $customer->id }}</td>
                 <td id="td_nama">{{$customer -> nama_pemilik}}</td>
                 <td>{{$customer -> alamat}}</td>
                 <td>{{$customer -> no_hp}}</td>

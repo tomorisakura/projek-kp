@@ -65,7 +65,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->nama_penyakit }}</td>
                     <td>{{ $item->gejala }}</td>
-                    <td>{{ number_format($item->total_biaya) }}</td>
+                    <td>{{ number_format($item->harga_detail) }}</td>
                 </tr>
                 @endforeach
                 </tbody>

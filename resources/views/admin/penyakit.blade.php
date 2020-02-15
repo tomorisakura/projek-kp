@@ -13,7 +13,7 @@
 
     <!-- Page Heading -->
     <div class="container-fluid">
-        <h1 class="h3 mb-2 text-gray-800">Master Data Penyakit Hewan</h1>
+        <h1 class="h3 mb-2 text-gray-800">Master Data Antigenik</h1>
         <p class="mb-4"></p>
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -27,7 +27,7 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Penyakit</th>
+                    <th>Nama</th>
                     <th>Harga</th>
                     <th>Aksi</th>
                   </tr>

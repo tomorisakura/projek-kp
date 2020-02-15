@@ -85,7 +85,7 @@ class RmedicalController extends Controller
         } else {
 
           $medic = Medis::find($id);
-          $medic->total_biaya = $det_transaksi->sum('harga_detail');
+          $medic->total_biaya = $request->total_harga_baru;
           $medic->save();
   
           $det_transaksi->nama_hewan = $request->nama_hewan;

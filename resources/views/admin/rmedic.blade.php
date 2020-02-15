@@ -75,6 +75,7 @@
             <input type="hidden" name="id_trans_medis" id="id_medis">
             <input type="hidden" name="harga_hewan" id="_harga_hewan">
             <input type="hidden" name="harga_penyakit" id="_harga_penyakit">
+            <input type="hidden" name="total_harga_baru" id="_total_trans">
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">ID. Medis</label>
@@ -287,6 +288,7 @@ $(document).ready(function() {
 
   var h_hewan = 0;
   var h_penyakit = 0;
+  var h_detail = 0;
 
   $(document).on('click', '.btn_search', function(event){
     event.preventDefault();
@@ -309,6 +311,7 @@ $(document).ready(function() {
         $('#harga').val(datas.harga);
         $('.nama_pemilik').text("Data Dari "+datas.nama_pemilik);
         $('#id_pemilik').val(datas.id_pemilik);
+        h_detail = datas.total_biaya;
 
         Swal.fire(
           'Data Ditemukan ! ',
@@ -352,7 +355,8 @@ $(document).ready(function() {
   $(document).on('change', '#_namaPenyakit', function(event){
     var id = $(this).find(':selected')[0].value;
     var url = "{{ url('/adm/penyakit/get') }}/"+id;
-    var t_biaya = 0
+    var t_biaya = 0;
+    var t_harga = 0;
     $.ajax({
       url : url,
       method : 'GET',
@@ -361,11 +365,14 @@ $(document).ready(function() {
       success:function(data) {
         h_penyakit = data.harga;
         $('#idPenyakit').val(data.id);
-        console.log(h_hewan);
-        console.log(h_penyakit)
+        // console.log(h_hewan);
+        // console.log(h_penyakit);
+        // console.log(h_detail);
         t_biaya = h_penyakit + h_hewan;
         $('#_subBiaya').val(t_biaya);
         $('#_harga_penyakit').val(data.harga);
+        t_harga = t_biaya +h_detail;
+        $('#_total_trans').val(t_harga);
       }
     });
   });
