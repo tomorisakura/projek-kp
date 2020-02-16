@@ -86,7 +86,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Jenis Hewan</label>
             <div class="col-sm-10">
-              <select name="jenis_hewan" class="form-control select2" id="_jenisHewan">
+              <select name="jenis_hewan" class="form-control select2" id="_jenisHewan" required>
                 <option hidden class="jHewan">--Pilih--</option>
                 @foreach ($jenis as $jeniss)
                 <option value="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
@@ -149,7 +149,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Nomor Kandang</label>
             <div class="col-sm-10">
-              <input type="text" name="no_kandang" class="form-control" autocomplete="off">
+              <input type="text" name="no_kandang" class="form-control" autocomplete="off" required>
             </div>
           </div>
 
@@ -167,14 +167,14 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Harga</label>
             <div class="col-sm-10">
-              <input type="number" readonly name="total_harga" id="totalHarga" class="form-control">
+              <input type="number" readonly name="total_harga" id="totalHarga" class="form-control" required>
             </div>
           </div>
 
         <div class="form-group row">
           <label class="col-sm-2 col-form-label">Status Pembayaran</label>
           <div class="col-sm-10">
-            <select name="status_pembayaran" class="form-control" id="status_bayar">
+            <select name="status_pembayaran" class="form-control" id="status_bayar" required>
               <option>--PILIH--</option>
               <option value="Belum Lunas"> Belum Lunas</option>
               <option value="Lunas">Lunas</option>

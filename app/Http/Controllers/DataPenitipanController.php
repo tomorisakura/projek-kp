@@ -71,7 +71,7 @@ class DataPenitipanController extends Controller
       ->where('det_penitipan.id_penitipan', '=', $id)
       ->get();
 
-      $customPaper = array(0,0,580.00,383.80);
+      $customPaper = array(0,0,580.00,453.80);
 
       $pdf = PDF::loadView('admin.invoice_penitipan', compact('data_transaksi','data_penitipan'))->setPaper($customPaper, 'portrait');
       return $pdf->stream();

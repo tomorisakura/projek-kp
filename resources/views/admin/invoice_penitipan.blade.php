@@ -35,6 +35,9 @@
         h4, p{
             margin:0px;
         }
+        .notice {
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -57,9 +60,9 @@
                 <tr>
                     @foreach ($data_transaksi as $item)
                     <td colspan="2"><br>
-                        <p>Pemilik Hewan: {{ $item->nama_pemilik }}</p><br>
-                          <p>Tanggal Masuk : {{ $item->tgl_masuk }}</p><br>
-                          <p>Status Pembayaran : {{ $item->status_pembayaran }}</p><br>
+                        <p>Pemilik Hewan: {{ $item->nama_pemilik }}</p>
+                          <p>Tanggal Masuk : {{ $item->tgl_masuk }}</p>
+                          <p>Status Pembayaran : <strong>{{ $item->status_pembayaran }}</strong></p><br>
                       </td>
                       @php
                           break;
@@ -93,11 +96,15 @@
               @foreach ($data_transaksi as $item)
                 <tr>
                   <th colspan="4">Total Biaya Penitipan</th>
-                    <td>Rp {{ number_format($item->total_biaya) }}</td>
+                    <td>Rp. <strong>{{ number_format($item->total_biaya) }}</strong></td>
                   </tr>
               @endforeach
             </tfoot>
         </table>
+        <br>
+        <p class="notice">/* untuk mendapatkan pemberitahuan di telegram,<br> 
+            tambahkan <strong>@grevi_aywa_bot</strong> dan klik start
+        </p>
     </div>
 </body>
 </html>

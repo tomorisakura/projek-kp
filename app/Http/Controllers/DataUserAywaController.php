@@ -90,7 +90,6 @@ class DataUserAywaController extends Controller
       if ($image) {
 
          Validator::make($request->all(), [
-          'image' => ['required|image|mimes:jpeg,bmppng,jpg|max:50000'],
           'name' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
           'no_hp' => ['required', 'string', 'max:255'],

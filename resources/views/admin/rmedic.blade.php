@@ -94,7 +94,7 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Nama Hewan</label>
               <div class="col-sm-10">
-                <input type="text" name="nama_hewan" class="form-control" id="_hewan" autocomplete="off">
+                <input type="text" name="nama_hewan" class="form-control" id="_hewan" autocomplete="off" required>
               </div>
             </div>
 
@@ -125,7 +125,7 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Jenis Hewan</label>
               <div class="col-sm-10">
-                <select name="jenis_hewan" class="form-control select2" id="_jenisHewan">
+                <select name="jenis_hewan" class="form-control select2" id="_jenisHewan" required>
                   <option selected hidden class="jHewan">--Pilih--</option>
                   @foreach ($jenis as $jeniss)
                   <option value="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
@@ -147,9 +147,9 @@
               {{-- <input type="hidden" name="id_medis" value=""> --}}
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Nama Penyakit</label>
+                <label class="col-sm-2 col-form-label">Antigenetik</label>
                 <div class="col-sm-10">
-                  <select name="nama_penyakit" class="form-control select2" id="_namaPenyakit">
+                  <select name="nama_penyakit" class="form-control select2" id="_namaPenyakit" required>
                     <option selected hidden class="jPenyakit">--PIlih--</option>
                     @foreach ($penyakit as $sakit)
                         <option value="{{ $sakit->id }}">{{ $sakit->nama_penyakit }}</option>
@@ -168,21 +168,21 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tgl Pemeriksaan</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="tgl_periksa" id="tgl_periksa" autocomplete="off">
+                  <input type="text" class="form-control" name="tgl_periksa" id="tgl_periksa" autocomplete="off" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Biaya</label>
                 <div class="col-sm-10">
-                  <input type="number" readonly class="form-control" name="total_biaya" id="_subBiaya">
+                  <input type="number" readonly class="form-control" name="total_biaya" id="_subBiaya" required>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Status Pembayaran</label>
                 <div class="col-sm-10">
-                  <select name="status_pembayaran" class="form-control" id="status_pembayaran">
+                  <select name="status_pembayaran" class="form-control" id="status_pembayaran" required>
                     <option>--PILIH--</option>
                     <option value="Belum Lunas"> Belum Lunas</option>
                     <option value="Lunas">Lunas</option>

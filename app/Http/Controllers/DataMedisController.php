@@ -64,7 +64,7 @@ class DataMedisController extends Controller
       ->where('transaksi_medis.id', '=' , $id)
       ->get();
 
-      $customPaper = array(0,0,580.00,383.80);
+      $customPaper = array(0,0,580.00,453.80);
 
       $pdf = PDF::loadView('admin.invoice', compact('data_trans','data_det'))->setPaper($customPaper, 'portrait');
       return $pdf->stream();
