@@ -70,50 +70,7 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        {{-- content --}}
-        <form action="" method="post" id="form_change">
-        <div class="form-group row">
-          <label class="col-sm-5 col-form-label">Bulan</label>
-          <div class="col-sm-12">
-            <select name="bulan" class="form-control" id="">
-              <option value="01">Januari</option>
-              <option value="02">Februari</option>
-              <option value="03">Maret</option>
-              <option value="04">April</option>
-              <option value="05">Mei</option>
-              <option value="06">Juni</option>
-              <option value="07">Juli</option>
-              <option value="08">Agustus</option>
-              <option value="09">September</option>
-              <option value="10">Oktober</option>
-              <option value="11">November</option>
-              <option value="12">Desember</option>
-            </select>
-          </div>
-        </div>
-
-        {{-- end of content --}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <input type="submit" class="btn btn-primary btn_reload" value="Simpan"></input>
-      </form>
-      </div>
-    </div>
-  </div>
-</div>
-
+@if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
 <div class="btn btn-primary mb-3">
   Pendapatan Penitipan Rp. {{ number_format($sum_penitipan) }}
 </div>
@@ -126,6 +83,7 @@
   <div id="grafik"></div>
 </div>
 </div>
+@endif
 
 <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -204,7 +162,7 @@
         text: 'Grafik'
     },
     xAxis: {
-        categories: ['grafik akan berubah sesuai bulan'],
+        categories: ['grafik akan berubah sesuai pergantian bulan'],
         crosshair: false
     },
     yAxis: {

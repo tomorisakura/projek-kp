@@ -60,7 +60,7 @@
           <span>Pemilik Hewan</span></a>
       </li>
 
-      {{-- @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2) --}}
+      @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
           
       <li class="nav-item">
         <a class="nav-link" href="{{ route('medis') }}">
@@ -68,7 +68,7 @@
           <span>Medical Checkup</span></a>
         </li>
         
-      {{-- @endif --}}
+      @endif
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('pethotel') }}">
