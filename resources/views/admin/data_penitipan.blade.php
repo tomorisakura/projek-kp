@@ -46,7 +46,7 @@
                   <td>{{$customer -> no_hp}}</td>
                   <td>
                     <a href="{{ route('detail.penitipan', $customer->p_id ) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
-                    <a href="{{ route('get.pdf_penitipan', $customer->p_id) }}" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>
+                    <a href="{{ route('get.pdf_penitipan', $customer->p_id) }}" target="_blank" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>
                   </td>
                   </tr>
                   @endforeach

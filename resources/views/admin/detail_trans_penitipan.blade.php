@@ -231,8 +231,20 @@
       }
     });
 
-    $("#tgl_masuk").datepicker({dateFormat : 'dd, MM, yy'});
-    $('#tgl_keluar').datepicker({dateFormat : 'dd, MM, yy'});
+    $("#tgl_masuk").datepicker({
+      dateFormat : 'dd, MM, yy',
+      changeYear : true,
+      changeMonth : true,
+      yearRange : '-100:+20',
+      minDate : 0
+    });
+    $('#tgl_keluar').datepicker({
+      dateFormat : 'dd, MM, yy',
+      changeYear : true,
+      changeMonth : true,
+      yearRange : '-100:+20',
+      minDate : 0
+    });
 
     var sub_harga = $('#_total_biaya').val();
     // var sub_biaya = $('.harga_satuan').val();

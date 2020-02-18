@@ -46,7 +46,9 @@
 
                 <td>
                     <a href="" class="btn bg-info btn-sm text-light btnEdit" id="{{ $customer->id }}" data-toggle="modal" data-target=""><i class="fas fa-user-edit"></i></a>
+                    @if (Auth::user()->level == 1 || Auth::user()->level == 2) 
                     <a href="" class="btn bg-danger btn-sm text-light btnHapus" id="{{ $customer->id }}"><i class="fas fa-trash"></i></a>
+                    @endif
                 </td>
                 </tr>
                 @endforeach

@@ -70,12 +70,16 @@
         
       @endif
 
+      @if (Auth::user()->level == 1 || Auth::user()->level == 2 || Auth::user()->level == 4)
+          
       <li class="nav-item">
         <a class="nav-link" href="{{ route('pethotel') }}">
           <i class="fas fa-cat"></i>
           <span>Pet Hotel</span></a>
-      </li>
-
+        </li>
+      
+      @endif
+        
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

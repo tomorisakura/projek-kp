@@ -43,10 +43,10 @@ class DataUserAywaController extends Controller
 
      } else {
 
-      Validator::make($request->all(), [
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'no_hp' => ['required', 'string', 'max:255'],
+      $valid = Validator::make($request->all(), [
+        'name' => ['required', 'string'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'no_hp' => ['required', 'digits:15'],
         'status' => ['required']
       ]);
 
@@ -59,6 +59,8 @@ class DataUserAywaController extends Controller
       if($valid_photo->fails()) {
         Alert::error('Gagal Menyimpan Data', 'Masukan Foto Dengan Benar');
         return redirect('adm/data_user_aywa');
+      } elseif($valid->fails()) {
+        Alert::error('Gagal Menyimpan Data', 'Pastikan Data Yang Dimasukan Valid');
       }
 
       $parse_image = "users_".time().'.'.$image->getClientOriginalExtension();
@@ -89,10 +91,10 @@ class DataUserAywaController extends Controller
 
       if ($image) {
 
-         Validator::make($request->all(), [
+         $valid = Validator::make($request->all(), [
           'name' => ['required', 'string', 'max:255'],
-          'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-          'no_hp' => ['required', 'string', 'max:255'],
+          'email' => ['required', 'string', 'email', 'max:255'],
+          'no_hp' => ['required','numeric', 'digits:15'],
           'level' => ['required'],
         ]);
 
@@ -103,6 +105,8 @@ class DataUserAywaController extends Controller
         if($validator->fails()) {
           Alert::error('Gagal Menyimpan Data','Terjadi Kesalahan Mengupload Foto');
           return redirect('adm/data_user_aywa');
+        } elseif($valid->fails()) {
+          Alert::error('Gagal Menyimpan Data', 'Pastikan Data Yang Dimasukan Valid');
         }
 
         File::delete(public_path('images/user_aywa/'). $user->image);

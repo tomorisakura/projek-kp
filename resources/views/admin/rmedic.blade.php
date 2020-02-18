@@ -210,7 +210,13 @@
 <script type="text/javascript">
 
 $("#tgl_mulai").datepicker({dateFormat : 'dd, MM, yy'});
-$('#tgl_periksa').datepicker({dateFormat : 'dd, MM, yy'});
+$('#tgl_periksa').datepicker({
+  dateFormat : 'dd, MM, yy',
+  changeYear : true,
+  changeMonth : true,
+  yearRange : '-100:+20',
+  minDate : 0
+});
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 $(document).ready(function() {
