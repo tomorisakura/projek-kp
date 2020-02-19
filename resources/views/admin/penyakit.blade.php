@@ -17,7 +17,7 @@
         <p class="mb-4"></p>
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <a href="" class="btn btn-success float-right" id="btnTambah" data-target=".tambah-jenis" data-toggle="modal">Tambah Jenis Penyakit</a>
+            <a href="" class="btn btn-success float-right" id="btnTambah" data-target=".tambah-jenis" data-toggle="modal">Tambah Jenis Antigenik</a>
           </div>
 
           <!-- table -->
@@ -65,7 +65,7 @@
         {{-- <h1 class="h3 mb-4 text-gray-800" id="labelModal">Form Pendaftaran Pemilik Hewan</h1> --}}
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Jenis Penyakit Hewan</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Jenis Antigenik Hewan</h6>
           </div>
           <div class="card-body">
 
@@ -74,7 +74,7 @@
             <input type="hidden" name="id" value="">
 
               <div class="form-group row">
-              <label class="col-sm-5 col-form-label">Nama Penyakit Hewan</label>
+              <label class="col-sm-5 col-form-label">Nama Antigenik</label>
               <div class="col-sm-12">
                 <input type="text" name="nama_penyakit" class="form-control" id="_nama" autocomplete="off">
               </div>
@@ -83,7 +83,7 @@
             <div class="form-group row">
               <label class="col-sm-5 col-form-label">Harga</label>
               <div class="col-sm-12">
-                <input type="tel" name="harga" id="_harga" class="form-control">
+                <input type="number" name="harga" id="_harga" class="form-control">
               </div>
             </div>
 
@@ -112,7 +112,7 @@
           {{-- <h1 class="h3 mb-4 text-gray-800" id="labelModal">Form Pendaftaran Pemilik Hewan</h1> --}}
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Edit Jenis Penyakit</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Edit Antigenik</h6>
             </div>
             <div class="card-body">
   
@@ -121,7 +121,7 @@
               <input type="hidden" name="idPenyakit_edit" id="idPenyakit" value="">
   
                 <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Jenis Penyakit</label>
+                <label class="col-sm-2 col-form-label">Antigenik</label>
                 <div class="col-sm-10">
                   <input type="text" name="nama_edit" class="form-control" id="_namaPenyakit" autocomplete="off">
                 </div>
@@ -130,7 +130,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Harga</label>
                 <div class="col-sm-10">
-                  <input type="tel" name="harga_edit" id="_hargaPenyakit" class="form-control">
+                  <input type="number" name="harga_edit" id="_hargaPenyakit" class="form-control">
                 </div>
               </div>
   

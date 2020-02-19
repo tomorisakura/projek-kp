@@ -22,14 +22,14 @@ class LoginController extends Controller
         $email = $req->email;
         // $data = DB::table('users')->where('email', $email)->first();
         if(Auth::attempt($req->only('email', 'password'))) {
-            Alert::success('Login Berhasil');
+            Alert::success('Login Berhasil', 'Selamat Datang '.Auth::user()->name);
             return redirect('/adm/dashboard');
         } else {
-            Alert::error('Gagal Login','Data Email Dan Password Salah');
+            Alert::error('Gagal Login','Data Email atau Password Salah');
             return redirect('/adm/login');
         }
 
-        Alert::error('Gagal Login','Data Email Dan Password Salah');
+        Alert::error('Gagal Login','Data Email atau Password Salah');
 
         return redirect('/adm/login');
     }

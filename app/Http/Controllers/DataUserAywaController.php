@@ -46,7 +46,7 @@ class DataUserAywaController extends Controller
       $valid = Validator::make($request->all(), [
         'name' => ['required', 'string'],
         'email' => ['required', 'string', 'email', 'max:255'],
-        'no_hp' => ['required', 'digits:15'],
+        'no_hp' => ['required', 'min:15'],
         'status' => ['required']
       ]);
 
@@ -94,7 +94,7 @@ class DataUserAywaController extends Controller
          $valid = Validator::make($request->all(), [
           'name' => ['required', 'string', 'max:255'],
           'email' => ['required', 'string', 'email', 'max:255'],
-          'no_hp' => ['required','numeric', 'digits:15'],
+          'no_hp' => ['required','numeric', 'min:15'],
           'level' => ['required'],
         ]);
 

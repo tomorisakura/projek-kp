@@ -249,8 +249,8 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Nomor Handphone</label>
                   <div class="col-sm-10">
-                    <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp">
-
+                    <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp') }}" required autocomplete="off">
+                    <span class="form-control-label text-danger" id="alert-hp"></span>
                     @error('no_telp')
                     <span class="invalid-feedback">
                       <strong>{{ $message }}</strong>
@@ -381,6 +381,19 @@ $(document).ready(function() {
       }
 
     });
+  });
+
+  $(document).on('keyup', function(event){
+    event.preventDefault();
+
+    var no_hp = $('#no_telp').val();
+
+    if(no_hp.length == 13) {
+      $('#alert-hp').attr('class', 'text-success').text("valid");
+    } else if(no_hp.length >= 13 || no_hp.length <= 13) {
+      $('#alert-hp').attr('class', 'text-danger').text("nomor tidak valid");
+    }
+
   });
 
 //end of content
