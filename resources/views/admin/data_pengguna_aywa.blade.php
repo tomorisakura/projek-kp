@@ -388,9 +388,9 @@ $(document).ready(function() {
 
     var no_hp = $('#no_telp').val();
 
-    if(no_hp.length == 13) {
+    if(no_hp.length == 12) {
       $('#alert-hp').attr('class', 'text-success').text("valid");
-    } else if(no_hp.length >= 13 || no_hp.length <= 13) {
+    } else if(no_hp.length > 12 || no_hp.length < 12) {
       $('#alert-hp').attr('class', 'text-danger').text("nomor tidak valid");
     }
 

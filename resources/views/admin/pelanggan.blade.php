@@ -96,7 +96,8 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Nomor Handphone</label>
               <div class="col-sm-10">
-                <input type="tel" name="no_hp" id="_noHp" class="form-control">
+                <input type="number" name="no_hp" id="_noHp" class="form-control" autocomplete="off">
+                <span class="form-control-label text-danger" id="alert-hp"></span>
               </div>
             </div>
 
@@ -156,7 +157,8 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nomor Handphone</label>
                 <div class="col-sm-10">
-                  <input type="tel" name="no_hp" id="_noHp_edit" class="form-control">
+                  <input type="number" name="no_hp" id="_noHp_edit" class="form-control" autocomplete="off">
+                  <span class="form-control-label text-danger" id="alert-hp-edit"></span>
                 </div>
               </div>
   
@@ -195,16 +197,6 @@
         }
       });
       console.log('js valid');
-    //   function loadDataTable() {
-    //       var url ="{{ url('/adm/pemilik-hewan/getData') }}";
-    //       $.ajax({
-    //           url : url,
-    //           success:function(data) {
-    //               $('#loadTable').html(data);
-    //           }
-    //       });
-    //   }
-    //   loadDataTable();
 
       $(document).on('click', '.btnEdit', function(event) {
           event.preventDefault();
@@ -264,6 +256,23 @@
           setInterval(function() {
                 location.reload();
             }, 1000);
+      });
+
+      $(document).on('keyup', function(event){
+        event.preventDefault();
+
+        var no_hp = $('#_noHp').val();
+        var no_hp_edit = $('#alert-hp-edit').val();
+
+        if(no_hp.length == 12) {
+          $('#alert-hp').attr('class', 'text-success').text("valid");
+        } else if(no_hp.length < 12 || no_hp.length > 12) {
+          $('#alert-hp').attr('class', 'text-danger').text("nomor tidak valid");
+        } else if(no_hp.length == 0) {
+          $('#alert-hp').text("");
+        }
+
+        //
       });
 
       //end jQuerry

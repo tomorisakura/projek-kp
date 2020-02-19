@@ -20,10 +20,10 @@ class PelangganController extends Controller
 
         $datas = new Pelanggan;
 
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'nama_pemilik' => ['required', 'string', 'max:255'],
-            'alamat' => ['required', 'string', 'email', 'max:255'],
-            'no_hp' => ['required', 'string', 'max:10'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', 'max:13']
         ]);
 
         $find_hp = Pelanggan::where('no_hp', $request->no_hp)->first();
@@ -35,6 +35,13 @@ class PelangganController extends Controller
             return redirect('/adm/pemilik-hewan');
 
         } else {
+
+            if ($validator->fails()) {
+                // dd($validator);
+                Alert::error('Gagal Menyimpan Data', 'Pastikan data yang di masukan valid');
+
+                return redirect('/adm/pemilik-hewan');
+            }
 
             $datas->nama_pemilik = $request->nama_pemilik;
             $datas->alamat = $request->alamat;
@@ -61,6 +68,13 @@ class PelangganController extends Controller
     }
 
     public function update(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'nama_pemilik' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'no_hp' => ['required', 'max:13']
+        ]);
+
         $id = $request->id;
         $data = Pelanggan::find($id);
         $data->nama_pemilik = $request->get('nama_pemilik');

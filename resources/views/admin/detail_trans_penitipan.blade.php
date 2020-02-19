@@ -104,7 +104,6 @@
         </button>
       </div>
       <div class="modal-body">
-        {{-- <h1 class="h3 mb-4 text-gray-800" id="labelModal">Form Pendaftaran Pemilik Hewan</h1> --}}
         <div class="card shadow mb-4">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary id-transaksi">Pemilik</h6>
@@ -191,7 +190,7 @@
                 <div class="input-group">
                   <input type="text" name="username_telegram" class="form-control" id="username_telegram" value="{{ $det_transaksi->telegram }}" required autocomplete="off">
                   <div class="input-group-append">
-                    <button class="btn btn-primary btnValidate" type="button">
+                    <button class="btn btn-primary btnValidate" id="btnValidate" type="button">
                       <i class="fas fa-user-check"></i>
                     </button>
                   </div>
@@ -284,8 +283,7 @@
         cache : false,
         processData : false,
         success:function(datas) {
-          console.log(datas.response);
-          
+          console.log("Finding ID");
         }
       });
     });
