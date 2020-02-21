@@ -13,14 +13,14 @@
 
 <!-- Content Row -->
 <div class="row">
-
+  @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-xl-4 col-md-6 mb-4">
     <div class="card border-left-primary shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Penitipan</div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Penitipan</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800" id="_text_penitipan"></div>
           </div>
           <div class="col-auto">
@@ -68,20 +68,137 @@
       </div>
     </div>
   </div>
+
+  @endif
+{{-- end of user  --}}
+
+<!-- Earnings (Monthly) Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-warning shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Penitipan</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col-auto">
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="_text_belum_lunas_penitipan"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Earnings (Monthly) Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-primary shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Penitipan</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col-auto">
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="_text_lunas_penitipan"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
-<div class="btn btn-primary mb-3">
-  Pendapatan Penitipan Rp. {{ number_format($sum_penitipan) }}
-</div>
-<br>
-<div class="btn btn-primary mb-3">
-  Pendapatan Medical Checkup Rp. {{ number_format($sum_medis) }}
+<!-- Earnings (Monthly) Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-warning shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Medical Checkup</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col-auto">
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="_text_belum_lunas_medic"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div>
-  <div id="grafik"></div>
+<!-- Earnings (Monthly) Card Example -->
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card border-left-info shadow h-100 py-2">
+    <div class="card-body">
+      <div class="row no-gutters align-items-center">
+        <div class="col mr-2">
+          <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Medical Checkup</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col-auto">
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="_text_lunas_medic"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-auto">
+          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+@endif
+
+    {{-- end of content --}}
+</div>
+
+@if (Auth::user()->level == 1 || Auth::user()->level == 2)
+<div class="row">
+  <div class="col-xl-8 col-lg-7">
+
+    <!-- Area Chart -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Chart Bulanan</h6>
+      </div>
+      <div class="card-body">
+        <div id="grafik"></div>
+      </div>
+    </div>
+
+  </div>
+    <!-- Donut Chart -->
+    <div class="col-xl-4 col-lg-5">
+      <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Pendapatan Bulan Sekarang</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+
+          <div class="btn btn-primary mb-3">
+            Penitipan Rp. {{ number_format($sum_penitipan) }}
+          </div>
+          <br>
+          <div class="btn btn-info mb-3">
+            Medical Checkup Rp. {{ number_format($sum_medis) }}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
 </div>
 @endif
 
@@ -133,6 +250,16 @@
 
     var titip = {!!json_encode($total)!!};
     var medis = {!!json_encode($total_medis)!!}
+    var penitipan_belum = {!!json_encode($penitipan_belum)!!}
+    var penitipan_lunas = {!!json_encode($penitipan_lunas)!!}
+    var medis_belum = {!!json_encode($medis_belum)!!}
+    var medis_lunas = {!!json_encode($medis_lunas)!!}
+
+    $('#_text_belum_lunas_penitipan').text(penitipan_belum.length + " Belum Lunas");
+    $('#_text_belum_lunas_medic').text(medis_belum.length + " Belum Lunas")
+    $('#_text_lunas_medic').text(medis_lunas.length + " Lunas")
+    $('#_text_lunas_penitipan').text(penitipan_lunas.length + " Lunas")
+    // console.log(penitipan_belum);
 
     $(document).on('submit', '#form_change', function(event) {
       event.preventDefault();

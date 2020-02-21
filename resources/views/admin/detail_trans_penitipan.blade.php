@@ -188,7 +188,7 @@
               <label class="col-sm-5 col-form-label">Username Telegram</label>
               <div class="col-sm-12">
                 <div class="input-group">
-                  <input type="text" name="username_telegram" class="form-control" id="username_telegram" value="{{ $det_transaksi->telegram }}" required autocomplete="off">
+                  <input type="text" name="username_telegram" class="form-control" id="username_telegram" value="{{ $det_transaksi->telegram }}" required autocomplete="off" readonly>
                   <div class="input-group-append">
                     <button class="btn btn-primary btnValidate" id="btnValidate" type="button">
                       <i class="fas fa-user-check"></i>

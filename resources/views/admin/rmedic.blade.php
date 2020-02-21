@@ -159,16 +159,16 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Gejala</label>
+                <label class="col-sm-2 col-form-label">Keterangan</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" name="gejala" aria-label="With textarea" required placeholder="contoh kurang nafsu makan"></textarea>
+                  <textarea class="form-control" name="gejala" aria-label="With textarea" required placeholder="contoh : kekebalan"></textarea>
                 </div>
               </div>
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tgl Pemeriksaan</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" name="tgl_periksa" id="tgl_periksa" autocomplete="off" required>
+                  <input type="text" class="form-control" name="tgl_periksa" id="tgl_periksa" autocomplete="off" required readonly>
                 </div>
               </div>
 
@@ -209,14 +209,13 @@
 
 <script type="text/javascript">
 
-$("#tgl_mulai").datepicker({dateFormat : 'dd, MM, yy'});
-$('#tgl_periksa').datepicker({
-  dateFormat : 'dd, MM, yy',
-  changeYear : true,
-  changeMonth : true,
-  yearRange : '-100:+20',
-  minDate : 0
-});
+// $('#tgl_periksa').datepicker({
+//   dateFormat : 'dd, MM, yy',
+//   changeYear : true,
+//   changeMonth : true,
+//   yearRange : '-100:+20',
+//   minDate : 0
+// });
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 $(document).ready(function() {
@@ -238,6 +237,7 @@ $(document).ready(function() {
   var month = date.getMonth()+1;
   var day = date.getDate();
   var full = ((''+day).length<2 ? '0' : '') + day + "." + ((''+month).length<2 ? '0' : '') + month + '-' + date.getFullYear();
+  var today = ((''+day).length<2 ? '0' : '') + day + "." + ((''+month).length<2 ? '0' : '') + month + '-' + date.getFullYear();
   var u = 0;
 
   $.ajax({
@@ -252,6 +252,8 @@ $(document).ready(function() {
       $('#_noMedis').val(full+"-"+u);
     }
   });
+
+  $('#tgl_periksa').val($.datepicker.formatDate('dd, MM, yy', new Date()));
 
   $('.select2').chosen();
 

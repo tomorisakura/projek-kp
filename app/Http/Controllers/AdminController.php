@@ -25,11 +25,30 @@ class AdminController extends Controller
 
     $datas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Lunas')->sum('total_biaya');
     $data_medis[] = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
+    
+    $penitipan_belum = DB::table('transaksi_penitipan')
+    ->where('status_pembayaran', '=', 'Belum Lunas')
+    ->get();
+
+    $penitipan_lunas = DB::table('transaksi_penitipan')
+    ->where('status_pembayaran', '=', 'Lunas')
+    ->get();
+
+    $medis_belum = DB::table('transaksi_medis')
+    ->where('status_pembayaran', '=', 'Belum Lunas')
+    ->get();
+
+    $medis_lunas = DB::table('transaksi_medis')
+    ->where('status_pembayaran', '=', 'Lunas')
+    ->get();
+
+    // dd(json_encode($penitipan_belum));
 
     $total = array_map('intval', $datas);
     $total_medis = array_map('intval', $data_medis);
 
-    return view('admin.dashboard', compact('total', 'total_medis', 'sum_penitipan', 'sum_medis'));
+
+    return view('admin.dashboard', compact('total', 'total_medis', 'sum_penitipan', 'sum_medis', 'penitipan_belum', 'medis_belum', 'medis_lunas', 'penitipan_lunas'));
   }
 
   public function getDataGrafik(Request $req) {
@@ -81,5 +100,7 @@ class AdminController extends Controller
     $data = TransPenitipan::all();
     echo json_encode($data);
   }
+
+
 
 }

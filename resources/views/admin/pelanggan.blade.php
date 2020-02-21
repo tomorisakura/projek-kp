@@ -264,9 +264,9 @@
         var no_hp = $('#_noHp').val();
         var no_hp_edit = $('#alert-hp-edit').val();
 
-        if(no_hp.length == 12) {
+        if(no_hp.length == 12 || no_hp.length == 13) {
           $('#alert-hp').attr('class', 'text-success').text("valid");
-        } else if(no_hp.length < 12 || no_hp.length > 12) {
+        } else if(no_hp.length <= 12 || no_hp.length >= 12) {
           $('#alert-hp').attr('class', 'text-danger').text("nomor tidak valid");
         } else if(no_hp.length == 0) {
           $('#alert-hp').text("");

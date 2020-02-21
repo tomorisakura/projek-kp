@@ -36,17 +36,6 @@
                 <th>Aksi</th>
               </tr>
             </thead>
-            <tfoot>
-              <tr>
-                <th>No</th>
-                <th>Validasi</th>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>No. Handphone</th>
-                <th>Hak Akses</th>
-                <th>Aksi</th>
-              </tr>
-            </tfoot>
             <tbody>
 
               <?php $no=1; ?>
@@ -138,7 +127,7 @@
                                   <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Nomor Handphone</label>
                                     <div class="col-sm-10">
-                                      <input type="tel" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telpUp" value="{{ $users->no_hp }}" required autocomplete="no_telp">
+                                      <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telpUp" value="{{ $users->no_hp }}" required autocomplete="no_telp">
 
                                       @error('no_telp')
                                       <span class="invalid-feedback">
@@ -221,76 +210,42 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Nama</label>
                   <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ old('name') }}" required autocomplete="off" autofocus>
-
-                    @error('name')
-                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                      </span>
-                    @enderror
-
+                    <input type="text" name="name" class="form-control" id="name" required autocomplete="off" autofocus>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">E-Mail</label>
                   <div class="col-sm-10">
-                    <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" required autocomplete="email">
-
-                    @error('email')
-                    <span class="invalid-feedback">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
+                    <input type="text" name="email" class="form-control" id="email" required autocomplete="email">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Nomor Handphone</label>
                   <div class="col-sm-10">
-                    <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" value="{{ old('no_telp') }}" required autocomplete="off">
+                    <input type="number" name="no_telp" class="form-control" id="no_telp" required autocomplete="off">
                     <span class="form-control-label text-danger" id="alert-hp"></span>
-                    @error('no_telp')
-                    <span class="invalid-feedback">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Level</label>
                   <div class="col-sm-10">
-                    <select class="form-control @error('status') is-invalid @enderror" name="status" required>
+                    <select class="form-control" name="status" required>
                       <option hidden>--PILIH--</option>
                       <option value="1">Super Admin</option>
                       <option value="2">Admin</option>
                       <option value="3">Dokter Hewan</option>
                       <option value="4">Helper</option>
                     </select>
-
-                    @error('status')
-                    <span class="invalid-feedback">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" value="{{ old('password') }}" required autocomplete="new-password">
-
-                    @error('password')
-                    <span class="invalid-feedback">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-
+                    <input type="password" name="password" class="form-control" id="password" required autocomplete="new-password">
                   </div>
                 </div>
             </div>
@@ -388,10 +343,15 @@ $(document).ready(function() {
 
     var no_hp = $('#no_telp').val();
 
-    if(no_hp.length == 12) {
+    if(no_hp.length == 12 || no_hp.length == 13) {
       $('#alert-hp').attr('class', 'text-success').text("valid");
+      $('#simpan').prop('disabled', false);
     } else if(no_hp.length > 12 || no_hp.length < 12) {
-      $('#alert-hp').attr('class', 'text-danger').text("nomor tidak valid");
+      $('#alert-hp').attr('class', 'text-danger').text("");
+      $('#simpan').prop('disabled', true);
+    } else if(no_hp.length == 0) {
+      $('#alert-hp').attr('class', 'text-danger').text("");
+      $('#simpan').prop('disabled', true);
     }
 
   });

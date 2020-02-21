@@ -44,9 +44,6 @@ class DataUserAywaController extends Controller
      } else {
 
       $valid = Validator::make($request->all(), [
-        'name' => ['required', 'string'],
-        'email' => ['required', 'string', 'email', 'max:255'],
-        'no_hp' => ['required', 'min:15'],
         'status' => ['required']
       ]);
 
@@ -57,10 +54,13 @@ class DataUserAywaController extends Controller
       $image = $request->file('image');
       
       if($valid_photo->fails()) {
-        Alert::error('Gagal Menyimpan Data', 'Masukan Foto Dengan Benar');
+        Alert::error('Gagal Menyimpan Data', 'Pastikan format foto yang dimasukan valid');
         return redirect('adm/data_user_aywa');
-      } elseif($valid->fails()) {
-        Alert::error('Gagal Menyimpan Data', 'Pastikan Data Yang Dimasukan Valid');
+      } 
+      
+      if($valid->fails()) {
+        Alert::error('Gagal Menyimpan Data', 'Masukan Data Dengan Valid');
+        return redirect('adm/data_user_aywa');
       }
 
       $parse_image = "users_".time().'.'.$image->getClientOriginalExtension();

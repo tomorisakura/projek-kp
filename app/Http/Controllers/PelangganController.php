@@ -75,12 +75,15 @@ class PelangganController extends Controller
             'no_hp' => ['required', 'max:13']
         ]);
 
+        $id_chat_default = 0;
+
         $id = $request->id;
         $data = Pelanggan::find($id);
         $data->nama_pemilik = $request->get('nama_pemilik');
         $data->alamat = $request->get('alamat');
         $data->no_hp = $request->get('no_hp');
         $data->telegram = $request->get('email');
+        $data->id_chat = $id_chat_default;
         // dd($data);
         $data->save();
         echo "sukses";
