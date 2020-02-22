@@ -44,14 +44,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/adm/penyakit', ['as' => 'view.penyakit', 'uses' => 'PenyakitController@index']);
   Route::post('/adm/penyakit/', ['as' => 'create.penyakit', 'uses' => 'PenyakitController@create']);
   Route::get('/adm/penyakit/get/{id}', ['as' => 'get.penyakit', 'uses' => 'PenyakitController@getDataPenyakit']);
-  Route::post('/adm/penyakit/update/{id}', ['as' => 'update.penyakit', 'uses' => 'PenyakitController@update']);
+  Route::post('/adm/penyakit/update/', ['as' => 'update.penyakit', 'uses' => 'PenyakitController@update']);
   Route::delete('/adm/penyakit/delete/{id}', ['as' => 'delete.penyakit', 'uses' => 'PenyakitController@delete']);
 
   //route jenis hewan
   Route::get('/adm/jenis-hewan', ['as' => 'view.jenis', 'uses' => 'JenisController@index']);
   Route::post('/adm/jenis-hewan/', ['as' => 'create.jenis', 'uses' => 'JenisController@create']);
   Route::get('/adm/jenis-hewan/get/{id}', ['as' => 'get.jenis', 'uses' => 'JenisController@getDataJenis']);
-  Route::post('/adm/jenis-hewan/update/{id}', ['as' => 'update.jenis', 'uses' => 'JenisController@update']);
+  Route::post('/adm/jenis-hewan/update/', ['as' => 'update.jenis', 'uses' => 'JenisController@update']);
   Route::delete('/adm/jenis-hewan/hapus/{id}', ['as' => 'delete.jenis', 'uses' => 'JenisController@delete']);
 
 
@@ -85,17 +85,18 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/adm/data-penitipan',['as' => 'data_penitipan','uses' => 'DataPenitipanController@index']);
   Route::get('/adm/data-penitipan/get/{id}',['as' => 'detail.penitipan','uses' => 'DataPenitipanController@detail_transaksi']);
   Route::get('/adm/detail-penitipan/cetak/{id}',['as' => 'get.pdf_penitipan','uses' => 'DataPenitipanController@pdf']);
-  Route::post('/adm/detail-penitipan/update/{id}',['as' => 'get.update_detail','uses' => 'DataPenitipanController@updateDetailPenitipan']);
+  Route::post('/adm/detail-penitipan/update',['as' => 'get.update_detail','uses' => 'DataPenitipanController@updateDetailPenitipan']);
 
 
   // route data karyawan
   Route::get('/adm/data_user_aywa', ['as' => 'pegawai', 'uses' => 'DataUserAywaController@view_data']);
   Route::get('/adm/data_user_aywa', ['as' => 'pegawai', 'uses' => 'DataUserAywaController@show_all']);
-  Route::patch('/adm/data_user_aywa/{id}', ['as' => 'update', 'uses' => 'DataUserAywaController@update']);
+  Route::post('/adm/data_user_aywa/update', ['as' => 'update', 'uses' => 'DataUserAywaController@update']);
   Route::get('/adm/data_user_aywa/{id}/delete', ['as' => 'delete', 'uses' => 'DataUserAywaController@delete']);
   Route::post('/adm/data_user_aywa', ['as' => 'regis', 'uses' => 'DataUserAywaController@register']);
   Route::get('/adm/data_user_pw/change/{id}', ['as' => 'change.password', 'uses' => 'DataUserAywaController@changePassword']);
   Route::post('/adm/data_user_aywa/update-pw', ['as' => 'update.pw', 'uses' => 'DataUserAywaController@updatePassword']);
+  Route::get('/adm/data_user_aywa/get/user/{id}', ['as' => 'get.user', 'uses' => 'DataUserAywaController@getUserId']);
 
   //route Telegram
   Route::post('/adm/update-activity/{id}', 'TelegramController@updateActivity')->name('telebot');

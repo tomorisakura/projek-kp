@@ -209,7 +209,7 @@
               dataType : 'json',
               cache : false,
               success:function(data) {
-                console.log(data);
+                // console.log(data);
                   $('.edit-pelanggan').modal('show');
                   $('.btnUpdate').val("Update");
                   $('#_idPemilik').val(data.id);

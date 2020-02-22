@@ -110,9 +110,9 @@
           </div>
           <div class="card-body">
 
-            <form class="formUpdate" method="post">
+            <form class="formUpdate" action="{{ route('get.update_detail') }}" method="post">
             {{ csrf_field() }}
-            <input type="hidden" name="id" id="_id_transaksi" value="">
+            <input type="hidden" name="id_transaksi" id="_id_transaksi" value="">
 
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Tanggal Masuk</label>
@@ -348,40 +348,6 @@
       var price = equals * harga;
       $('#totalHarga').val(price);
     }
-
-    $('.formUpdate').submit(function(event){
-      event.preventDefault();
-      var request = new FormData(this);
-      var id = $('#_id_transaksi').val();
-      var url = "{{ url('/adm/detail-penitipan/update') }}/"+id;
-      $.ajax({
-        url : url,
-        method : 'POST',
-        data : request,
-        contentType : false,
-        cache : false,
-        processData : false,
-        success:function(response) {
-          console.log(Response);
-          $('.btnSee').modal('hide');
-          setInterval(function() {
-            location.reload(true);
-          }, 1000);
-        }
-      });
-
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Data Berhasil Diubah',
-        showConfirmButton: false,
-        timer: 1500
-        });
-
-      setInterval(function() {
-        location.reload(true);
-      }, 500);
-    });
 
     // end of document
   });

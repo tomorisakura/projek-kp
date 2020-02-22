@@ -44,14 +44,17 @@ class JenisController extends Controller
         echo json_encode($jenis);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
+        $id = $request->idJenis;
         $data = Jenis::find($id);
 
         $data->nama = $request->get('nama');
         $data->harga = $request->get('harga');
         $data->save();
         echo "sukses";
-        return view('admin.jenis');
+
+        Alert::success('Data Berhasil Diupdate', $request->nama . " Berhasil Diganti");
+        return redirect('/adm/jenis-hewan');
     }
 
     public function delete(Request $request, $id) {

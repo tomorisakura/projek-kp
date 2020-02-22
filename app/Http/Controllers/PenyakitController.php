@@ -39,14 +39,17 @@ class PenyakitController extends Controller
         echo json_encode($data);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
+        $id = $request->idPenyakit_edit;
         $data = Penyakit::find($id);
 
         $data->nama_penyakit = $request->get('nama_edit');
         $data->harga = $request->get('harga_edit');
         $data->save();
-        echo "sukses";
-        return view('admin.penyakit');
+        
+        Alert::success('Data Berhasil Diupdate', 'Data '.$request->nama_edit.' Telah Ditambahkan !');
+
+        return redirect('/adm/penyakit/');
     }
 
     public function delete(Request $request, $id) {

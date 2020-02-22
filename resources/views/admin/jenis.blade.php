@@ -116,7 +116,7 @@
             </div>
             <div class="card-body">
   
-              <form class="" id="formEdit" action="" method="post">
+              <form class="" id="formEdit" action="{{ route('update.jenis') }}" method="post">
               {{ csrf_field() }}
               <input type="hidden" name="idJenis" id="idJenis" value="">
   
@@ -164,7 +164,7 @@
           'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
         }
       });
-      console.log('js valid');
+      console.log('Javascriptnya nyala gan !!!!');
 
       $(document).on('click', '.btnEdit', function(event) {
           event.preventDefault();
@@ -186,42 +186,6 @@
               }
 
           });
-      });
-
-      $('#formEdit').submit(function(event){
-          event.preventDefault();
-          var request = new FormData(this);
-          var id = $('#idJenis').attr('value');
-          var url = "{{ url('/adm/jenis-hewan/update') }}/"+id;
-        //   console.log(id);
-          $.ajax({
-              url : url,
-              method : 'POST',
-              data : request,
-              contentType : false,
-              cache : false,
-              processData : false,
-              success:function(response) {
-                //   alert(response);
-                console.log(response);
-                  $('#closeModalEdit').modal('hide');
-                  setInterval(function() {
-                    location.reload(true);
-                  }, 1000);
-              }
-          });
-
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Data Berhasil Diubah',
-            showConfirmButton: false,
-            timer: 1500
-            });
-
-          setInterval(function() {
-            location.reload(true);
-          }, 500);
       });
 
       $(document).on('click', '.btnHapus', function(event) {

@@ -28,7 +28,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Validasi</th>
+                <th>Profile</th>
                 <th>Nama</th>
                 <th>Email</th>
                 <th>No. Handphone</th>
@@ -55,7 +55,7 @@
 
                 <td>
                 <div class="btn-group mr-2" role="group" aria-label="Basic example">
-                  <button type="button" name="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#editModal{{ $users -> id }}" id="editData{{ $users-> id}}" data-role="update"><i class="fas fa-user-edit"></i></button>
+                  <button type="button" name="button" class="btn btn-success btn-sm modal-edit" data-toggle="modal" data-target="" id="{{ $users-> id}}"><i class="fas fa-user-edit"></i></button>
                 </div>
                   <div class="btn-group mr-2" role="group">
                      <form class="" action="{{ route('delete', [$users-> id]) }}" method="get">
@@ -67,105 +67,6 @@
                   <a href="" class="btn bg-warning btn-sm text-light btnPassword" id="{{ $users->id }}"><i class="fas fa-key"></i></a>
                 </td>
               </tr>
-                      <!-- modal edit -->
-                  <div class="modal fade bd-example-modal-lg" id="editModal{{ $users -> id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Edit Data Pengguna</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                              <h6 class="m-0 font-weight-bold text-primary">Isikan Data Dengan Valid</h6>
-                            </div>
-                            <div class="card-body">
-                              <form class="" action="{{ route('update', [$users -> id]) }}" method="post" enctype="multipart/form-data">
-                                @method('patch')
-                                @csrf
-                                <input type="hidden" name="id" value="{{ $users -> id }}">
-
-                                <div class="form-group row">
-                                  <label class="col-sm-2 col-form-label">Profile</label>
-                                  <div class="col-sm-10">
-                                    <img src="{{ URL::to('/') }}/images/user_aywa/{{ $users->image }}" width="60" alt="">
-                                    <input type="file" name="image" class="" id="image">
-                                  </div>
-                                </div>
-
-                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Nama</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="namaUp" value="{{ $users->name }}" required autocomplete="name" autofocus>
-
-                                      @error('name')
-                                        <span class="invalid-feedback" role="alert">
-                                          <strong>{{ $message }}</strong>
-                                        </span>
-                                      @enderror
-
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">E-Mail</label>
-                                    <div class="col-sm-10">
-                                      <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" id="emailUp" value="{{ $users->email }}" required autocomplete="email">
-
-                                      @error('email')
-                                      <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                      @enderror
-
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Nomor Handphone</label>
-                                    <div class="col-sm-10">
-                                      <input type="number" name="no_telp" class="form-control @error('no_telp') is-invalid @enderror" id="no_telpUp" value="{{ $users->no_hp }}" required autocomplete="no_telp">
-
-                                      @error('no_telp')
-                                      <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                      @enderror
-
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Status</label>
-                                    <div class="col-sm-10">
-                                      <select class="form-control @error('level') is-invalid @enderror" name="level" id="levelUp">
-                                        <option value="2" @if($users->level == '2') selected @endif>Admin</option>
-                                        <option value="3" @if($users->level == '3') selected @endif>Dokter Hewan</option>
-                                        <option value="4" @if($users->level == '4') selected @endif>Helper</option>
-                                      </select>
-
-                                      @error('status')
-                                      <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                      </span>
-                                      @enderror
-
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="submit" name="update" class="btn btn-primary">Update</button>
-                            </div>
-                          </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               @endforeach
                   <!-- end modal edit -->
             </tbody>
@@ -176,6 +77,7 @@
   </div>
 </div>
 </div>
+
 <!-- modal add pegawai -->
 <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -217,7 +119,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">E-Mail</label>
                   <div class="col-sm-10">
-                    <input type="text" name="email" class="form-control" id="email" required autocomplete="email">
+                    <input type="text" name="email" class="form-control" id="email" required autocomplete="off">
                   </div>
                 </div>
 
@@ -261,6 +163,80 @@
 </div>
 </div>
 
+
+<!-- modal edit -->
+<div class="modal fade bd-example-modal-lg modal-edit-user" id="" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data Pengguna</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Isikan Data Dengan Valid</h6>
+          </div>
+          <div class="card-body">
+            <form class="" action="{{ route('update') }}" method="post" enctype="multipart/form-data">
+              @csrf
+              <input type="hidden" name="id_karyawan" id="id_karyawan" value="" readonly>
+
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Profile</label>
+                <div class="col-sm-10">
+                  <img src="" class="rounded img-thumbnail-edit" width="80" alt="">
+                  <input type="file" name="image" class="" id="image">
+                </div>
+              </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Nama</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" id="namaUp" value="" required autocomplete="name" autofocus>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">E-Mail</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="email" class="form-control" id="emailUp" value="" required autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Nomor Handphone</label>
+                  <div class="col-sm-10">
+                    <input type="number" name="no_telp" class="form-control" id="no_telpUp" value="" required autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">Status</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" name="level" id="levelUp">
+                      <option value="2">Admin</option>
+                      <option value="3">Dokter Hewan</option>
+                      <option value="4">Helper</option>
+                    </select>
+                  </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" name="update" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+{{-- modal password --}}
 <div class="modal fade bd-example-modal-lg gantiPw" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -337,6 +313,30 @@ $(document).ready(function() {
 
     });
   });
+
+  $(document).on('click', '.modal-edit', function(event) {
+    event.preventDefault();
+    var id = $(this).attr('id');
+    var url = "{{ url('/adm/data_user_aywa/get/user') }}/"+id;
+
+    var url_image = "{{ URL::to('/') }}/images/user_aywa/"
+    // alert(id);
+    $.ajax({
+      url : url,
+      method : 'GET',
+      dataType : 'json',
+      cache : false, 
+      success:function(datas) {
+        $('.modal-edit-user').modal('show');
+        $('#id_karyawan').val(datas.id);
+        $('#namaUp').val(datas.name);
+        $('#emailUp').val(datas.email);
+        $('#no_telpUp').val(datas.no_hp);
+        $('#levelUp').val(datas.level);
+        $('.img-thumbnail-edit').attr('src', url_image+datas.image);
+      }
+    })
+  })
 
   $(document).on('keyup', function(event){
     event.preventDefault();

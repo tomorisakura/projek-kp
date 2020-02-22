@@ -116,7 +116,7 @@
             </div>
             <div class="card-body">
   
-              <form class="" id="formEdit" action="" method="post">
+              <form class="" id="formEdit" action="{{ route('update.penyakit') }}" method="post">
               {{ csrf_field() }}
               <input type="hidden" name="idPenyakit_edit" id="idPenyakit" value="">
   
@@ -185,41 +185,6 @@
               }
 
           });
-      });
-
-      $('#formEdit').submit(function(event){
-          event.preventDefault();
-          var request = new FormData(this);
-          var id = $('#idPenyakit').attr('value');
-          var url = "{{ url('/adm/penyakit/update') }}/"+id;
-        //   alert(id);
-        //   console.log(id);
-          $.ajax({
-              url : url,
-              method : 'POST',
-              data : request,
-              contentType : false,
-              cache : false,
-              processData : false,
-              success:function(response) {
-                $('#closeModalEdit').modal('hide');
-                setInterval(function() {
-                location.reload(true);
-                }, 1000);
-              }
-          });
-
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Data Berhasil Diubah',
-            showConfirmButton: false,
-            timer: 1500
-            });
-
-          setInterval(function() {
-            location.reload(true);
-          }, 500);
       });
 
       $(document).on('click', '.btnHapus', function(event) {

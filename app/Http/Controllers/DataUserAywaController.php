@@ -83,7 +83,8 @@ class DataUserAywaController extends Controller
 
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
+      $id = $request->id_karyawan;
       $user = User::find($id);
 
       $image_name = $user->image;
@@ -144,8 +145,6 @@ class DataUserAywaController extends Controller
 
         $user->where('id', $id)->update($form_data);
         return redirect('adm/data_user_aywa')->withSuccessMessage('Data Berhasil Diupdate');
-
-
     }
 
     public function delete(Request $request, $id) {
@@ -174,5 +173,11 @@ class DataUserAywaController extends Controller
       // dd($datas);
 
       return redirect('adm/data_user_aywa') -> withSuccessMessage('Password Berhasil Diubah');
+    }
+
+    public function getUserId($id) {
+      $datas = User::find($id);
+
+      echo json_encode($datas);
     }
 }

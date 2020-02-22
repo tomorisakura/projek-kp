@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Penitipan;
 use PDF;
+use Alert;
 
 class DataPenitipanController extends Controller
 {
@@ -43,14 +44,18 @@ class DataPenitipanController extends Controller
       return view('admin.detail_trans_penitipan', compact('det_transaksi', 'det_penitipan'));
     }
 
-    public function updateDetailPenitipan(Request $request, $id) {
+    public function updateDetailPenitipan(Request $request) {
+      $id = $request->id_transaksi;
       $detail = Penitipan::find($id);
       $detail->tgl_keluar = $request->get('tgl_keluar');
       $detail->total_biaya = $request->get('total_harga');
       $detail->status_pembayaran = $request->get('status_pembayaran');
       $detail->save();
 
-      echo "sukses update";
+      Alert::success('Data Berhasil Disimpan', 'Transaksi dengan nomor '. $id . " berhasil diubah !");
+
+      return redirect('/adm/data-penitipan/get/'.$id);
+
     }
 
     public function pdf($id) {
