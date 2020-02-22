@@ -28,7 +28,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Profile</th>
+                <th>Validasi</th>
                 <th>Nama</th>
                 <th>Email</th>
                 <th>No. Handphone</th>
@@ -43,7 +43,7 @@
               @foreach ($user as $users)
               <tr>
                 <td><?php echo $no++; ?></td>
-                <td data-target="image"><img src="{{ URL::to('/') }}/images/user_aywa/{{ $users->image }}" class="rounded mx-auto d-block img-thumbnail" width="80" alt=""></td>
+                <td data-target="image"><img src="{{ URL::to('/') }}/images/user_aywa/{{ $users->image }}" class="rounded mx-auto d-block img-thumbnail" width="80" id="{{ $users->id }}" alt=""></td>
                 <td data-target="name">{{$users -> name}}</td>
                 <td data-target="email">{{$users -> email}}</td>
                 <td data-target="no_hp">{{$users -> no_hp}}</td>
@@ -58,17 +58,12 @@
                   <button type="button" name="button" class="btn btn-success btn-sm modal-edit" data-toggle="modal" data-target="" id="{{ $users-> id}}"><i class="fas fa-user-edit"></i></button>
                 </div>
                   <div class="btn-group mr-2" role="group">
-                     <form class="" action="{{ route('delete', [$users-> id]) }}" method="get">
-                       {{ csrf_field() }}
-                       {{ method_field('DELETE') }}
-                       <button type="submit" name="button" class="btn btn-danger btn-sm" onclick="return confirm('Hapus Pengguna Ini ?')" id="btn_delete"><i class="fas fa-trash"></i></button>
-                     </form>
+                    <button type="submit" name="button" class="btn btn-danger btn-sm btnHapus" id="{{ $users->id }}"><i class="fas fa-trash"></i></button>
                   </div>
                   <a href="" class="btn bg-warning btn-sm text-light btnPassword" id="{{ $users->id }}"><i class="fas fa-key"></i></a>
                 </td>
               </tr>
               @endforeach
-                  <!-- end modal edit -->
             </tbody>
           </table>
         </div>
@@ -195,7 +190,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Nama</label>
                   <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" id="namaUp" value="" required autocomplete="name" autofocus>
+                    <input type="text" name="name" class="form-control" id="namaUp" value="" required autocomplete="off" autofocus>
                   </div>
                 </div>
 
@@ -226,7 +221,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="update" class="btn btn-primary">Update</button>
+            <button type="submit" name="update" class="btn btn-primary btn-update">Update</button>
           </div>
         </form>
     </div>
@@ -234,6 +229,7 @@
 </div>
 </div>
 </div>
+<!-- end modal edit -->
 
 
 {{-- modal password --}}
@@ -314,6 +310,51 @@ $(document).ready(function() {
     });
   });
 
+  $(document).on('click', '.btnHapus', function(event){
+    event.preventDefault();
+    var id = $(this).attr('id');
+    var url = "{{ url('/adm/data_user_aywa/delete') }}/"+id;
+    var token = "{{ csrf_token() }}";
+    // alert(url);
+
+    Swal.fire({
+      title: 'Apakah Kamu Yakin?',
+      text: "Apakah kamu yakin ingin menghapus karyawan ini ? data yang telah dihapus tidak bisa dikembalikan ya !",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Iya, Hapus!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+
+        $.ajax({
+          url : url,
+          method : 'DELETE',
+          dataType : 'json',
+          data : {
+            "_token" : token, 
+            "id" : id
+          },
+          cache : false,
+          success:function(response) {
+          } 
+        })
+
+        setInterval(function() {
+              location.reload();
+            }, 600);
+
+      }
+    })
+
+  })
+
   $(document).on('click', '.modal-edit', function(event) {
     event.preventDefault();
     var id = $(this).attr('id');
@@ -334,14 +375,39 @@ $(document).ready(function() {
         $('#no_telpUp').val(datas.no_hp);
         $('#levelUp').val(datas.level);
         $('.img-thumbnail-edit').attr('src', url_image+datas.image);
+
       }
     })
+  })
+
+  $(document).on('click', '.img-thumbnail', function(event){
+    event.preventDefault();
+    var url_image = "{{ URL::to('/') }}/images/user_aywa/";
+    var id = $(this).attr('id');
+    var url = "{{ url('/adm/data_user_aywa/get/user') }}/"+id;
+    $.ajax({
+      url : url,
+      method : 'GET',
+      dataType : 'json',
+      cache : false,
+      success:function(datas) {
+
+        Swal.fire({
+          imageUrl: url_image+datas.image,
+          imageHeight: 500,
+          imageAlt: 'A tall image'
+        })
+
+      }
+    })
+
   })
 
   $(document).on('keyup', function(event){
     event.preventDefault();
 
     var no_hp = $('#no_telp').val();
+    var no_hp_edit = $('#no_telpUp').val();
 
     if(no_hp.length == 12 || no_hp.length == 13) {
       $('#alert-hp').attr('class', 'text-success').text("valid");
@@ -352,6 +418,14 @@ $(document).ready(function() {
     } else if(no_hp.length == 0) {
       $('#alert-hp').attr('class', 'text-danger').text("");
       $('#simpan').prop('disabled', true);
+    }
+
+    if(no_hp_edit.length == 12 || no_hp_edit == 13) {
+      $('.btn-update').prop('disabled', false);
+    } else if(no_hp_edit.length > 12 || no_hp.length < 12) {
+      $('.btn-update').prop('disabled', true);
+    } else if(no_hp_edit.length == 0) {
+      $('.btn-update').prop('disabled', true);
     }
 
   });

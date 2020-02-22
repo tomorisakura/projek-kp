@@ -223,40 +223,46 @@
       });
 
       $(document).on('click', '.btnHapus', function(event) {
-          event.preventDefault();
-          var id = $(this).attr('id');
-          var url = "{{ url('/adm/pemilik-hewan/hapus') }}/"+id;
-          var token = "{{ csrf_token() }}";
-        //   alert(id);
+        event.preventDefault();
+        var id = $(this).attr('id');
+        var url = "{{ url('/adm/pemilik-hewan/hapus') }}/"+id;
+        var token = "{{ csrf_token() }}";
+        // alert(url);
 
         Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Data Pelanggan Telah Terhapus',
-            showConfirmButton: false,
-            timer: 1500
-            });
-
-          $.ajax({
+          title: 'Apakah Kamu Yakin ?',
+          text: "Apakah kamu yakin ingin menghapus customer ini data yang telah dihapus tidak bisa dikembalikan ya !",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya, Hapus!'
+        }).then((result) => {
+          if (result.value) {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+            $.ajax({
               url : url,
               method : 'DELETE',
               dataType : 'json',
               data : {
-                  "_token" : token,
-                  "id" : id
+                "_token" : token, 
+                "id" : id
               },
               cache : false,
               success:function(response) {
-                setInterval(function() {
-                    location.reload();
-                }, 1000);
-              }
-          });
+              } 
+            })
 
-          setInterval(function() {
-                location.reload();
-            }, 1000);
-      });
+            setInterval(function() {
+                  location.reload();
+                }, 600);
+          }
+        })
+      })
 
       $(document).on('keyup', function(event){
         event.preventDefault();

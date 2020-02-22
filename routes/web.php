@@ -92,7 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/adm/data_user_aywa', ['as' => 'pegawai', 'uses' => 'DataUserAywaController@view_data']);
   Route::get('/adm/data_user_aywa', ['as' => 'pegawai', 'uses' => 'DataUserAywaController@show_all']);
   Route::post('/adm/data_user_aywa/update', ['as' => 'update', 'uses' => 'DataUserAywaController@update']);
-  Route::get('/adm/data_user_aywa/{id}/delete', ['as' => 'delete', 'uses' => 'DataUserAywaController@delete']);
+  Route::delete('/adm/data_user_aywa/delete/{id}', ['as' => 'delete', 'uses' => 'DataUserAywaController@delete']);
   Route::post('/adm/data_user_aywa', ['as' => 'regis', 'uses' => 'DataUserAywaController@register']);
   Route::get('/adm/data_user_pw/change/{id}', ['as' => 'change.password', 'uses' => 'DataUserAywaController@changePassword']);
   Route::post('/adm/data_user_aywa/update-pw', ['as' => 'update.pw', 'uses' => 'DataUserAywaController@updatePassword']);
