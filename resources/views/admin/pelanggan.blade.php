@@ -268,14 +268,28 @@
         event.preventDefault();
 
         var no_hp = $('#_noHp').val();
-        var no_hp_edit = $('#alert-hp-edit').val();
+        var no_hp_edit = $('#_noHp_edit').val();
 
         if(no_hp.length == 12 || no_hp.length == 13) {
           $('#alert-hp').attr('class', 'text-success').text("valid");
-        } else if(no_hp.length <= 12 || no_hp.length >= 12) {
-          $('#alert-hp').attr('class', 'text-danger').text("nomor tidak valid");
+          $('.btnSimpan').prop('disabled', false);
+        } else if(no_hp.length < 12 || no_hp.length > 12) {
+          $('#alert-hp').attr('class', 'text-danger').text("");
+          $('.btnSimpan').prop('disabled', true);
         } else if(no_hp.length == 0) {
           $('#alert-hp').text("");
+          $('.btnSimpan').prop('disabled', true);
+        }
+
+        if(no_hp_edit.length == 12 || no_hp_edit.length == 13) {
+          $('#alert-hp-edit').attr('class', 'text-success').text("Valid");
+          $('.btnUpdate').prop('disabled', false);
+        } else if(no_hp_edit.length < 12 || no_hp_edit.length > 12) {
+          $('#alert-hp-edit').attr('class', 'text-success').text("");
+          $('.btnUpdate').prop('disabled', true);
+        } else if(no_hp_edit.length == 0) {
+          $('#alert-hp-edit').attr('class', 'text-success').text("");
+          $('.btnUpdate').prop('disabled', true);
         }
 
         //

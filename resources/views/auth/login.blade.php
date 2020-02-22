@@ -44,7 +44,7 @@
                   <form class="user" action="{{ route('post.login') }}" method="post">
                     @csrf
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user  @error('email') is-invalid @enderror" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Email ">
+                      <input type="email" class="form-control form-control-user  @error('email') is-invalid @enderror" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Email " autocomplete="off">
 
                       @error('email')
                           <span class="invalid-feedback" role="alert">

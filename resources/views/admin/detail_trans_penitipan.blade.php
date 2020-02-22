@@ -284,6 +284,18 @@
         processData : false,
         success:function(datas) {
           console.log("Finding ID");
+
+          if(datas == "berhasil") {
+            console.log("ID Ditemukan");
+          } else {
+            console.log("ID Tidak Ditemukan");
+            Swal.fire(
+              'Gagal!',
+              'Terjadi kesalahan saat mendapatkan ruang chat !',
+              'error'
+            )
+
+          }
         }
       });
     });
@@ -300,13 +312,25 @@
         cache : false,
         processData : false,
         success:function(datas) {
-          console.log('Sukses Kirim Pesan');
 
-          Swal.fire(
-            'Berhasil!',
-            'Bot telah berhasil mengirimkan pesan !',
-            'success'
-          )
+          if(datas == "berhasil") {
+            console.log('Sukses Kirim Pesan');
+
+            Swal.fire(
+              'Berhasil!',
+              'Bot telah berhasil mengirimkan pesan !',
+              'success'
+            )
+
+          } else {
+
+            Swal.fire(
+              'Gagal!',
+              'Terjadi kesalahan saat mengirimkan pesan !',
+              'error'
+            )
+
+          }
         }
       });
     });

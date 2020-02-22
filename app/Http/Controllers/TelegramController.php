@@ -33,6 +33,7 @@ class TelegramController extends Controller
         //data berhasil men :v
         // dd(response()->json($datas));
         echo json_encode($datas);
+        echo "berhasil";
     }
 
     public function sendMessage(Request $req, $id) {
@@ -52,6 +53,8 @@ class TelegramController extends Controller
         
         $url = "https://api.telegram.org/bot" . $token . "/sendMessage?" . http_build_query($param);
         file_get_contents($url);
+
+        echo "berhasil";
     }
 
     public function sendMessageMedis(Request $req, $id) {
@@ -71,5 +74,7 @@ class TelegramController extends Controller
         
         $url = "https://api.telegram.org/bot" . $token . "/sendMessage?" . http_build_query($param);
         file_get_contents($url);
+
+        echo "berhasil";
     }
 }

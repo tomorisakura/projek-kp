@@ -83,7 +83,10 @@ class PelangganController extends Controller
         $data->alamat = $request->get('alamat');
         $data->no_hp = $request->get('no_hp');
         $data->telegram = $request->get('email');
-        $data->id_chat = $id_chat_default;
+        
+        if($data->id_chat == 0) {
+            $data->id_chat = $id_chat_default;
+        }
         // dd($data);
         $data->save();
         echo "sukses";
