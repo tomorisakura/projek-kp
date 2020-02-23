@@ -24,6 +24,7 @@
               <thead>
                 <tr>
                     <th>No</th>
+                    <th>Status Pembayaran</th>
                     <th>Tanggal Masuk</th>
                     <th>Tanggal Keluar</th>
                     <th>Nama Pemilik</th>
@@ -39,11 +40,12 @@
                 <tr>
 
                   <td><?php echo $no++; ?></td>
-                  <td>{{$customer-> tgl_masuk}}</td>
-                  <td>{{$customer-> tgl_keluar}}</td>
-                  <td>{{$customer -> nama_pemilik}}</td>
-                  <td>{{$customer -> alamat}}</td>
-                  <td>{{$customer -> no_hp}}</td>
+                  <td>{{ $customer->status_pembayaran }}</td>
+                  <td>{{$customer->tgl_masuk}}</td>
+                  <td>{{$customer->tgl_keluar}}</td>
+                  <td>{{$customer->nama_pemilik}}</td>
+                  <td>{{$customer->alamat}}</td>
+                  <td>{{$customer->no_hp}}</td>
                   <td>
                     <a href="{{ route('detail.penitipan', $customer->p_id ) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
                     <a href="{{ route('get.pdf_penitipan', $customer->p_id) }}" target="_blank" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>

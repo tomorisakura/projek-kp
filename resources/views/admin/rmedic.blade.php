@@ -30,10 +30,10 @@
             <label class="col-sm-2 col-form-label">Nama Pemilik</label>
             <div class="col-sm-10">
               <div class="input-group">
-                <select name="pemilik" class="form-control select2" id="opt_pemilik">
+                <select name="pemilik" class="form-control select2" id="opt_pemilik" data-live-search="true">
                   <option selected hidden class="btnClear">-- PILIH --</option>
                   @foreach ($pelanggan as $customer)
-                    <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">{{ $customer->no_hp }} - {{ $customer->nama_pemilik }}</option>
+                    <option class="p_option" value="{{ $customer->id }}" data-tokens="{{ $customer->id }}" id="{{ $customer->id }}">{{ $customer->no_hp }} - {{ $customer->nama_pemilik }}</option>
                   @endforeach
                 </select>
                 {{-- <div class="input-group-append">
@@ -255,7 +255,8 @@ $(document).ready(function() {
 
   $('#tgl_periksa').val($.datepicker.formatDate('dd, MM, yy', new Date()));
 
-  $('.select2').chosen();
+  // $('.select2').chosen();
+  $('.select2').selectpicker();
 
   $(document).on('click', '.btnClear', function() {
     $('#_noMedis').val("");

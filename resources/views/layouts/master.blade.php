@@ -17,6 +17,7 @@
   <link href="{{ url('assets/css/sb-admin-2.css') }}" rel="stylesheet">
   <link href="{{ url('assets/css/select2.min.css') }}" rel="stylesheet">
   <link href="{{ url('assets/css/chosen.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url('assets/css/bootstrap-select.min.css') }}">
 
 </head>
 
@@ -92,7 +93,9 @@
             @if (Auth::user()->level == 3 || Auth::user()->level == 1 || Auth::user()->level == 2)
             <a class="collapse-item" href="{{ route('data_medis') }}">Data Transaksi Medis</a>
             @endif
+            @if (Auth::user()->level == 4 || Auth::user()->level == 1 || Auth::user()->level == 2)
             <a class="collapse-item" href="{{ route('data_penitipan') }}">Data Transaksi Penitipan</a>
+            @endif
           </div>
         </div>
       </li>
@@ -226,5 +229,6 @@
   {{-- new plugin --}}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="{{ url('assets/js/select2.js') }}"></script>
+  <script src="{{ url('assets/js/bootstrap-select.min.js') }}"></script>
 </body>
 </html>

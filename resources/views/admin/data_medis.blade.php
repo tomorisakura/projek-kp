@@ -25,7 +25,8 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>ID Pemilik</th>
+                  <th>Status Pembayaran</th>
+                  <th>Tanggal Periksa</th>
                   <th>Nama Pemilik</th>
                   <th>Alamat</th>
                   <th>No Handphone</th>
@@ -37,10 +38,11 @@
               @foreach ($pelanggan as $customer)
               <tr>
               <td><?php echo $no++; ?></td>
-              <td>PLGN-0{{$customer-> pe_id}}</td>
-              <td>{{$customer -> nama_pemilik}}</td>
-              <td>{{$customer -> alamat}}</td>
-              <td>{{$customer -> no_hp}}</td>
+              <td>{{$customer->status_pembayaran}}</td>
+              <td>{{$customer->tgl_periksa}}</td>
+              <td>{{$customer->nama_pemilik}}</td>
+              <td>{{$customer->alamat}}</td>
+              <td>{{$customer->no_hp}}</td>
               <td>
                   <a href="{{ route('detail.medis', $customer->m_id) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
                   <a href="{{ route('get.pdf_medis', $customer->m_id) }}" target="_blank" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>

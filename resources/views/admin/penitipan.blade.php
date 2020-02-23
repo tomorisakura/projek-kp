@@ -27,10 +27,10 @@
           <label class="col-sm-2 col-form-label">Nama Pemilik</label>
           <div class="col-sm-10">
             <div class="input-group">
-              <select name="pemilik" class="form-control select2" id="opt_pemilik">
+              <select name="pemilik" class="form-control select2" id="opt_pemilik" data-live-search="true">
                 <option>-- PILIH --</option>
                 @foreach ($pelanggan as $customer)
-                  <option class="p_option" value="{{ $customer->id }}" id="{{ $customer->id }}">{{ $customer->no_hp }} - {{ $customer->nama_pemilik }}</option>
+                  <option class="p_option" value="{{ $customer->id }}" data-tokens="{{ $customer->id }}" id="{{ $customer->id }}">{{ $customer->no_hp }} - {{ $customer->nama_pemilik }}</option>
                 @endforeach
               </select>
             </div>
@@ -224,7 +224,10 @@
       minDate : 0
     });
 
-      $('.select2').chosen();
+      // $('.select2').chosen();
+      $(function() {
+        $('.select2').selectpicker();
+      })
 
       var url = "{{ url('/adm/detail-penitipan/get') }}";
       var tm_id = 0;
