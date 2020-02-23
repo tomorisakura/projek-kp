@@ -5,7 +5,6 @@
 <link href="{{ url('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
@@ -44,7 +43,7 @@
               <td>{{$customer->alamat}}</td>
               <td>{{$customer->no_hp}}</td>
               <td>
-                  <a href="{{ route('detail.medis', $customer->m_id) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Details</a>
+                  <a href="{{ route('detail.medis', $customer->m_id) }}" class="btn bg-primary btn-sm text-light btnDetails" id="{{ $customer->id }}"><i class="fas fa-info-circle"></i></a>
                   <a href="{{ route('get.pdf_medis', $customer->m_id) }}" target="_blank" class="btn bg-success btn-sm text-light" id="{{ $customer->id }}"><i class="fas fa-receipt"></i> Cetak</a>
               </td>
               </tr>

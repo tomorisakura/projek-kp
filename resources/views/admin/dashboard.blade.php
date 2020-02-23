@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+          <i class="fas fa-file-invoice fa-2x text-gray-300"></i>
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+          <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
         </div>
       </div>
     </div>
@@ -130,7 +130,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+          <i class="far fa-file-alt fa-2x text-gray-300"></i>
         </div>
       </div>
     </div>
@@ -151,7 +151,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <i class="fas fa-id-card fa-2x text-gray-300"></i>
+          <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
         </div>
       </div>
     </div>
@@ -188,10 +188,12 @@
         <div class="card-body">
 
           <div class="btn btn-primary mb-3">
+            <i class="fas fa-heart"></i>
             Penitipan Rp. {{ number_format($sum_penitipan) }}
           </div>
           <br>
-          <div class="btn btn-info mb-3">
+          <div class="btn btn-info mb-2">
+            <i class="fas fa-heartbeat"></i>
             Medical Checkup Rp. {{ number_format($sum_medis) }}
           </div>
           

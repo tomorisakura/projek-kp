@@ -86,10 +86,10 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">Jenis Hewan</label>
             <div class="col-sm-10">
-              <select name="jenis_hewan" class="form-control select2" id="_jenisHewan" required>
+              <select name="jenis_hewan" class="form-control select2" id="_jenisHewan" required data-live-search="true">
                 <option hidden class="jHewan">--Pilih--</option>
                 @foreach ($jenis as $jeniss)
-                <option value="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
+                <option value="{{ $jeniss->id }}" data-tokens="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
                 @endforeach
               </select>
             </div>

@@ -5,7 +5,6 @@
 <link href="{{ url('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url('assets/vendor/jquery/jquery-ui.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 <link href="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -125,10 +124,10 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Jenis Hewan</label>
               <div class="col-sm-10">
-                <select name="jenis_hewan" class="form-control select2" id="_jenisHewan" required>
+                <select name="jenis_hewan" class="form-control select2" id="_jenisHewan" required data-live-search="true">
                   <option selected hidden class="jHewan">--Pilih--</option>
                   @foreach ($jenis as $jeniss)
-                  <option value="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
+                  <option value="{{ $jeniss->id }}" data-tokens="{{ $jeniss->id }}">{{ $jeniss->nama }}</option>                      
                   @endforeach
                 </select>
               </div>
@@ -149,10 +148,10 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Antigenetik</label>
                 <div class="col-sm-10">
-                  <select name="nama_penyakit" class="form-control select2" id="_namaPenyakit" required>
+                  <select name="nama_penyakit" class="form-control select2" id="_namaPenyakit" data-live-search="true" required>
                     <option selected hidden class="jPenyakit">--PIlih--</option>
                     @foreach ($penyakit as $sakit)
-                        <option value="{{ $sakit->id }}">{{ $sakit->nama_penyakit }}</option>
+                        <option value="{{ $sakit->id }}" data-tokens="{{ $sakit->id }}">{{ $sakit->nama_penyakit }}</option>
                     @endforeach
                   </select>
                 </div>
