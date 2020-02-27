@@ -203,7 +203,6 @@
     
 <!-- Page Heading -->
 <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
@@ -373,9 +372,9 @@ $(document).ready(function() {
       success:function(data) {
         h_penyakit = data.harga;
         $('#idPenyakit').val(data.id);
-        // console.log(h_hewan);
-        // console.log(h_penyakit);
-        // console.log(h_detail);
+        console.log(h_hewan);
+        console.log(h_penyakit);
+        console.log(h_detail);
         t_biaya = h_penyakit + h_hewan;
         $('#_subBiaya').val(t_biaya);
         $('#_harga_penyakit').val(data.harga);

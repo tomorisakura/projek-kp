@@ -44,24 +44,15 @@
                   <form class="user" action="{{ route('post.login') }}" method="post">
                     @csrf
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user  @error('email') is-invalid @enderror" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Email " autocomplete="off">
-
-                      @error('email')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-
+                      <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Masukan Email " autocomplete="off">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror" name="password" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" placeholder="Password">
 
-                      @error('password')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-
+                      <div class="custom-control custom-checkbox small mt-4">
+                        <input type="checkbox" class="custom-control-input" id="show-pw">
+                        <label class="custom-control-label" for="show-pw">Liat Password</label>
+                      </div>
                     </div>
 
                     <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login</button>
@@ -87,6 +78,24 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{ url('assets/js/sb-admin-2.min.js') }}"></script>
+
+  <script>
+
+    $(document).ready(function() {
+      console.log("ok Gan")
+
+      $(document).on('click', '#show-pw', function(){
+
+      if($(this).is(':checked')) {
+        $('#exampleInputPassword').attr('type', 'text');
+      } else {
+        $('#exampleInputPassword').attr('type', 'password');
+      }
+      })
+      
+    });
+
+  </script>
 
 </body>
 

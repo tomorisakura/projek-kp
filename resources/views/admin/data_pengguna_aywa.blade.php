@@ -143,6 +143,12 @@
                   <label class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
                     <input type="password" name="password" class="form-control" id="password" required autocomplete="new-password">
+                    
+                    <div class="custom-control custom-checkbox small mt-2">
+                      <input type="checkbox" class="custom-control-input" id="show-pw">
+                      <label class="custom-control-label" for="show-pw">Liat Password</label>
+                    </div>
+
                   </div>
                 </div>
             </div>
@@ -309,6 +315,15 @@ $(document).ready(function() {
 
     });
   });
+
+  $(document).on('click', '#show-pw', function(){
+
+    if($(this).is(':checked')) {
+      $('#password').attr('type', 'text');
+    } else {
+      $('#password').attr('type', 'password');
+    }
+  })
 
   $(document).on('click', '.btnHapus', function(event){
     event.preventDefault();

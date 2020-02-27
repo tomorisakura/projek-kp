@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use Illuminate\Support\Facades\DB;
 Use Alert;
 
@@ -20,7 +21,8 @@ class LoginController extends Controller
 
     public function login(Request $req) {
         $email = $req->email;
-        // $data = DB::table('users')->where('email', $email)->first();
+        $password = $req->password;
+
         if(Auth::attempt($req->only('email', 'password'))) {
             Alert::success('Login Berhasil', 'Selamat Datang '.Auth::user()->name);
             return redirect('/adm/dashboard');
@@ -34,8 +36,11 @@ class LoginController extends Controller
         return redirect('/adm/login');
     }
 
-    public function logout() {
+    public function logout(Request $request) {
         Auth::logout();
+
+        $request->session()->flush();
+        $request->session()->regenerate();
         return redirect('/adm/login');
     }
 }

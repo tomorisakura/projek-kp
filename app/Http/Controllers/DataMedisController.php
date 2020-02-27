@@ -38,7 +38,7 @@ class DataMedisController extends Controller
       ->join('pelanggan', 'transaksi_medis.id_pemilik', '=', 'pelanggan.id')
       ->join('detail_transaksi_medis', 'transaksi_medis.id', '=', 'detail_transaksi_medis.id_medis')
       ->join('users', 'transaksi_medis.id_petugas', '=', 'users.id')
-      ->select('detail_transaksi_medis.harga_detail', 'transaksi_medis.tgl_periksa', 'users.name', 'transaksi_medis.status_pembayaran',  'pelanggan.id as id_pel', 'pelanggan.*', DB::raw('SUM(detail_transaksi_medis.harga_detail) as total_harga'))
+      ->select('detail_transaksi_medis.harga_detail', 'transaksi_medis.tgl_periksa', 'users.name','transaksi_medis.id as id_medis', 'transaksi_medis.status_pembayaran',  'pelanggan.id as id_pel', 'pelanggan.*', DB::raw('SUM(detail_transaksi_medis.harga_detail) as total_harga'))
       ->where('transaksi_medis.id', '=' , $id)
       ->first();
 
@@ -80,6 +80,16 @@ class DataMedisController extends Controller
       ->get();
 
       echo json_encode($data);
+    }
+
+    public function getDataTransaksi(Request $request) {
+      $id = $request->id_transaksi;
+      $datas = Medis::find($id);
+
+      $datas->status_pembayaran = $request->get('status_pembayaran');
+      $datas->save();
+
+      return redirect('/adm/detail-medis/get/'.$id);
     }
 
     public function transaksi() {

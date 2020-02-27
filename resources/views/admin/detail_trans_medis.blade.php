@@ -24,6 +24,10 @@
           <div class="table-responsive">
             <table>
                 <tr>
+                  <td>ID Medis</td>
+                  <td id="_idMedis">{{ $data_trans->id_medis }}</td>
+                </tr>
+                <tr>
                   <td>Nama Pemilik</td> 
                   <td>{{ $data_trans->nama_pemilik }}</td>
                 </tr>
@@ -33,7 +37,7 @@
                 </tr>
                 <tr>
                   <td>Status Pembayaran</td>
-                  <td>{{ $data_trans->status_pembayaran }}</td>
+                  <td id="_stBayar">{{ $data_trans->status_pembayaran }}</td>
                 </tr>
                 <tr>
                   <td>Dokter</td>
@@ -72,6 +76,7 @@
               </table>
               <div class="modal-footer">
                 <a href="" class="btn btn-success btnModalTelegram">Kirim Pesan Telegram</a>
+                <a href="" class="btn btn-primary btnEdit">Edit Status</a>
               </div>
             </div>
           </div>
@@ -126,6 +131,53 @@
       {{-- end of details --}}
       <div class="modal-footer">
         <a href="" class="btn btn-success btnSimpan">Kirim</a>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- modal edit tgl ambil Hewan -->
+<div class="modal fade modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" id="closeModalTambah" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary id-transaksi">Pemilik</h6>
+          </div>
+          <div class="card-body">
+
+            <form class="formUpdate" action="{{ route('get.update_medis') }}" method="post">
+            {{ csrf_field() }}
+            <input type="hidden" name="id_transaksi" id="_id_transaksi" value="">
+  
+            <div class="form-group row">
+              <label class="col-sm-5 col-form-label">Status Pembayaran</label>
+              <div class="col-sm-12">
+                <select name="status_pembayaran" class="form-control" id="stat_bayar">
+                  <option>--PILIH--</option>
+                  <option value="Belum Lunas"> Belum Lunas</option>
+                  <option value="Lunas">Lunas</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card shadow mb-4">
+          {{-- data pake foreach --}}
+        </div>
+      </div>
+      {{-- end of details --}}
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-success btnSimpanDetail" value="Simpan"></input>
       </div>
     </form>
     </div>
@@ -212,6 +264,16 @@
           )
         }
       });
+    });
+
+    $(document).on('click', '.btnEdit', function(event) {
+      event.preventDefault();
+      var id_medis = $('#_idMedis').text();
+      var stts = $('#_stBayar').text();
+      console.log(id_medis);
+      $('.modalUpdate').modal('show');
+      $('#_id_transaksi').val(id_medis);
+      $('#stat_bayar').val(stts);
     });
 
 

@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('/adm/get/transaksi',['as' => 'get.data_transaksi','uses' => 'DataMedisController@transaksi']);
   Route::get('/adm/data-medis/cetak/{id}',['as' => 'get.pdf_medis','uses' => 'DataMedisController@pdf']);
   Route::get('/adm/detail-price/get/{id}',['as' => 'get.total_medis','uses' => 'DataMedisController@getDetailTotal']);
+  Route::post('/adm/detail-price/update',['as' => 'get.update_medis','uses' => 'DataMedisController@getDataTransaksi']);
 
 
   //data_penitipan

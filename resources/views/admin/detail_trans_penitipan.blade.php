@@ -94,7 +94,7 @@
   </div>
 </div>
 
-<!-- modal tambah Pemilik Hewan -->
+<!-- modal edit tgl ambil Hewan -->
 <div class="modal fade btnSee" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
