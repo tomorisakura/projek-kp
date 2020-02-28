@@ -169,9 +169,19 @@
     <!-- Area Chart -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Chart Bulanan</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Chart Pendapatan Bulanan</h6>
       </div>
       <div class="card-body">
+
+        <div class="btn btn-primary mb-3">
+          <i class="fas fa-heart"></i>
+          Penitipan Rp. {{ number_format($sum_penitipan) }}
+        </div>
+        <div class="btn btn-info mb-3">
+          <i class="fas fa-heartbeat"></i>
+          Medical Checkup Rp. {{ number_format($sum_medis) }}
+        </div>
+
         <div id="grafik"></div>
       </div>
     </div>
@@ -182,21 +192,21 @@
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Pendapatan Bulan Sekarang</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Chart Transaksi Belum Lunas</h6>
         </div>
         <!-- Card Body -->
         <div class="card-body">
 
-          <div class="btn btn-primary mb-3">
+          <div class="btn btn-warning mb-3">
             <i class="fas fa-heart"></i>
-            Penitipan Rp. {{ number_format($sum_penitipan) }}
+            Penitipan Rp. {{ number_format($sum_pet_belum_lunas) }}
           </div>
-          <br>
-          <div class="btn btn-info mb-2">
+          <div class="btn btn-danger mb-3">
             <i class="fas fa-heartbeat"></i>
-            Medical Checkup Rp. {{ number_format($sum_medis) }}
+            Medical Checkup Rp. {{ number_format($sum_medis_belum_lunas) }}
           </div>
-          
+
+          <div id="grafik_belum"></div>
         </div>
       </div>
     </div>
@@ -257,6 +267,9 @@
     var medis_belum = {!!json_encode($medis_belum)!!}
     var medis_lunas = {!!json_encode($medis_lunas)!!}
 
+    var penitipan_belum_lunas = {!!json_encode($pet_belum_lunas)!!}
+    var medis_belum_lunas = {!!json_encode($medis_belum_lunas)!!}
+
     $('#_text_belum_lunas_penitipan').text(penitipan_belum.length + " Belum Lunas");
     $('#_text_belum_lunas_medic').text(medis_belum.length + " Belum Lunas")
     $('#_text_lunas_medic').text(medis_lunas.length + " Lunas")
@@ -297,7 +310,7 @@
     yAxis: {
         min: 0,
         title: {
-            text: 'Profit'
+            text: 'Lunas'
         }
     },
     tooltip: {
@@ -321,6 +334,50 @@
     },{
       name: 'Medical Checkup',
       data: medis
+    }]
+});
+
+Highcharts.chart('grafik_belum', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Grafik Belum Lunas Bulan Sekarang'
+    },
+    subtitle: {
+        text: 'Grafik'
+    },
+    xAxis: {
+        categories: ['grafik akan berubah sesuai pergantian bulan'],
+        crosshair: false
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Belum Lunas'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.0,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Pet Hotel',
+        data: penitipan_belum_lunas
+
+    },{
+      name: 'Medical Checkup',
+      data: medis_belum_lunas
     }]
 });
 

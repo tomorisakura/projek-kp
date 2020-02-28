@@ -25,6 +25,12 @@ class AdminController extends Controller
 
     $datas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Lunas')->sum('total_biaya');
     $data_medis[] = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->sum('total_biaya');
+
+    $penitipan_belum_lunas[] = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Belum Lunas')->sum('total_biaya');
+    $medis_belum_lunas[] = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Belum Lunas')->sum('total_biaya');
+
+    $sum_pet_belum_lunas = Penitipan::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Belum Lunas')->sum('total_biaya');
+    $sum_medis_belum_lunas = Medis::whereYear('created_at', now())->whereMonth('created_at', now())->where('status_pembayaran', 'Belum Lunas')->sum('total_biaya');
     
     $penitipan_belum = DB::table('transaksi_penitipan')
     ->where('status_pembayaran', '=', 'Belum Lunas')
@@ -46,9 +52,11 @@ class AdminController extends Controller
 
     $total = array_map('intval', $datas);
     $total_medis = array_map('intval', $data_medis);
+    $pet_belum_lunas = array_map('intval', $penitipan_belum_lunas);
+    $medis_belum_lunas = array_map('intval', $medis_belum_lunas);
 
 
-    return view('admin.dashboard', compact('total', 'total_medis', 'sum_penitipan', 'sum_medis', 'penitipan_belum', 'medis_belum', 'medis_lunas', 'penitipan_lunas'));
+    return view('admin.dashboard', compact('total', 'total_medis', 'sum_penitipan', 'sum_medis', 'penitipan_belum', 'medis_belum', 'medis_lunas', 'penitipan_lunas', 'pet_belum_lunas', 'medis_belum_lunas', 'sum_pet_belum_lunas', 'sum_medis_belum_lunas'));
   }
 
   public function getDataGrafik(Request $req) {
